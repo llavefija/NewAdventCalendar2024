@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- Definicion del content page: Color carmesi (B22222), separacion de los lados, quitar la barra de navegacion -->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewAdventCalendar2024.Views.PaginasPrincipales.MainPage"         
+             BackgroundColor="#B22222" 
+             Padding="30"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
+
+
+    <!--  VerticalStack para los botones -->
+    <VerticalStackLayout VerticalOptions="FillAndExpand" Spacing="20" IsEnabled="True">
+
+        <!-- Label con el titulo centrado. Tamaño grande y color verde para diferenciar del fondo. Tipo de texto HomeXmas-->
+        <Label Text="HEART CALENDAR 2024"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               FontSize="40"
+               TextColor="SpringGreen" 
+               FlowDirection="MatchParent" 
+               HorizontalTextAlignment="Center"
+               FontFamily="HomeXmas"
+               FontAttributes="Bold"/>
+
+        <!-- Imagen centrada en el centro de la pagina 300x300-->
+        <Image x:Name="HeartImage"
+               Source="corazongorro.png" 
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Aspect="AspectFit" 
+               HeightRequest="300" 
+               WidthRequest="300"/>
+
+        <!-- Botones Calendario, informacion y salir que llama a diferentes funciones -->
+
+        <Button x:Name="BtCalendario"
+                Text="CALENDARIO" 
+                Clicked="OnCalendarButtonClicked" 
+                HorizontalOptions="Center" 
+                HeightRequest="50" 
+                WidthRequest="160" 
+                FontSize="17" 
+                BorderColor="#FFFFFF" 
+                BorderWidth="1" 
+                Background="#000000"
+                TextColor="LightSkyBlue"
+                FontFamily="Candy"
+                CornerRadius="30"/>
+
+        <Button x:Name="BtInformacion"
+                Text="INFORMACION" 
+                Clicked="OnInformationButtonClicked" 
+                HorizontalOptions="Center" 
+                HeightRequest="50" 
+                WidthRequest="160" 
+                FontSize="17"  
+                BorderColor="White" 
+                BorderWidth="1" 
+                Background="Black" 
+                TextColor="LightGreen"
+                FontFamily="Candy"
+                CornerRadius="30"/>
+
+        <Button x:Name="BtSalir"
+                Text="SALIR" 
+                Clicked="OnExitButtonClicked" 
+                HorizontalOptions="Center" 
+                HeightRequest="50" 
+                WidthRequest="160" 
+                FontSize="17"  
+                BorderColor="White" 
+                BorderWidth="1" 
+                Background="Black" 
+                TextColor="red"
+                FontFamily="Candy"
+                CornerRadius="30"/>
+
+
+    </VerticalStackLayout>
+
+</ContentPage>

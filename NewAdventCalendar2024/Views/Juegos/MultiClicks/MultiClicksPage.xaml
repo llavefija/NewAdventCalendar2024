@@ -1,0 +1,21 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewAdventCalendar2024.Views.Juegos.MultiClicks.MultiClicksPage"
+             Title="Contador de Clicks"
+             BackgroundColor="#f0f0f0">
+
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+
+        <!-- Contador de clics -->
+        <Label x:Name="clickCountLabel" Text="" FontSize="24" TextColor="Black" HorizontalTextAlignment="Center"/>
+
+        <!-- Imagen o botón que se tambaleará -->
+        <ImageButton x:Name="clickableImage" 
+                     Source="vudu.png" 
+                     WidthRequest="400" 
+                     HeightRequest="400" 
+                     Clicked="OnImageClicked"
+                     HorizontalOptions="Center" Visual="Default"/>
+
+    </StackLayout>
+</ContentPage>

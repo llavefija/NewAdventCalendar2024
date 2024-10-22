@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewAdventCalendar2024.Views.PaginasPrincipales.InformationPage"
+             BackgroundColor="LightGreen">
+
+    <Grid Padding="20">
+        <!-- Imagen de fondo -->
+        <Image Source="libretaimage.png" Aspect="AspectFill"/>
+
+        <!-- Texto sobre la imagen -->
+        <Label x:Name="PageText" 
+               Text="Texto de la primera página" 
+               FontSize="10" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center" 
+               VerticalOptions="Center" 
+               TextColor="Black"
+               BackgroundColor="Transparent"
+               FontFamily="Libretasemibold"
+               Padding="10"/>
+
+        <!-- Botones para navegar entre páginas -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Padding="0">
+            <Button Text="Página Anterior" Clicked="OnPreviousPageClicked" FontFamily="HappyXmas"/>
+            <Button Text="Siguiente Página" Clicked="OnNextPageClicked" FontFamily="HappyXmas"/>
+        </StackLayout>
+    </Grid>
+    
+</ContentPage>
