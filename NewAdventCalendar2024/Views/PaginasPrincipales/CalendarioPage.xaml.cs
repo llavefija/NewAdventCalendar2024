@@ -69,7 +69,7 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
                     {
                         case 2:
                             bool answer = await DisplayAlert("Multi Clicks", $@"Pulsa varias veces a la imagen hasta cumplir todos los clicks.
-Dificultad: 50 clicks.
+Dificultad: 50 clicks. 
 Recompensa: {NombreRecompensa(numeroBoton)}.", "Jugar", "Cancelar");
 
                             if (answer)
