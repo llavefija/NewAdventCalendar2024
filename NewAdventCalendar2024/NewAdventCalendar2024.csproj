@@ -41,7 +41,7 @@
 	<ItemGroup>
 		<!-- App Icon -->
 		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />-->
-		<MauiIcon Include="Resources\AppIcon\corazongorroicon.png" Color="Black" ForegroundScale="0.65" />
+		<MauiIcon Include="Resources\AppIcon\corazongorroicon.png" Color="Black" ForegroundScale="0.5" />
 		<!--<MauiIcon Include="Resources\AppIcon\corazongorroiconvector.svg" />-->
 
 		<!-- Splash Screen -->
@@ -67,6 +67,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\libretaimage.png" />
+	  <None Remove="Resources\Images\regalo.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,12 +85,23 @@
 	  <MauiXaml Update="Views\Juegos\MultiClicks\MultiClicksPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Juegos\PingPong\PingPongPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\PaginasPrincipales\CalendarioPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PaginasPrincipales\InformationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Views\Juegos\Ahorcado\" />
+	  <Folder Include="Views\Juegos\Wordle\" />
+	  <Folder Include="Views\Juegos\Snake\" />
+	  <Folder Include="Views\Juegos\TicTacToe\" />
+	  <Folder Include="Views\Juegos\PiedraPapelTijeras\" />
 	</ItemGroup>
 
 </Project>

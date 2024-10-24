@@ -1,60 +1,87 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
+using NewAdventCalendar2024.Interfaces;
 
 namespace NewAdventCalendar2024.Views.Juegos.MultiClicks
 {
-    public partial class MultiClicksPage : ContentPage
+    public partial class MultiClicksPage : ContentPage, IGamePage
     {
-        private int remainingClicks = 50; // Cambia el número inicial si deseas
-        private TaskCompletionSource<bool> _tcs; // TCS para controlar el resultado del juego
+        public string ImageSource { get; set; }
+        public int RemainingClicks { get; set; }
+        private TaskCompletionSource<bool> _tcs;
+        private bool gameCompleted = false;
 
-        public MultiClicksPage(TaskCompletionSource<bool> tcs)
+        public MultiClicksPage(int initialClicks, string imageSource)
         {
             InitializeComponent();
-            _tcs = tcs; // Guardar la referencia a tcs
-            UpdateClickCount();
+            RemainingClicks = initialClicks;
+            ImageSource = imageSource;
+
+            UpdateBindings();
+        }
+
+        public void InicializarTcs(TaskCompletionSource<bool> tcs)
+        {
+            _tcs = tcs;
         }
 
         private async void OnImageClicked(object sender, EventArgs e)
         {
-            if (remainingClicks > 0)
+            if (RemainingClicks > 0 && !gameCompleted)
             {
-                remainingClicks--;
-
-                // Actualiza el contador de clics
+                RemainingClicks--;
                 UpdateClickCount();
 
-                // Inicia la animación de tambaleo
-                await Tambalear();
-            }
+                // Reducir progresivamente el tamaño de la imagen con límites
+                UpdateImageSize();
 
-            // Si el contador llega a 0, se puede mostrar un mensaje o desactivar el botón
-            if (remainingClicks <= 0)
-            {
-                clickableImage.IsEnabled = false; // Desactiva el botón al llegar a 0
-                await DisplayAlert("Fin", "¡Se acabaron los clics!", "OK");
+                // Si el contador llega a 0, termina el juego
+                if (RemainingClicks <= 0)
+                {
+                    gameCompleted = true; // Evitar múltiples mensajes
+                    clickableImage.IsEnabled = false;
+                    await DisplayAlert("Fin", "¡Se acabaron los clics!", "OK");
 
-                // Indica que el juego ha sido completado
-                _tcs.SetResult(true); // Marca el juego como completado
-                await Navigation.PopAsync(); // Regresa a la página anterior
+                    // Indica que el juego ha sido completado
+                    _tcs.SetResult(true);
+                    await Navigation.PopAsync();
+                }
             }
         }
 
-        private async Task Tambalear()
+        private void UpdateImageSize()
         {
-            var originalRotation = clickableImage.Rotation;
-            // Añade una animación simple de tambaleo
-            clickableImage.Rotation = originalRotation - 30; // Rota a la izquierda
-            await Task.Delay(100); // Espera para ver la rotación
-            clickableImage.Rotation = originalRotation + 30; // Rota a la derecha
-            await Task.Delay(100); // Espera para ver la rotación
-            clickableImage.Rotation = originalRotation; // Regresa a la posición original
+            // Definir el tamaño máximo y mínimo
+            double maxSize = 400; // Tamaño máximo (en píxeles)
+            double minSize = 50;  // Tamaño mínimo (en píxeles)
+
+            // Calcular el nuevo tamaño de la imagen basado en los clics restantes
+            double scaleFactor = (double)RemainingClicks / 100; // Ajusta el factor de escala según sea necesario
+            double newSize = maxSize * scaleFactor;
+
+            // Asegurarse de que la nueva imagen esté dentro de los límites
+            if (newSize < minSize)
+            {
+                newSize = minSize; // Aplica el tamaño mínimo
+            }
+            else if (newSize > maxSize)
+            {
+                newSize = maxSize; // Aplica el tamaño máximo
+            }
+
+            clickableImage.WidthRequest = newSize;
+            clickableImage.HeightRequest = newSize;
         }
 
         private void UpdateClickCount()
         {
-            clickCountLabel.Text = $"Clicks restantes: {remainingClicks}";
+            clickCountLabel.Text = $"Clicks restantes: {RemainingClicks}"; // Corregir la visualización
+        }
+
+        private void UpdateBindings()
+        {
+            BindingContext = this;
         }
     }
 }

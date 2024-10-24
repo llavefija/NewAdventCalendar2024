@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewAdventCalendar2024.Views.Juegos.PingPong.PingPongPage"
+             BackgroundColor="Black">
+
+    <Grid>
+        <!-- Título del juego -->
+        <Label Text="PING PONG"
+               FontSize="30"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               TextColor="Yellow"
+               Margin="0,20,0,0"
+               FontFamily="HomeXmas"/>
+
+        <!-- Aquí se dibujará el campo de juego -->
+        <GraphicsView x:Name="GameView"
+                      HeightRequest="400"
+                      WidthRequest="600"
+                      VerticalOptions="Center"
+                      HorizontalOptions="Center" />
+
+        <!-- Botones de movimiento -->
+        <StackLayout Orientation="Horizontal"
+             VerticalOptions="End"
+             HorizontalOptions="Center"
+             Spacing="20"
+             Padding="20">
+            
+            <!-- Boton de subida -->
+            <Button Text="UP" WidthRequest="100" HeightRequest="100" 
+                    Pressed="MoveUp" Released="OnButtonReleased"
+                    FontFamily="HomeXmas"/>
+            
+            <!-- Boton de bajada -->
+            <Button Text="DOWN" WidthRequest="100" HeightRequest="100" 
+                    Pressed="MoveDown" Released="OnButtonReleased"
+                    FontFamily="HomeXmas"/>
+
+        </StackLayout>
+
+
+        <!-- Marcador -->
+        <Label x:Name="ScoreLabel"
+               Text="Jugador: 0 | Máquina: 0"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               TextColor="White"
+               Margin="0,50,0,0"
+               FontFamily="CartoonXmasRegular"/>
+
+        <!-- Puntuación mínima -->
+        <Label x:Name="MinScoreLabel"
+               Text="Puntuación mínima para ganar: 0"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               TextColor="White"
+               Margin="0,80,0,0"
+               FontFamily="CartoonXmasRegular"/>
+    </Grid>
+</ContentPage>

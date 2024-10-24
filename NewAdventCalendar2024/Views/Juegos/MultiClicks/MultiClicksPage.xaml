@@ -2,20 +2,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.Juegos.MultiClicks.MultiClicksPage"
              Title="Contador de Clicks"
-             BackgroundColor="#f0f0f0">
+             BackgroundColor="White">
+    <!-- Color de fondo navideño -->
 
-    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Center" Spacing="20" Padding="50">
+        <!-- Título fijo -->
+        <Label x:Name="titleLabel"
+               Text="Multi Clicks"
+               FontSize="32"
+               TextColor="#D32F2F" 
+            HorizontalTextAlignment="Center"
+               FontFamily="HomeXmas"
+               VerticalOptions="Start" />
 
-        <!-- Contador de clics -->
-        <Label x:Name="clickCountLabel" Text="" FontSize="24" TextColor="Black" HorizontalTextAlignment="Center"/>
+            <!-- Contador de clics fijo -->
+            <Label x:Name="clickCountLabel"
+               Text="{Binding RemainingClicks, StringFormat='Clicks restantes: {0}'}"
+                FontSize="24"
+               TextColor="#388E3C"
+                HorizontalTextAlignment="Center"
+               FontFamily="HomeXmas"
+               VerticalOptions="Start" />
 
-        <!-- Imagen o botón que se tambaleará -->
-        <ImageButton x:Name="clickableImage" 
-                     Source="vudu.png" 
+                <!-- Imagen que reducirá su tamaño sin límite -->
+                <ImageButton x:Name="clickableImage" 
+                     Source="{Binding ImageSource}" 
                      WidthRequest="400" 
                      HeightRequest="400" 
                      Clicked="OnImageClicked"
-                     HorizontalOptions="Center" Visual="Default"/>
-
+                     HorizontalOptions="Center"
+                     BackgroundColor="Transparent" Background="Transparent"/>
     </StackLayout>
 </ContentPage>
