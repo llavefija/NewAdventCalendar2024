@@ -3,7 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.PaginasPrincipales.CalendarioPage"
-             BackgroundColor="LightSkyBlue"
+             BackgroundColor="LightCyan"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False">
 
@@ -13,15 +13,17 @@
 
         <!-- Label con el día actual -->
         <Label x:Name="FechaActualLabel"
-               FontSize="13"
+               FontSize="25"
                TextColor="Black"
                HorizontalOptions="Center" 
-               FontFamily="CartoonXmasRegular"/>
+               FontFamily="CartoonXmasRegular" 
+               VerticalTextAlignment="Center" 
+               HorizontalTextAlignment="Center"/>
 
         <!-- Contador de cuenta regresiva -->
         <Label x:Name="CountdownLabel"
                FontSize="70"
-               TextColor="Red"
+               TextColor="OrangeRed"
                HorizontalOptions="Center"               
                FontFamily="CartoonXmasRegular"/>
 
@@ -50,53 +52,53 @@
             </Grid.RowDefinitions>
 
             <!-- Fila 1 -->
-            <Button x:Name="Btn1" AutomationId="Btn1" Clicked="BotonPulsado" Text="1" Grid.Row="0" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn2" AutomationId="Btn2" Clicked="BotonPulsado" Text="2" Grid.Row="0" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn3" AutomationId="Btn3" Clicked="BotonPulsado" Text="3" Grid.Row="0" Grid.Column="2" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn4" AutomationId="Btn4" Clicked="BotonPulsado" Text="4" Grid.Row="0" Grid.Column="3" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn5" AutomationId="Btn5" Clicked="BotonPulsado" Text="5" Grid.Row="0" Grid.Column="4" FontFamily="HappyXmas" BackgroundColor="Silver"/>
+            <Button x:Name="Btn1" AutomationId="Btn1" Clicked="BotonPulsado" Text="1" Grid.Row="0" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn2" AutomationId="Btn2" Clicked="BotonPulsado" Text="2" Grid.Row="0" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn3" AutomationId="Btn3" Clicked="BotonPulsado" Text="3" Grid.Row="0" Grid.Column="2" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn4" AutomationId="Btn4" Clicked="BotonPulsado" Text="4" Grid.Row="0" Grid.Column="3" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn5" AutomationId="Btn5" Clicked="BotonPulsado" Text="5" Grid.Row="0" Grid.Column="4" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
 
             <!-- Fila 2 -->
-            <Button x:Name="Btn6" AutomationId="Btn6" Clicked="BotonPulsado" Text="6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="HappyXmas" BackgroundColor="Gold"/>
+            <Button x:Name="Btn6" AutomationId="Btn6" Clicked="BotonPulsado" Text="6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="HappyXmas" BackgroundColor="Gold" TextColor="Snow" FontSize="20"/>
             <!-- Botón especial, ocupa 2 columnas -->
-            <Button x:Name="Btn7" AutomationId="Btn7" Clicked="BotonPulsado" Text="7" Grid.Row="1" Grid.Column="2" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn8" AutomationId="Btn8" Clicked="BotonPulsado" Text="8" Grid.Row="1" Grid.Column="3" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn9" AutomationId="Btn9" Clicked="BotonPulsado" Text="9" Grid.Row="1" Grid.Column="4" Grid.RowSpan="2" FontFamily="HappyXmas" BackgroundColor="Gold"/>
+            <Button x:Name="Btn7" AutomationId="Btn7" Clicked="BotonPulsado" Text="7" Grid.Row="1" Grid.Column="2" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn8" AutomationId="Btn8" Clicked="BotonPulsado" Text="8" Grid.Row="1" Grid.Column="3" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn9" AutomationId="Btn9" Clicked="BotonPulsado" Text="9" Grid.Row="1" Grid.Column="4" Grid.RowSpan="2" FontFamily="HappyXmas" BackgroundColor="Gold" TextColor="Snow" FontSize="20"/>
             <!-- Botón especial, ocupa 2 filas -->
 
             <!-- Fila 3 -->
-            <Button x:Name="Btn10" AutomationId="Btn10" Clicked="BotonPulsado" Text="10" Grid.Row="2" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn11" AutomationId="Btn11" Clicked="BotonPulsado" Text="11" Grid.Row="2" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn12" AutomationId="Btn12" Clicked="BotonPulsado" Text="12" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontFamily="HappyXmas" BackgroundColor="Gold"/>
+            <Button x:Name="Btn10" AutomationId="Btn10" Clicked="BotonPulsado" Text="10" Grid.Row="2" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn11" AutomationId="Btn11" Clicked="BotonPulsado" Text="11" Grid.Row="2" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn12" AutomationId="Btn12" Clicked="BotonPulsado" Text="12" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontFamily="HappyXmas" BackgroundColor="Gold" TextColor="Snow" FontSize="20"/>
             <!-- Botón especial, ocupa 2 columnas -->
 
             <!-- Fila 4 -->
-            <Button x:Name="Btn13" AutomationId="Btn13" Clicked="BotonPulsado" Text="13" Grid.Row="3" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn14" AutomationId="Btn14" Clicked="BotonPulsado" Text="14" Grid.Row="3" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn15" AutomationId="Btn15" Clicked="BotonPulsado" Text="15" Grid.Row="3" Grid.Column="2" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn16" AutomationId="Btn16" Clicked="BotonPulsado" Text="16" Grid.Row="3" Grid.Column="3" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn17" AutomationId="Btn17" Clicked="BotonPulsado" Text="17" Grid.Row="3" Grid.Column="4" FontFamily="HappyXmas" BackgroundColor="Silver"/>
+            <Button x:Name="Btn13" AutomationId="Btn13" Clicked="BotonPulsado" Text="13" Grid.Row="3" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn14" AutomationId="Btn14" Clicked="BotonPulsado" Text="14" Grid.Row="3" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn15" AutomationId="Btn15" Clicked="BotonPulsado" Text="15" Grid.Row="3" Grid.Column="2" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn16" AutomationId="Btn16" Clicked="BotonPulsado" Text="16" Grid.Row="3" Grid.Column="3" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn17" AutomationId="Btn17" Clicked="BotonPulsado" Text="17" Grid.Row="3" Grid.Column="4" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
 
             <!-- Fila 5 -->
-            <Button x:Name="Btn18" AutomationId="Btn18" Clicked="BotonPulsado" Text="18" Grid.Row="4" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn19" AutomationId="Btn19" Clicked="BotonPulsado" Text="19" Grid.Row="4" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn20" AutomationId="Btn20" Clicked="BotonPulsado" Text="20" Grid.Row="4" Grid.Column="2" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn21" AutomationId="Btn21" Clicked="BotonPulsado" Text="21" Grid.Row="4" Grid.Column="3" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn22" AutomationId="Btn22" Clicked="BotonPulsado" Text="22" Grid.Row="4" Grid.Column="4" FontFamily="HappyXmas" BackgroundColor="Silver"/>
+            <Button x:Name="Btn18" AutomationId="Btn18" Clicked="BotonPulsado" Text="18" Grid.Row="4" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn19" AutomationId="Btn19" Clicked="BotonPulsado" Text="19" Grid.Row="4" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn20" AutomationId="Btn20" Clicked="BotonPulsado" Text="20" Grid.Row="4" Grid.Column="2" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn21" AutomationId="Btn21" Clicked="BotonPulsado" Text="21" Grid.Row="4" Grid.Column="3" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn22" AutomationId="Btn22" Clicked="BotonPulsado" Text="22" Grid.Row="4" Grid.Column="4" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
 
             <!-- Fila 6 -->
-            <Button x:Name="Btn23" AutomationId="Btn23" Clicked="BotonPulsado" Text="23" Grid.Row="5" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn24" AutomationId="Btn24" Clicked="BotonPulsado" Text="24" Grid.Row="5" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn25" AutomationId="Btn25" Clicked="BotonPulsado" Text="25" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" FontFamily="HappyXmas" BackgroundColor="Gold"/>
+            <Button x:Name="Btn23" AutomationId="Btn23" Clicked="BotonPulsado" Text="23" Grid.Row="5" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn24" AutomationId="Btn24" Clicked="BotonPulsado" Text="24" Grid.Row="5" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn25" AutomationId="Btn25" Clicked="BotonPulsado" Text="25" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" FontFamily="HappyXmas" BackgroundColor="Gold" TextColor="Snow" FontSize="20"/>
             <!-- Botón especial, ocupa 2 columnas -->
-            <Button x:Name="Btn26" AutomationId="Btn26" Clicked="BotonPulsado" Text="26" Grid.Row="5" Grid.Column="4" FontFamily="HappyXmas" BackgroundColor="Silver"/>
+            <Button x:Name="Btn26" AutomationId="Btn26" Clicked="BotonPulsado" Text="26" Grid.Row="5" Grid.Column="4" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
 
             <!-- Fila 7 -->
-            <Button x:Name="Btn27" AutomationId="Btn27" Clicked="BotonPulsado" Text="27" Grid.Row="6" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn28" AutomationId="Btn28" Clicked="BotonPulsado" Text="28" Grid.Row="6" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn29" AutomationId="Btn29" Clicked="BotonPulsado" Text="29" Grid.Row="6" Grid.Column="2" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn30" AutomationId="Btn30" Clicked="BotonPulsado" Text="30" Grid.Row="6" Grid.Column="3" FontFamily="HappyXmas" BackgroundColor="Silver"/>
-            <Button x:Name="Btn31" AutomationId="Btn31" Clicked="BotonPulsado" Text="31" Grid.Row="6" Grid.Column="4" Grid.RowSpan="2" FontFamily="HappyXmas" BackgroundColor="Gold"/>
+            <Button x:Name="Btn27" AutomationId="Btn27" Clicked="BotonPulsado" Text="27" Grid.Row="6" Grid.Column="0" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn28" AutomationId="Btn28" Clicked="BotonPulsado" Text="28" Grid.Row="6" Grid.Column="1" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn29" AutomationId="Btn29" Clicked="BotonPulsado" Text="29" Grid.Row="6" Grid.Column="2" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn30" AutomationId="Btn30" Clicked="BotonPulsado" Text="30" Grid.Row="6" Grid.Column="3" FontFamily="HappyXmas" BackgroundColor="DarkGray" TextColor="Snow" FontSize="20"/>
+            <Button x:Name="Btn31" AutomationId="Btn31" Clicked="BotonPulsado" Text="31" Grid.Row="6" Grid.Column="4" Grid.RowSpan="2" FontFamily="HappyXmas" BackgroundColor="Gold" TextColor="Snow" FontSize="20"/>
             <!-- Botón especial, ocupa 2 filas -->
         </Grid>
 

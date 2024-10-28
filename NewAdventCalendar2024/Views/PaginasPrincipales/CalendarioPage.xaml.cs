@@ -3,6 +3,11 @@ using NewAdventCalendar2024.Data;
 using NewAdventCalendar2024.Interfaces;
 using NewAdventCalendar2024.Views.Juegos.MultiClicks;
 using NewAdventCalendar2024.Views.Juegos.PingPong;
+using NewAdventCalendar2024.Views.Juegos.Ahorcado;
+using NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras;
+using NewAdventCalendar2024.Views.Juegos.TicTacToe;
+using NewAdventCalendar2024.Views.Juegos.Snake;
+using NewAdventCalendar2024.Views.Juegos.Wordle;
 
 
 namespace NewAdventCalendar2024.Views.PaginasPrincipales
@@ -57,106 +62,45 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
                     var botonId = botonPulsado.AutomationId;
 
                     // Extraer el número del botón
-                    int numeroBoton = int.Parse(botonId.Substring(3)); // "Btn1" => 1
+                    int numeroBoton = int.Parse(botonId.Substring(3));
 
-                    int numeroDeClicks = 0;
-                    string imagen = "";
-
-                    int puntos = 0;
-                    float incremento = 0;
-                    float velocidad = 0;
-
-
-                    // Instanciar ToolBotones con el botón clicado
-                    var toolButton = new ToolBotones(botonPulsado);
-                    await toolButton.AnimateButton(); // Animación de botón
-
-                    // Manejar el botón basado en su número
-                    switch (numeroBoton)
+                    // Parámetros predeterminados
+                    var juegoParams = new Dictionary<int, (string, string, ContentPage)>
                     {
-                        case 1:
-                            // Parámetros personalizados para el juego MultiClicks
-                            numeroDeClicks = 100; // Por ejemplo
-                            imagen = "vudu.png"; // Imagen por defecto o personalizada
+                        { 1, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 100 clicks.", new MultiClicksPage(100, "vudu.png")) },
+                        { 2, ("Ping Pong", "Vence consiguiendo 3 puntos a favor antes que el rival en una batalla de ping pong.\nDificultad: Facil.", new PingPongPage(0.1f, 3, 3.2f)) },
+                        { 3, ("Ahorcado", "Descubre la palabra oculta antes de perder la cabeza.\nDificultad: 7 letras.", new AhorcadoPage("MISTERIO")) },
+                        { 4, ("Piedra, papel o tijeras", "Gana 3 duelos al juego de piedra, papel o tijeras.\nDificultad: Facil.", new PiPaTiPage(3)) },
+                        { 5, ("Wordle", "Descubre la palabra oculta sin quedarte sin intentos.\nDificultad: 5 letras.", new WordlePage("PITON")) },
+                        { 7, ("TicTacToe", "Gana al rival 3 partidas al tic tac toe.\nDificultad: Facil.", new TicTacToePage(3)) },
+                        { 8, ("Snake", "Come 10 manzanas minimo para completar el desafio.\nDificultad: Facil.", new SnakePage(10)) },
 
-                            await ManejarBotonPulsado("Multi Clicks",
-                                "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: " + numeroDeClicks + " clics.",
-                                numeroBoton,
-                                new MultiClicksPage(numeroDeClicks, imagen));
-                            break;
+                    };
 
-                        case 2:
-                            // Parámetros personalizados para el juego MultiClicks
-                            puntos = 5; // Por ejemplo
-                            incremento = 0.5f; // Imagen por defecto o personalizada
-                            velocidad = 8f;
-
-                            await ManejarBotonPulsado("Ping Pong",
-                                "Vence consiguiendo " + puntos + " puntos a favor antes que el rival en una batalla de ping pong.\nDificultad: Facil." + numeroDeClicks + " clics.",
-                                numeroBoton,
-                                new PingPongPage(incremento, puntos, velocidad));
-                            break;
-
-                        case 10:
-                            // Parámetros personalizados para el juego MultiClicks
-                            numeroDeClicks = 250; // Por ejemplo
-                            imagen = "regalo.png"; // Imagen por defecto o personalizada
-
-                            await ManejarBotonPulsado("Multi Clicks",
-                                "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: " + numeroDeClicks + " clics.",
-                                numeroBoton,
-                                new MultiClicksPage(numeroDeClicks, imagen));
-                            break;
-
-                        case 11:
-                            // Parámetros personalizados para el juego MultiClicks
-                            puntos = 7; // Por ejemplo
-                            incremento = 1f; // Imagen por defecto o personalizada
-                            velocidad = 9f;
-
-                            await ManejarBotonPulsado("Ping Pong",
-                                "Vence consiguiendo " + puntos + " puntos a favor antes que el rival en una batalla de ping pong.\nDificultad: Media." + numeroDeClicks + " clics.",
-                                numeroBoton,
-                                new PingPongPage(incremento, puntos, velocidad));
-                            break;
-
-                        case 18:
-                            // Parámetros personalizados para el juego MultiClicks
-                            numeroDeClicks = 1000; // Por ejemplo
-                            imagen = "oldcorazongorro.png"; // Imagen por defecto o personalizada
-
-                            await ManejarBotonPulsado("Multi Clicks",
-                                "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: " + numeroDeClicks + " clics.",
-                                numeroBoton,
-                                new MultiClicksPage(numeroDeClicks, imagen));
-                            break;
-
-                        case 19:
-                            // Parámetros personalizados para el juego MultiClicks
-                            puntos = 10; // Por ejemplo
-                            incremento = 1.5f; // Imagen por defecto o personalizada
-                            velocidad = 9f;
-
-                            await ManejarBotonPulsado("Ping Pong",
-                                "Vence consiguiendo " + puntos + " puntos a favor antes que el rival en una batalla de ping pong.\nDificultad: Dificil." + numeroDeClicks + " clics.",
-                                numeroBoton,
-                                new PingPongPage(incremento, puntos, velocidad));
-                            break;
-
-
-                        // Otros casos hasta el botón 31
-                        default:
-                            await DisplayAlert("Botón Pulsado", $"Has pulsado un botón desconocido: {numeroBoton}", "OK");
-                            break;
+                    // Verificar si hay parámetros para el botón pulsado
+                    if (juegoParams.TryGetValue(numeroBoton, out var parametros))
+                    {
+                        await ManejarBotonPulsado(parametros.Item1, parametros.Item2, numeroBoton, parametros.Item3);
+                    }
+                    else
+                    {
+                        await DisplayAlert("Botón Pulsado", $"Has pulsado un botón desconocido: {numeroBoton}", "OK");
                     }
                 }
+            }
+            catch (FormatException ex)
+            {
+                await DisplayAlert("ERROR", "Formato incorrecto en el botón pulsado.", "OK");
+                Console.WriteLine($"Error de formato: {ex}");
             }
             catch (Exception ex)
             {
                 await DisplayAlert("ERROR", $"Ocurrió un error al pulsar el botón: {ex.Message}", "OK");
                 Console.WriteLine($"Ha ocurrido un error: {ex}");
             }
+            ActualizarBotones();
         }
+
 
 
         private async Task ManejarBotonPulsado(string titulo, string texto, int numeroBoton, ContentPage paginaJuego)

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!-- Definicion del content page: Color carmesi (B22222), separacion de los lados, quitar la barra de navegacion -->
+<!-- Página principal de contenido con tema navideño -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.PaginasPrincipales.MainPage"         
@@ -8,22 +8,24 @@
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False">
 
-
-    <!--  VerticalStack para los botones -->
+    <!-- Título con estilo navideño -->
     <VerticalStackLayout VerticalOptions="FillAndExpand" Spacing="20" IsEnabled="True">
-
-        <!-- Label con el titulo centrado. Tamaño grande y color verde para diferenciar del fondo. Tipo de texto HomeXmas-->
-        <Label Text="HEART CALENDAR 2024"
+        <Frame BorderColor="Gold" 
+               CornerRadius="10" 
+               Padding="5" 
+               BackgroundColor="Transparent">
+            <Label Text="HEART CALENDAR 2024"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                FontSize="40"
-               TextColor="SpringGreen" 
-               FlowDirection="MatchParent" 
+               TextColor="Gold" 
                HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
                FontAttributes="Bold"/>
+        </Frame>
 
-        <!-- Imagen centrada en el centro de la pagina 300x300-->
+
+        <!-- Imagen centrada con temática navideña -->
         <Image x:Name="HeartImage"
                Source="corazongorro.png" 
                HorizontalOptions="Center"
@@ -32,51 +34,49 @@
                HeightRequest="300" 
                WidthRequest="300"/>
 
-        <!-- Botones Calendario, informacion y salir que llama a diferentes funciones -->
-
+        <!-- Botones con tema navideño -->
         <Button x:Name="BtCalendario"
                 Text="CALENDARIO" 
                 Clicked="OnCalendarButtonClicked" 
                 HorizontalOptions="Center" 
-                HeightRequest="50" 
-                WidthRequest="160" 
-                FontSize="17" 
-                BorderColor="#FFFFFF" 
-                BorderWidth="1" 
-                Background="#000000"
-                TextColor="LightSkyBlue"
+                HeightRequest="60" 
+                WidthRequest="300" 
+                FontSize="25" 
+                BorderColor="Gold" 
+                BorderWidth="2" 
+                BackgroundColor="#006400"  
+                TextColor="White"
                 FontFamily="Candy"
-                CornerRadius="30"/>
+                CornerRadius="35"/>
 
         <Button x:Name="BtInformacion"
                 Text="INFORMACION" 
                 Clicked="OnInformationButtonClicked" 
                 HorizontalOptions="Center" 
-                HeightRequest="50" 
-                WidthRequest="160" 
-                FontSize="17"  
-                BorderColor="White" 
-                BorderWidth="1" 
-                Background="Black" 
-                TextColor="LightGreen"
+                HeightRequest="60" 
+                WidthRequest="300" 
+                FontSize="25"  
+                BorderColor="Gold" 
+                BorderWidth="2" 
+                BackgroundColor="#006400" 
+                TextColor="White"
                 FontFamily="Candy"
-                CornerRadius="30"/>
+                CornerRadius="35"/>
 
         <Button x:Name="BtSalir"
                 Text="SALIR" 
                 Clicked="OnExitButtonClicked" 
                 HorizontalOptions="Center" 
-                HeightRequest="50" 
-                WidthRequest="160" 
-                FontSize="17"  
-                BorderColor="White" 
-                BorderWidth="1" 
-                Background="Black" 
-                TextColor="red"
+                HeightRequest="60" 
+                WidthRequest="300" 
+                FontSize="25"  
+                BorderColor="Gold" 
+                BorderWidth="2" 
+                BackgroundColor="#006400" 
+                TextColor="White"
                 FontFamily="Candy"
-                CornerRadius="30"/>
-
-
+                CornerRadius="35"/>
+            
     </VerticalStackLayout>
 
 </ContentPage>

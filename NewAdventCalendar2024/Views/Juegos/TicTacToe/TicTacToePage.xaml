@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewAdventCalendar2024.Views.Juegos.TicTacToe.TicTacToePage"
+             Title="Tres en Raya">
+
+    <StackLayout Padding="20">
+        <Label x:Name="RoundLabel" Text="Ronda: 1" FontSize="24" HorizontalOptions="Center"/>
+        <Label x:Name="StatusLabel" Text="Turno del Jugador" FontSize="18" HorizontalOptions="Center" />
+
+        <Grid x:Name="GameGrid" RowSpacing="5" ColumnSpacing="5" HorizontalOptions="Center" VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <!-- Fijo el tamaño de las filas -->
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <!-- Fijo el tamaño de las columnas -->
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="Cell00" Grid.Row="0" Grid.Column="0" BackgroundColor="LightGray" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" GestureRecognizers="{TapGestureRecognizer Tapped='OnCellTapped'}"/>
+            <Label x:Name="Cell01" Grid.Row="0" Grid.Column="1" BackgroundColor="LightGray" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" GestureRecognizers="{TapGestureRecognizer Tapped='OnCellTapped'}"/>
+            <Label x:Name="Cell02" Grid.Row="0" Grid.Column="2" BackgroundColor="LightGray" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" GestureRecognizers="{TapGestureRecognizer Tapped='OnCellTapped'}"/>
+
+            <Label x:Name="Cell10" Grid.Row="1" Grid.Column="0" BackgroundColor="LightGray" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" GestureRecognizers="{TapGestureRecognizer Tapped='OnCellTapped'}"/>
+            <Label x:Name="Cell11" Grid.Row="1" Grid.Column="1" BackgroundColor="LightGray" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" GestureRecognizers="{TapGestureRecognizer Tapped='OnCellTapped'}"/>
+            <Label x:Name="Cell12" Grid.Row="1" Grid.Column="2" BackgroundColor="LightGray" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" GestureRecognizers="{TapGestureRecognizer Tapped='OnCellTapped'}"/>
+
+            <Label x:Name="Cell20" Grid.Row="2" Grid.Column="0" BackgroundColor="LightGray" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" GestureRecognizers="{TapGestureRecognizer Tapped='OnCellTapped'}"/>
+            <Label x:Name="Cell21" Grid.Row="2" Grid.Column="1" BackgroundColor="LightGray" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" GestureRecognizers="{TapGestureRecognizer Tapped='OnCellTapped'}"/>
+            <Label x:Name="Cell22" Grid.Row="2" Grid.Column="2" BackgroundColor="LightGray" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" GestureRecognizers="{TapGestureRecognizer Tapped='OnCellTapped'}"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>

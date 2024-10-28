@@ -1,10 +1,11 @@
-﻿using System.Reflection;
+﻿using System.Threading.Tasks;
+using Microsoft.Maui.Controls;
 
 namespace NewAdventCalendar2024.Tools
 {
     public class ToolBotones
     {
-        private static Button _button = new Button();
+        private Button _button; // Cambiar a no estático para permitir múltiples instancias
 
         // Constructor que recibe el botón que va a manejar
         public ToolBotones(Button button)
@@ -24,8 +25,10 @@ namespace NewAdventCalendar2024.Tools
         // Método para hacer la animación de agrandar y reducir
         public async Task AnimateButton()
         {
-            await _button.ScaleTo(1.1, 100); // Aumenta tamaño
-            await _button.ScaleTo(1, 100);   // Regresa al tamaño normal
+            // Aumenta el tamaño del botón
+            await _button.ScaleTo(1.1, 100);
+            // Regresa al tamaño normal
+            await _button.ScaleTo(1.0, 100);
         }
 
         // Método para hacer saltitos laterales
@@ -37,7 +40,7 @@ namespace NewAdventCalendar2024.Tools
         }
 
         // Método para desactivar el botón con estilo específico
-        public static void DisableButton(Color disabledColor, Color textColor)
+        public void DisableButton(Color disabledColor, Color textColor)
         {
             _button.IsEnabled = false;
             _button.BackgroundColor = disabledColor;

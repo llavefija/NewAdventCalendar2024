@@ -41,7 +41,7 @@
 	<ItemGroup>
 		<!-- App Icon -->
 		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />-->
-		<MauiIcon Include="Resources\AppIcon\corazongorroicon.png" Color="Black" ForegroundScale="0.5" />
+		<MauiIcon Include="Resources\AppIcon\corazongorroicon.jpg" ForegroundScale="0.65" />
 		<!--<MauiIcon Include="Resources\AppIcon\corazongorroiconvector.svg" />-->
 
 		<!-- Splash Screen -->
@@ -66,6 +66,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\AppIcon\corazongorroicon.jpg" />
+	  <None Remove="Resources\Images\ahorcado0.png" />
+	  <None Remove="Resources\Images\ahorcado1.png" />
+	  <None Remove="Resources\Images\ahorcado2.png" />
+	  <None Remove="Resources\Images\ahorcado3.png" />
+	  <None Remove="Resources\Images\ahorcado4.png" />
+	  <None Remove="Resources\Images\ahorcado5.png" />
+	  <None Remove="Resources\Images\ahorcado6.png" />
 	  <None Remove="Resources\Images\libretaimage.png" />
 	  <None Remove="Resources\Images\regalo.png" />
 	</ItemGroup>
@@ -82,10 +90,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\Juegos\Ahorcado\AhorcadoPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Juegos\MultiClicks\MultiClicksPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Juegos\PiedraPapelTijeras\PiPaTi.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Juegos\PingPong\PingPongPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Juegos\Snake\SnakePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Juegos\TicTacToe\TicTacToePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Juegos\Wordle\WordlePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PaginasPrincipales\CalendarioPage.xaml">
@@ -94,14 +117,6 @@
 	  <MauiXaml Update="Views\PaginasPrincipales\InformationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Views\Juegos\Ahorcado\" />
-	  <Folder Include="Views\Juegos\Wordle\" />
-	  <Folder Include="Views\Juegos\Snake\" />
-	  <Folder Include="Views\Juegos\TicTacToe\" />
-	  <Folder Include="Views\Juegos\PiedraPapelTijeras\" />
 	</ItemGroup>
 
 </Project>

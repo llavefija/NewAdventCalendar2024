@@ -1,0 +1,25 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras.PiPaTiPage"
+             Title="Piedra, Papel o Tijeras"
+             BackgroundColor="#f0f0f0">
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20">
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
+            <Label TextColor="Black" Text="Elección de la Máquina" FontSize="24" HorizontalTextAlignment="Center"/>
+            <Image x:FieldModifier="public" x:Name="machineChoiceImage" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" />
+        </StackLayout>
+
+        <Label TextColor="Black" Text="Elige una opción para empezar la batalla." 
+               x:FieldModifier="public" x:Name="resultLabel" FontSize="24" 
+               HorizontalTextAlignment="Center" Margin="20"/>
+
+        <Label TextColor="Black" x:FieldModifier="public" x:Name="scoreLabel" FontSize="24" 
+               HorizontalTextAlignment="Center" Margin="20"/>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20" VerticalOptions="EndAndExpand">
+            <ImageButton Source="Piedra.png" WidthRequest="100" HeightRequest="100" Clicked="OnPiedraClicked"/>
+            <ImageButton Source="Papel.png" WidthRequest="100" HeightRequest="100" Clicked="OnPapelClicked"/>
+            <ImageButton Source="Tijeras.png" WidthRequest="100" HeightRequest="100" Clicked="OnTijerasClicked"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
