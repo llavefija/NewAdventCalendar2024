@@ -1,18 +1,28 @@
+using System.Threading.Tasks;
+using NewAdventCalendar2024.Interfaces;
+
 namespace NewAdventCalendar2024.Views.Juegos.TicTacToe
 {
-    public partial class TicTacToePage : ContentPage
+    public partial class TicTacToePage : ContentPage, IGamePage
     {
         private const int SIZE = 3;
         private string[,] board = new string[SIZE, SIZE];
         private string currentPlayer = "X"; // El jugador siempre comienza con "X"
         private int playerScore = 0;
         private int aiScore = 0;
-        private int rounds = 1;
+        private TaskCompletionSource<bool> tcs; // Variable para el TaskCompletionSource
+        private const int minScoreToWin = 3; // Establecer el puntaje mínimo para ganar
 
         public TicTacToePage(int puntos)
         {
             InitializeComponent();
             ResetBoard();
+        }
+
+        // Método requerido por la interfaz
+        public void InicializarTcs(TaskCompletionSource<bool> taskCompletionSource)
+        {
+            tcs = taskCompletionSource; // Asignar el TaskCompletionSource a la variable local
         }
 
         private void ResetBoard()
@@ -53,33 +63,15 @@ namespace NewAdventCalendar2024.Views.Juegos.TicTacToe
 
             if (CheckWinner(currentPlayer))
             {
-                if (currentPlayer == "X")
-                {
-                    playerScore++;
-                    UpdateScore();
-                    DisplayWinner("Jugador");
-                }
-                else
-                {
-                    aiScore++;
-                    UpdateScore();
-                    DisplayWinner("Máquina");
-                }
+                UpdateScores(currentPlayer);
                 return; // Salir si hay un ganador
             }
 
             // Cambiar turno a la máquina
-            if (currentPlayer == "X")
-            {
-                currentPlayer = "O";
-                StatusLabel.Text = "Turno de la Máquina";
-                MakeAIMove();
-            }
-            else
-            {
-                currentPlayer = "X";
-                StatusLabel.Text = "Turno del Jugador";
-            }
+            currentPlayer = "O";
+            StatusLabel.Text = "Turno de la Máquina";
+
+            MakeAIMove();
         }
 
         private void MakeAIMove()
@@ -100,15 +92,13 @@ namespace NewAdventCalendar2024.Views.Juegos.TicTacToe
 
             if (CheckWinner(currentPlayer))
             {
-                aiScore++;
-                UpdateScore();
-                DisplayWinner("Máquina");
+                UpdateScores(currentPlayer);
+                return; // Salir si hay un ganador
             }
-            else
-            {
-                currentPlayer = "X";
-                StatusLabel.Text = "Turno del Jugador";
-            }
+
+            // Cambiar turno de vuelta al jugador
+            currentPlayer = "X";
+            StatusLabel.Text = "Turno del Jugador";
         }
 
         private bool CheckWinner(string player)
@@ -133,7 +123,9 @@ namespace NewAdventCalendar2024.Views.Juegos.TicTacToe
             // Comprobar empate
             if (IsBoardFull())
             {
-                DisplayWinner("Empate");
+                StatusLabel.Text = "¡Empate!";
+                ResetBoard(); // Reinicia el tablero en caso de empate sin cambiar los puntajes
+                return false; // No llamar a UpdateScores en caso de empate
             }
 
             return false;
@@ -148,30 +140,45 @@ namespace NewAdventCalendar2024.Views.Juegos.TicTacToe
             return true;
         }
 
-        private void DisplayWinner(string winner)
+        private void UpdateScores(string winner)
         {
-            StatusLabel.Text = $"{winner} gana!";
-            rounds++;
-            if (rounds > 3)
+            if (winner == "X")
             {
-                // Reiniciar la partida
-                DisplayAlert("Juego Terminado", $"El Jugador gana {playerScore} - {aiScore} de 3", "Aceptar");
-                playerScore = 0;
-                aiScore = 0;
-                rounds = 1;
-                RoundLabel.Text = "Ronda: 1";
-                ResetBoard();
+                playerScore++;
+                StatusLabel.Text = "¡Jugador gana la ronda!";
+            }
+            else if (winner == "O")
+            {
+                aiScore++;
+                StatusLabel.Text = "¡Máquina gana la ronda!";
+            }
+
+            RoundLabel.Text = $"Jugador: {playerScore} - Máquina: {aiScore}";
+
+            // Verificar si alguno de los jugadores ha alcanzado la puntuación mínima para ganar
+            if (playerScore >= minScoreToWin || aiScore >= minScoreToWin)
+            {
+                tcs.SetResult(playerScore >= minScoreToWin); // Devuelve true si el jugador ha ganado
+                DisplayAlert("Juego Terminado", $"Resultado final - Jugador: {playerScore}, Máquina: {aiScore}", "Aceptar");
+                DisableGame(); // Deshabilitar el juego
             }
             else
             {
-                RoundLabel.Text = $"Ronda: {rounds}";
+                // Reiniciar el tablero para la siguiente ronda si alguien ganó
                 ResetBoard();
             }
         }
 
-        private void UpdateScore()
+        private void DisableGame()
         {
-            StatusLabel.Text = $"Jugador: {playerScore} - Máquina: {aiScore}";
+            foreach (var child in GameGrid.Children)
+            {
+                if (child is Label label)
+                {
+                    label.GestureRecognizers.Clear(); // Eliminar cualquier gesto de reconocimiento para deshabilitar la interacción
+                    label.TextColor = Colors.Gray; // Cambiar el color del texto para indicar que está deshabilitado
+                }
+            }
         }
     }
 }

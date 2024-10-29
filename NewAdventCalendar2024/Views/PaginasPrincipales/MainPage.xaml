@@ -14,7 +14,7 @@
                CornerRadius="10" 
                Padding="5" 
                BackgroundColor="Transparent">
-            <Label Text="HEART CALENDAR 2024"
+            <Label Text="el misterio del calendario"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                FontSize="40"

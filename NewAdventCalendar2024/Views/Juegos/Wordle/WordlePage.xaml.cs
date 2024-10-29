@@ -1,6 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.Maui.Controls;
+using NewAdventCalendar2024.Interfaces;
+
 namespace NewAdventCalendar2024.Views.Juegos.Wordle
 {
-    public partial class WordlePage : ContentPage
+    public partial class WordlePage : ContentPage, IGamePage
     {
         private List<string> wordList = new List<string> { "mango", "perro", "salud", "coche", "flore", "circo" };
         private string secretWord;
@@ -8,10 +14,17 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
         public int CurrentAttempt { get; private set; }
         public List<string> Attempts { get; private set; } = new List<string>();
         private int wordLength;
+        private TaskCompletionSource<bool> tcs; // TCS para manejar el resultado del juego
 
-        public WordlePage(string palabra)
+        public WordlePage()
         {
             InitializeComponent();
+            InitializeGame(); // Inicializa el juego
+            tcs = new TaskCompletionSource<bool>();
+        }
+
+        private void InitializeGame()
+        {
             var random = new Random();
             secretWord = wordList[random.Next(wordList.Count)];
             wordLength = secretWord.Length;
@@ -63,6 +76,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
                     ? "¡Felicidades! Has adivinado la palabra."
                     : $"¡Lo siento! La palabra era {secretWord}.";
                 GuessEntry.IsEnabled = false; // Desactiva el campo de entrada
+                tcs.SetResult(Attempts.Contains(secretWord)); // Finaliza el juego
             }
             else
             {
@@ -120,7 +134,6 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
                 // Establece la fila y columna para el label
                 Grid.SetRow(letterLabel, CurrentAttempt - 1);
                 Grid.SetColumn(letterLabel, i);
-
             }
         }
 
@@ -132,6 +145,13 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
                 'Y' => Colors.Yellow,
                 _ => Colors.Gray,
             };
+        }
+
+        public Task<bool> GetGameResultAsync() => tcs.Task; // Implementa el método de la interfaz
+
+        public void InicializarTcs(TaskCompletionSource<bool> tcs)
+        {
+            this.tcs = tcs; // Inicializa el TaskCompletionSource
         }
     }
 }

@@ -1,18 +1,22 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.Juegos.Snake.SnakePage"
              Title="Snake Game">
 
     <Grid>
-        <!-- View para dibujar la serpiente y la comida -->
         <GraphicsView x:Name="gameView"
                       HeightRequest="400"
                       WidthRequest="400"
                       VerticalOptions="CenterAndExpand"
                       HorizontalOptions="CenterAndExpand"/>
 
-        <!-- Controles para mover la serpiente -->
+        <Label x:Name="scoreLabel"
+               Text="Puntaje: 0 / Min Apples"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               FontSize="18"
+               Margin="10"/>
+
         <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="End" Padding="10">
             <Button Text="↑" Clicked="OnMoveUpClicked"/>
             <StackLayout Orientation="Horizontal">

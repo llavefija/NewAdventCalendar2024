@@ -1,25 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras.PiPaTiPage"
-             Title="Piedra, Papel o Tijeras"
-             BackgroundColor="#f0f0f0">
-    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20">
-        <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
-            <Label TextColor="Black" Text="Elección de la Máquina" FontSize="24" HorizontalTextAlignment="Center"/>
-            <Image x:FieldModifier="public" x:Name="machineChoiceImage" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" />
-        </StackLayout>
+             Title="Piedra, Papel o Tijeras">
+    <VerticalStackLayout Spacing="20" Padding="30" HorizontalOptions="Center">
+        <Label x:Name="TitleLabel" Text="Piedra, Papel o Tijeras" FontSize="32" HorizontalOptions="Center" />
 
-        <Label TextColor="Black" Text="Elige una opción para empezar la batalla." 
-               x:FieldModifier="public" x:Name="resultLabel" FontSize="24" 
-               HorizontalTextAlignment="Center" Margin="20"/>
+        <Label x:Name="RoundResultLabel" Text="Elige tu jugada" FontSize="24" HorizontalOptions="Center" />
 
-        <Label TextColor="Black" x:FieldModifier="public" x:Name="scoreLabel" FontSize="24" 
-               HorizontalTextAlignment="Center" Margin="20"/>
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Image x:Name="PlayerChoiceImage" WidthRequest="100" HeightRequest="100" />
+            <Label x:Name="ResultLabel" Text="VS" FontSize="32" HorizontalOptions="Center" />
+            <Image x:Name="MachineChoiceImage" WidthRequest="100" HeightRequest="100" />
+        </HorizontalStackLayout>
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20" VerticalOptions="EndAndExpand">
-            <ImageButton Source="Piedra.png" WidthRequest="100" HeightRequest="100" Clicked="OnPiedraClicked"/>
-            <ImageButton Source="Papel.png" WidthRequest="100" HeightRequest="100" Clicked="OnPapelClicked"/>
-            <ImageButton Source="Tijeras.png" WidthRequest="100" HeightRequest="100" Clicked="OnTijerasClicked"/>
-        </StackLayout>
-    </StackLayout>
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Button x:Name="ButtonPiedra" Text="Piedra" Clicked="OnPlayerChoice" CommandParameter="Piedra" />
+            <Button x:Name="ButtonPapel" Text="Papel" Clicked="OnPlayerChoice" CommandParameter="Papel" />
+            <Button x:Name="ButtonTijeras" Text="Tijeras" Clicked="OnPlayerChoice" CommandParameter="Tijeras" />
+        </HorizontalStackLayout>
+
+        <Label x:Name="ScoreLabel" Text="Tu Puntuación: 0 | Máquina: 0" FontSize="24" HorizontalOptions="Center" />
+        <Label x:Name="GameStatusLabel" Text="" FontSize="24" HorizontalOptions="Center" />
+    </VerticalStackLayout>
 </ContentPage>

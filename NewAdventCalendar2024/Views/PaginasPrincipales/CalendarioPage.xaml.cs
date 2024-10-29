@@ -71,7 +71,7 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
                         { 2, ("Ping Pong", "Vence consiguiendo 3 puntos a favor antes que el rival en una batalla de ping pong.\nDificultad: Facil.", new PingPongPage(0.1f, 3, 3.2f)) },
                         { 3, ("Ahorcado", "Descubre la palabra oculta antes de perder la cabeza.\nDificultad: 7 letras.", new AhorcadoPage("MISTERIO")) },
                         { 4, ("Piedra, papel o tijeras", "Gana 3 duelos al juego de piedra, papel o tijeras.\nDificultad: Facil.", new PiPaTiPage(3)) },
-                        { 5, ("Wordle", "Descubre la palabra oculta sin quedarte sin intentos.\nDificultad: 5 letras.", new WordlePage("PITON")) },
+                        { 5, ("Wordle", "Descubre la palabra oculta sin quedarte sin intentos.\nDificultad: 5 letras.", new WordlePage()) },
                         { 7, ("TicTacToe", "Gana al rival 3 partidas al tic tac toe.\nDificultad: Facil.", new TicTacToePage(3)) },
                         { 8, ("Snake", "Come 10 manzanas minimo para completar el desafio.\nDificultad: Facil.", new SnakePage(10)) },
 

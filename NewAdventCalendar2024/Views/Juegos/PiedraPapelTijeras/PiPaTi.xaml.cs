@@ -1,114 +1,121 @@
+using System;
+using System.Threading.Tasks;
+using Microsoft.Maui.Controls;
+using NewAdventCalendar2024.Interfaces;
+
 namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
 {
-    public partial class PiPaTiPage : ContentPage
+    public partial class PiPaTiPage : ContentPage, IGamePage
     {
-        private int playerScore = 0;
-        private int machineScore = 0;
-        private int roundsToWin;
+        private int playerScore = 0;         // Puntuación del jugador
+        private int machineScore = 0;         // Puntuación de la máquina
+        private int scoreToWin;                // Puntuación para ganar
+        private TaskCompletionSource<bool> tcs;
 
-        public PiPaTiPage(int puntos)
+        // Constructor que acepta la puntuación mínima como parámetro
+        public PiPaTiPage(int minScoreToWin)
         {
             InitializeComponent();
-            UpdateScore();
-            roundsToWin = puntos;
+            scoreToWin = minScoreToWin; // Asigna la puntuación mínima
+            tcs = new TaskCompletionSource<bool>();
+            UpdateScoreLabel();
         }
 
-        private async void OnPiedraClicked(object sender, EventArgs e)
+        // Implementación del método de la interfaz
+        public void InicializarTcs(TaskCompletionSource<bool> tcs)
         {
-            await PlayRound("Piedra");
+            this.tcs = tcs;
         }
 
-        private async void OnPapelClicked(object sender, EventArgs e)
+        private async void OnPlayerChoice(object sender, EventArgs e)
         {
-            await PlayRound("Papel");
-        }
-
-        private async void OnTijerasClicked(object sender, EventArgs e)
-        {
-            await PlayRound("Tijeras");
-        }
-
-        private async Task PlayRound(string playerChoice)
-        {
-            string machineChoice = GetMachineChoice();
-            string winner = DetermineWinner(playerChoice, machineChoice);
-
-            resultLabel.Text = $"Máquina: {machineChoice} - Jugador: {playerChoice}\nEl ganador es: {winner}";
-
-            // Actualiza el marcador
-            if (winner == "Jugador")
+            if (sender is Button button)
             {
-                playerScore++;
+                string playerChoice = button.CommandParameter.ToString();
+                string machineChoice = GetMachineChoice();
+                string result = GetResult(playerChoice, machineChoice);
+
+                // Actualiza las imágenes basadas en las elecciones
+                UpdateChoiceImages(playerChoice, machineChoice);
+
+                // Muestra el resultado de la ronda
+                RoundResultLabel.Text = $"Tú elegiste: {playerChoice} | Máquina eligió: {machineChoice}";
+                GameStatusLabel.Text = result;
+
+                // Actualiza el marcador según el resultado
+                if (result == "Ganaste!")
+                {
+                    playerScore++;
+                }
+                else if (result == "Perdiste!")
+                {
+                    machineScore++;
+                }
+
+                UpdateScoreLabel();
+
+                // Verifica si alguien ha alcanzado la puntuación objetivo
+                if (playerScore >= scoreToWin || machineScore >= scoreToWin)
+                {
+                    EndGame(playerScore >= scoreToWin);
+                }
             }
-            else if (winner == "Máquina")
-            {
-                machineScore++;
-            }
+        }
 
-            UpdateScore();
-            machineChoiceImage.Source = $"{machineChoice}.png"; // Muestra la elección de la máquina
+        private void UpdateScoreLabel()
+        {
+            ScoreLabel.Text = $"Tu Puntuación: {playerScore} | Máquina: {machineScore}";
+        }
 
-            // Espera un momento para que el jugador vea la elección
-            await Task.Delay(2000);
+        private void EndGame(bool playerWon)
+        {
+            // Deshabilita los botones después de que alguien gane
+            ButtonPiedra.IsEnabled = false;
+            ButtonPapel.IsEnabled = false;
+            ButtonTijeras.IsEnabled = false;
 
-            // Verifica si alguien ha ganado
-            if (playerScore >= roundsToWin || machineScore >= roundsToWin)
-            {
-                resultLabel.Text += $"\n¡Partida Finalizada! Ganador: {(playerScore > machineScore ? "Jugador" : "Máquina")}";
-                ResetGame();
-                return; // Sale del método para evitar que se reinicie la ronda
-            }
+            // Muestra el estado final del juego
+            GameStatusLabel.Text = playerWon ? "¡Has ganado el juego!" : "La máquina ha ganado el juego.";
+            tcs.SetResult(playerWon); // Finaliza el juego con base en la puntuación
+        }
 
-            ResetRound();
+        private void UpdateChoiceImages(string playerChoice, string machineChoice)
+        {
+            // Asegúrate de tener las imágenes correctamente nombradas
+            MachineChoiceImage.Source = $"machine_{machineChoice.ToLower()}.png";
+            PlayerChoiceImage.Source = $"player_{playerChoice.ToLower()}.png";
         }
 
         private string GetMachineChoice()
         {
             Random random = new Random();
-            int choice = random.Next(3);
+            int choice = random.Next(3); // 0: Piedra, 1: Papel, 2: Tijeras
             return choice switch
             {
                 0 => "Piedra",
                 1 => "Papel",
-                2 => "Tijeras",
-                _ => "Piedra",
+                _ => "Tijeras"
             };
         }
 
-        private string DetermineWinner(string playerChoice, string machineChoice)
+        private string GetResult(string playerChoice, string machineChoice)
         {
             if (playerChoice == machineChoice)
             {
-                return "Nadie";
+                return "Empate!";
             }
             else if ((playerChoice == "Piedra" && machineChoice == "Tijeras") ||
                      (playerChoice == "Papel" && machineChoice == "Piedra") ||
                      (playerChoice == "Tijeras" && machineChoice == "Papel"))
             {
-                return "Jugador";
+                return "Ganaste!";
             }
             else
             {
-                return "Máquina";
+                return "Perdiste!";
             }
         }
 
-        private void UpdateScore()
-        {
-            scoreLabel.Text = $"Puntos - Jugador: {playerScore} | Máquina: {machineScore}";
-        }
-
-        private void ResetRound()
-        {
-            machineChoiceImage.Source = null; // Limpia la elección de la máquina
-        }
-
-        private void ResetGame()
-        {
-            playerScore = 0;
-            machineScore = 0;
-            UpdateScore();
-            ResetRound();
-        }
+        public Task<bool> GetGameResultAsync() => tcs.Task;
     }
 }
