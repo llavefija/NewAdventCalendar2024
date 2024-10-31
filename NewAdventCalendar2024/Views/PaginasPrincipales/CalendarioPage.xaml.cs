@@ -67,37 +67,39 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
                     // Parámetros predeterminados
                     var juegoParams = new Dictionary<int, (string, string, ContentPage)>
                     {
-                        { 1, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
-                        { 2, ("Ping Pong", "Vence consiguiendo 3 puntos a favor antes que el rival en una batalla de ping pong.\nDificultad: Facil.", new PingPongPage(0.1f, 3, 3.2f)) },
-                        { 3, ("Ahorcado", "Descubre la palabra oculta antes de perder la cabeza.\nDificultad: 7 letras.", new AhorcadoPage("MISTERIO")) },
+                        { 1, ("Multi Clicks - Toc, toc, toc", "¿Hay alguien en casa? Voy a picar varias veces a ver si hay suerte.\nDificultad: 3 golpeos.", new MultiClicksPage(3, "puerta.png")) },
+                        { 2, ("Buscar Pistas - Tic Tac Toe", "Quizás necesite ordenar mis pensamientos. Paso a paso, como un juego de estrategia... algo debe haber por aquí que me guíe.\nDificultad: 3 conexiones.", new TicTacToePage(3)) },
+                        { 3, ("La Pelota - Ping Pong", "Nada como hacer botar una pelota para despejar la mente. Quizás pueda usarla para darle un poco de orden a este caos.\nDificultad: Facil.", new PingPongPage(0.1f, 3, 3.2f)) },
+                        //{ 3, ("Ahorcado", "Descubre la palabra oculta antes de perder la cabeza.\nDificultad: 7 letras.", new AhorcadoPage("MISTERIO")) },
                         { 4, ("Piedra, papel o tijeras", "Gana 3 duelos al juego de piedra, papel o tijeras.\nDificultad: Facil.", new PiPaTiPage(3)) },
                         { 5, ("Wordle", "Descubre la palabra oculta sin quedarte sin intentos.\nDificultad: 5 letras.", new WordlePage()) },
-                        { 6, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 10 clicks.", new MultiClicksPage(10, "cajafuerte.png")) },
+                        { 6, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 10 clicks.", new MultiClicksPage(500, "cajafuerte.png")) },
                         { 7, ("TicTacToe", "Gana al rival 3 partidas al tic tac toe.\nDificultad: Facil.", new TicTacToePage(3)) },
                         { 8, ("Snake", "Come 10 manzanas minimo para completar el desafio.\nDificultad: Facil.", new SnakePage(10)) },
-                        { 9, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 100 clicks.", new MultiClicksPage(100, "pingu.png")) },
-                       
+                        { 9, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 100 clicks.", new MultiClicksPage(10, "regalo.png")) },
                         { 10, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
+                        
                         { 11, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
-                        { 12, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 500 clicks.", new MultiClicksPage(500, "cajita.png")) },
+                        { 12, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 500 clicks.", new MultiClicksPage(250, "cajita.png")) },
+                        { 13, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 14, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 15, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 16, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 17, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 18, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 19, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
-                       
                         { 20, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
+                        
                         { 21, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 22, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 23, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 24, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
-                        { 25, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 1000 clicks.", new MultiClicksPage(1000, "regalo.png")) },
+                        { 25, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 1000 clicks.", new MultiClicksPage(500, "pingu.png")) },
                         { 26, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 27, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 28, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
                         { 29, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
-                        { 30, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 10000 clicks.", new MultiClicksPage(10000, "grancaja.png")) },
+                        { 30, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 10000 clicks.", new MultiClicksPage(1000, "grancaja.png")) },
 
                         { 31, ("Multi Clicks", "Pulsa varias veces a la imagen hasta cumplir todos los clics.\nDificultad: 3 clicks.", new MultiClicksPage(3, "puerta.png")) },
 

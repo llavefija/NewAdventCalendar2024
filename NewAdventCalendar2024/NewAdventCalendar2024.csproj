@@ -43,10 +43,11 @@
 		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />-->
 		<!--<MauiIcon Include="Resources\AppIcon\corazongorroicon.jpg" ForegroundScale="0.65" />-->
 		<MauiIcon Include="Resources\AppIcon\fondoicon2.png" ForegroundScale="0.65" />
+		<MauiSplashScreen Include="Resources\Splash\corrazongorro.svg" Color="#B22222" BaseSize="128,128" />
 		<!--<MauiIcon Include="Resources\AppIcon\corazongorroiconvector.svg" />-->
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<!--<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />-->
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -67,6 +68,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\corrazongorro.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\AppIcon\corazongorroicon.jpg" />
 	  <None Remove="Resources\AppIcon\fondoicon.png" />
 	  <None Remove="Resources\Images\ahorcado0.png" />
@@ -78,6 +83,7 @@
 	  <None Remove="Resources\Images\ahorcado6.png" />
 	  <None Remove="Resources\Images\cajafuerte.png" />
 	  <None Remove="Resources\Images\cajita.png" />
+	  <None Remove="Resources\Images\corrazongorro.svg" />
 	  <None Remove="Resources\Images\fondoicon2.png" />
 	  <None Remove="Resources\Images\grancaja.png" />
 	  <None Remove="Resources\Images\libretaimage.png" />

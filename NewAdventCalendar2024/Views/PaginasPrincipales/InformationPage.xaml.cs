@@ -37,7 +37,7 @@ Cierro mi libreta con una sonrisa, lista para emprender mi aventura. Este diciem
                 // Entrada del 30 de noviembre
                  @"30 de noviembre de 2024 - La Tarjeta Misteriosa
 
-Hoy, mientras organizaba mis cosas, encontré algo inesperado: una tarjeta que decía 'Nos vemos pronto, Sra. detective', seguida de una dirección. Al leerla, mi corazón se hundió. Era la dirección de un chalet en medio de la nada.
+Hoy, mientras organizaba mis cosas, encontré algo inesperado: una tarjeta que decía “Nos vemos pronto, Sra. detective”, seguida de una dirección. Al leerla, mi corazón se hundió. Era la dirección de un chalet en medio de la nada.
 
 ¿Realmente tengo que ir allí en lugar de disfrutar de la playa? ¿Por qué me pasa esto justo cuando estoy lista para escapar del frío? Me siento frustrada, pero sé que como detective no puedo ignorarlo.
 
