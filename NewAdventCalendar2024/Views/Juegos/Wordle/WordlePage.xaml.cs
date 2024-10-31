@@ -8,26 +8,24 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
 {
     public partial class WordlePage : ContentPage, IGamePage
     {
-        private List<string> wordList = new List<string> { "mango", "perro", "salud", "coche", "flore", "circo" };
-        private string secretWord;
+        private string secretWord; // Palabra secreta que se pasa por parámetro
         private int maxAttempts = 6;
         public int CurrentAttempt { get; private set; }
         public List<string> Attempts { get; private set; } = new List<string>();
         private int wordLength;
         private TaskCompletionSource<bool> tcs; // TCS para manejar el resultado del juego
 
-        public WordlePage()
+        public WordlePage(string palabra)
         {
             InitializeComponent();
+            secretWord = palabra.ToLower(); // Asigna la palabra secreta pasada por parámetro
+            wordLength = secretWord.Length; // Determina la longitud de la palabra
             InitializeGame(); // Inicializa el juego
             tcs = new TaskCompletionSource<bool>();
         }
 
         private void InitializeGame()
         {
-            var random = new Random();
-            secretWord = wordList[random.Next(wordList.Count)];
-            wordLength = secretWord.Length;
             CurrentAttempt = 0;
 
             // Ajusta el Entry para que acepte el tamaño de la palabra correcta
@@ -76,7 +74,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
                     ? "¡Felicidades! Has adivinado la palabra."
                     : $"¡Lo siento! La palabra era {secretWord}.";
                 GuessEntry.IsEnabled = false; // Desactiva el campo de entrada
-                tcs.SetResult(Attempts.Contains(secretWord)); // Finaliza el juego
+                tcs.SetResult(Attempts.Contains(secretWord)); // Finaliza el juego con el resultado
             }
             else
             {

@@ -676,13 +676,15 @@ Sobretodo este estilo monocolor en los apuntes... ¡¡solo me he traido el boli 
 Jingle parece que se preocupa por como estoy, pobrecito.
 
 Fatal. :(
+
+P.D.: He creado una especie de vela a partir de almendras. No huele mal (al menos lo que yo puedo oler).
 "
         };
 
         // Crear una nueva recompensa
         nuevaRecompensa = new RecompensaModel
         {
-            Nombre = "Un catarro peor que el del día anterior.",
+            Nombre = "Una vela aromatica.",
             Desbloqueada = false
         };
 
