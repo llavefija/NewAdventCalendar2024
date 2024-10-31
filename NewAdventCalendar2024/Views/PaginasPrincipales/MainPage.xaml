@@ -14,7 +14,7 @@
                CornerRadius="10" 
                Padding="5" 
                BackgroundColor="Transparent">
-            <Label Text="el misterio del calendario"
+            <Label Text="Ray: el misterio del calendario"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                FontSize="40"
@@ -50,7 +50,7 @@
                 CornerRadius="35"/>
 
         <Button x:Name="BtInformacion"
-                Text="INFORMACION" 
+                Text="DIARIO DE RAY" 
                 Clicked="OnInformationButtonClicked" 
                 HorizontalOptions="Center" 
                 HeightRequest="60" 

@@ -76,10 +76,15 @@
 	  <None Remove="Resources\Images\ahorcado4.png" />
 	  <None Remove="Resources\Images\ahorcado5.png" />
 	  <None Remove="Resources\Images\ahorcado6.png" />
+	  <None Remove="Resources\Images\cajafuerte.png" />
+	  <None Remove="Resources\Images\cajita.png" />
 	  <None Remove="Resources\Images\fondoicon2.png" />
+	  <None Remove="Resources\Images\grancaja.png" />
 	  <None Remove="Resources\Images\libretaimage.png" />
 	  <None Remove="Resources\Images\papel.png" />
 	  <None Remove="Resources\Images\piedra.png" />
+	  <None Remove="Resources\Images\pingu.png" />
+	  <None Remove="Resources\Images\puerta.png" />
 	  <None Remove="Resources\Images\regalo.png" />
 	  <None Remove="Resources\Images\tijeras.png" />
 	</ItemGroup>

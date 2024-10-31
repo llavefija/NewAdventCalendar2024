@@ -12,6 +12,8 @@ namespace NewAdventCalendar2024.Models
             public int Numero { get; set; } // Número del botón
             public bool Activo { get; set; } // Si el botón está activo
             public bool Completado { get; set; } // Si el juego asociado se ha completado
+
+            public string MisterioDescripcion {  get; set; } // Texto que apuntara al diario
             public int RecompensaId { get; set; } // Relación con la recompensa
             //public RecompensaModel Recompensas { get; set; } // Navegación a la entidad Recompensa
         

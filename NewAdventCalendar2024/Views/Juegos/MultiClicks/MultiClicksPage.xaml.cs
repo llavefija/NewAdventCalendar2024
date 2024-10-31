@@ -33,9 +33,6 @@ namespace NewAdventCalendar2024.Views.Juegos.MultiClicks
                 RemainingClicks--;
                 UpdateClickCount();
 
-                // Reducir progresivamente el tamaño de la imagen con límites
-                UpdateImageSize();
-
                 // Si el contador llega a 0, termina el juego
                 if (RemainingClicks <= 0)
                 {
@@ -50,29 +47,7 @@ namespace NewAdventCalendar2024.Views.Juegos.MultiClicks
             }
         }
 
-        private void UpdateImageSize()
-        {
-            // Definir el tamaño máximo y mínimo
-            double maxSize = 400; // Tamaño máximo (en píxeles)
-            double minSize = 50;  // Tamaño mínimo (en píxeles)
-
-            // Calcular el nuevo tamaño de la imagen basado en los clics restantes
-            double scaleFactor = (double)RemainingClicks / 100; // Ajusta el factor de escala según sea necesario
-            double newSize = maxSize * scaleFactor;
-
-            // Asegurarse de que la nueva imagen esté dentro de los límites
-            if (newSize < minSize)
-            {
-                newSize = minSize; // Aplica el tamaño mínimo
-            }
-            else if (newSize > maxSize)
-            {
-                newSize = maxSize; // Aplica el tamaño máximo
-            }
-
-            clickableImage.WidthRequest = newSize;
-            clickableImage.HeightRequest = newSize;
-        }
+        
 
         private void UpdateClickCount()
         {
