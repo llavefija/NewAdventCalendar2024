@@ -66,45 +66,42 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
 
                     // Parámetros predeterminados
                     var juegoParams = new Dictionary<int, (string, string, ContentPage)>
-                    {
-                        { 1, ("¿Quién está ahí?", "¿Hay alguien en casa? Voy a picar varias veces a ver si tengo suerte.\nRequiere 3 picadas.", new MultiClicksPage(3, "puerta.png")) },
-                        { 2, ("Ese nombre...", "Llevo todo el día pensando en ese nombre, ¿y si fuera él?\nPista: Nombre.", new WordlePage("MATEO")) },
-                        { 3, ("La pelota como terapia", "Nada como hacer botar una pelota para despejar la mente. Quizás pueda usarla para darle un poco de orden a este caos.\nDificultad: 3 encajes.", new PingPongPage(0.1f, 3, 3.2f)) },
-                        { 4, ("Música en el aire", "¡Qué suerte, una radio que funciona! Me encanta lo que suena.\nPista: Grupo.", new WordlePage("QUEEN")) },
-                        { 5, ("Ordenando pensamientos", "Quizás necesite ordenar mis ideas. Paso a paso, como un juego de estrategia... algo debe haber por aquí que me guíe.\nDificultad: 3 conexiones.", new TicTacToePage(3)) },
-                        { 6, ("Frente a la caja fuerte", "Vaya... una caja fuerte. Pero no me sé el código. ¿Quién dijo que iba a ser fácil?\nRequiere 500 golpeos.", new MultiClicksPage(500, "cajafuerte.png")) },
-                        { 7, ("Algo para comer", "No puedo pensar con el estómago vacío. Quizás algo dulce me venga bien.\nPista: Fruta.", new WordlePage("MELON")) },
-                        { 8, ("Una charla conmigo misma", "Siempre va bien tomarse tiempo para conocerse mejor.\nDificultad: gana 3 duelos.", new PiPaTiPage(3)) },
-                        { 9, ("Un regalo misterioso", "Lo abriré cuidadosamente con la navaja... parece que algo se mueve dentro.\nRequiere 10 cortes.", new MultiClicksPage(10, "regalo.png")) },
-                        { 10, ("Una gran decisión", "Nunca imaginé tomar esta decisión, pero es el momento de dar el paso.\nPista: Nombre.", new AhorcadoPage("JINGLE")) },
+{
+    { 1, ("El chalet", "Parece que esta es la dirección. Veamos si funciona al picar.\nJuego: MultiClicks\nDificultad: 3 picadas.", new MultiClicksPage(3, "puerta.png")) },
+    { 2, ("Una mala noche", "Llevo todo el día pensando en ese nombre, no me lo quito de la cabeza.\nJuego: Wordle\nPista: Nombre.", new WordlePage("MATEO")) },
+    { 3, ("Un juego de mi imaginación", "Nada como hacer botar una pelota para despejar la mente.\nJuego: Ping Pong\nDificultad: 3 encajes.", new PingPongPage(0.1f, 3, 3.2f)) },
+    { 4, ("Algo de música", "Encuentro una radio antigua; la música me recuerda a tiempos mejores.\nJuego: Wordle\nPista: Grupo.", new WordlePage("QUEEN")) },
+    { 5, ("Venganza", "Quizás ordenar mis ideas me dé una pista sobre quién está detrás de todo esto.\nJuego: Tic Tac Toe\nDificultad: 3 conexiones.", new TicTacToePage(3)) },
+    { 6, ("Una caja demasiado fuerte", "Una caja fuerte bloquea mi avance. Necesito un código o algo para abrirla.\nJuego: MultiClicks\nDificultad: 500 golpeos.", new MultiClicksPage(500, "cajafuerte.png")) },
+    { 7, ("Un gran chasco", "Necesito energía, y parece que tengo una fruta por aquí.\nJuego: Wordle\nPista: Fruta.", new WordlePage("MELON")) },
+    { 8, ("¿El rosa es mi color?", "Tener confianza en mí misma es clave. Veamos qué tal me va en este duelo.\nJuego: Piedra, Papel o Tijeras\nDificultad: gana 3 duelos.", new PiPaTiPage(3)) },
+    { 9, ("Un enorme regalo en el comedor", "Un paquete grande y sospechoso. Intentaré abrirlo con cuidado.\nJuego: MultiClicks\nDificultad: 10 cortes.", new MultiClicksPage(10, "regalo.png")) },
+    { 10, ("Mi fiel compañero", "Un nombre me viene a la mente, el de alguien especial.\nJuego: Ahorcado\nPista: Nombre.", new AhorcadoPage("JINGLE")) },
 
-                        { 11, ("El rastro", "Parece que Jingle tiene algo. ¡Buen chico!\nDificultad: 10 capturas.", new SnakePage(10)) },
-                        { 12, ("Una caja empotrada", "He encontrado una caja de madera, pero no se abre. Quizás haya que forzarla un poco.\nRequiere 250 sacudidas.", new MultiClicksPage(250, "cajita.png")) },
-                        { 13, ("El día de hoy es una mierda", "Solo hay una palabra para describir el día de hoy...\nPista: Adjetivo.", new AhorcadoPage("DESASTROSO")) },
-                        { 14, ("Un agradable olor", "No todo es malo. He podido crear una pequeña vela a partir de esos frutos secos.\nPista: Frutos secos.", new AhorcadoPage("ALMENDRA")) },
-                        { 15, ("A seguir jugando un poco más", "He estado pensando en una receta sanadora mientras hacía rebotar la pelota.\nDificultad: 6 encajes más rápidos.", new PingPongPage(0.2f, 6, 3.5f)) },
-                        { 16, ("Más rápido", "Estoy que me salgo, he dominado mucho control con la pelota.\nDificultad: 6 encajes aún más rápidos.", new PingPongPage(0.2f, 6, 4f)) },
-                        { 17, ("Despiste", "Hoy no estoy en mis cabales, me siento muy despistada.\nDificultad: 3 conexiones.", new TicTacToePage(3)) },
-                        { 18, ("Me centro", "Tengo un duelo conmigo misma para centrarme un poco más.\nDificultad: gana 3 duelos.", new PiPaTiPage(6)) },
-                        { 19, ("Descodificación", "Así que era esto lo que quería decir la nota...\nPista: Mueble.", new AhorcadoPage("ARMARIO")) },
-                        { 20, ("Eureka", "Es algo sencillo pero interesante, a tener en cuenta.\nPista: Lo que me gustaría tener.", new WordlePage("CALOR")) },
+    { 11, ("Una misteriosa nota", "Parece que Jingle me ha traído algo, un rastro que debo seguir.\nJuego: Snake\nDificultad: 10 capturas.", new SnakePage(10)) },
+    { 12, ("Una cajita misteriosa en la pared", "He encontrado una pequeña caja de madera que parece necesitar un empujón.\nJuego: MultiClicks\nDificultad: 250 sacudidas.", new MultiClicksPage(250, "cajita.png")) },
+    { 13, ("Un caramelo de esperanza", "Algo dulce me distrae de esta situación. Quizás un juego me relaje.\nJuego: Ping Pong\nDificultad: 5 encajes.", new PingPongPage(0.1f, 5, 3.2f)) },
+    { 14, ("Descubrimientos oscuros en un día gris", "La vela me revela algo inesperado mientras intento ordenar mis pensamientos.\nJuego: Tic Tac Toe\nDificultad: 6 conexiones.", new TicTacToePage(6)) },
+    { 15, ("La gran receta", "Una receta de paciencia y habilidad. Necesito precisión con la pelota.\nJuego: Ping Pong\nDificultad: 6 encajes más rápidos.", new PingPongPage(0.2f, 6, 3.5f)) },
+    { 16, ("Despertando con Energía", "Me siento imparable. Esta vez iré más rápido.\nJuego: Ping Pong\nDificultad: 6 encajes aún más rápidos.", new PingPongPage(0.2f, 6, 4f)) },
+    { 17, ("¿Dónde tengo la cabeza...?", "Hoy me siento despistada. Quizás algo me ayude a concentrarme.\nJuego: Snake\nDificultad: 20 capturas.", new SnakePage(20)) },
+    { 18, ("Todo va mejor", "Otro duelo conmigo misma para centrarme.\nJuego: Piedra, Papel o Tijeras\nDificultad: gana 6 duelos.", new PiPaTiPage(6)) },
+    { 19, ("Mi taza favorita", "Una nota encriptada dentro de la taza... ¿qué intentarán decirme?\nJuego: Tic Tac Toe\nDificultad: 9 conexiones.", new TicTacToePage(9)) },
+    { 20, ("El complemento perfecto", "Las dudas nublan mi mente. Quizás una palabra me aclare.\nJuego: Wordle\nPista: Un deseo.", new WordlePage("CALOR")) },
 
-                        { 21, ("Jingle lo ha vuelto a hacer", "Parece que Jingle se ha dado cuenta de algo, nunca le he dado importancia.\nDificultad: 20 capturas.", new SnakePage(20)) },
-                        { 22, ("Decepción o alivio", "No era lo que parecía... y menos mal.\nPista: Criatura.", new AhorcadoPage("DUENDE")) },
-                        { 23, ("Un imán", "Pero no uno cualquiera, este era raro, tenía algo. Podría ser un imán _____\nPista: Profesión secreta.", new WordlePage("ESPIA")) },
-                        { 24, ("Otro duelo más", "Me voy a perder Navidad.\nDificultad: gana 9 duelos.", new PiPaTiPage(9)) },
-                        { 25, ("Un peluche", "Yo solo veía un inofensivo peluche, hasta que decidí abrirlo cuidadosamente.\nRequiere 500 punzadas.", new MultiClicksPage(500, "pingu.png")) },
-                        { 26, ("Frustración", "Me siento frustrada ahora mismo.\nDificultad: 10 conexiones.", new TicTacToePage(10)) },
-                        { 27, ("Es la hora", "He decidido realizar mi plan más macabro para salir de aquí.\nPista: Material.", new WordlePage("METAL")) },
-                        { 28, ("Calma antes de la guerra", "Decido botar por última vez la pelota antes de soltar toda mi ira.\nDificultad: 10 encajes más pausados.", new PingPongPage(0.1f, 10, 3.5f)) },
-                        { 29, ("Otra ronda de destrucción", "Ya solo me queda la mitad del chalet por descubrir, hoy será un día largo.\nDificultad: 30 capturas.", new SnakePage(30)) },
-                        { 30, ("Abrir la gran puerta", "Parece que las llaves encajan a la perfección, pero cuesta más de lo que parece.\nRequiere 10000 giros con fuerza.", new MultiClicksPage(10000, "grancaja.png")) },
+    { 21, ("Un descubrimiento extraño", "Parece que Jingle ha notado algo extraño. Quizás me acerque al final.\nJuego: Snake\nDificultad: 25 capturas.", new SnakePage(25)) },
+    { 22, ("Un misterio que me tiene atrapada", "Siento que alguien me observa... pero no hay nadie más aquí.\nJuego: Ahorcado\nPista: Objeto oculto.", new AhorcadoPage("CAMARA")) },
+    { 23, ("Un dulce descubrimiento", "Encuentro un cifrado. ¿Podría ser el famoso código César?\nJuego: Wordle\nPista: Nombre del cifrado.", new WordlePage("CESAR")) },
+    { 24, ("Nochebuena en el encierro", "Ya tengo una idea de dónde buscar. Espero que no me esté equivocando.\nJuego: Ahorcado\nPista: Lugar oculto.", new AhorcadoPage("ARMARIO")) },
+    { 25, ("El peluche oculto", "Hay algo extraño en este peluche... debería examinarlo a fondo.\nJuego: MultiClicks\nDificultad: 500 punzadas.", new MultiClicksPage(500, "pingu.png")) },
+    { 26, ("Ansias por salir", "Mi paciencia se agota. Necesito superar este duelo.\nJuego: Piedra, Papel o Tijeras\nDificultad: gana 10 duelos.", new PiPaTiPage(10)) },
+    { 27, ("Un día más, un día menos", "Este material metálico me podría servir para mi plan.\nJuego: Wordle\nPista: Material.", new WordlePage("METAL")) },
+    { 28, ("Al ritmo del Rock", "La última vez que hago botar la pelota antes de tomar mi decisión final.\nJuego: Ping Pong\nDificultad: 10 encajes pausados.", new PingPongPage(0.1f, 10, 3.5f)) },
+    { 29, ("Creo que tengo una pista", "Ya veo una posible salida. Solo necesito paciencia.\nJuego: Snake\nDificultad: 30 capturas.", new SnakePage(30)) },
+    { 30, ("La puerta a lo desconocido", "Las llaves encajan, pero la cerradura es más dura de lo que parece.\nJuego: MultiClicks\nDificultad: 10000 giros con fuerza.", new MultiClicksPage(10000, "grancaja.png")) },
 
-                        { 31, ("El sobre", "Abel me ha dado este sobre, estoy entre emocionada y enfadada.\nRequiere 1 corte.", new MultiClicksPage(1, "sobremisterioso.png")) },
-
-
-
-                    };
+    { 31, ("El sobre rojo", "¿Qué contendrá este misterioso sobre? No sé si estoy lista.\nJuego: MultiClicks\nDificultad: 1 corte.", new MultiClicksPage(1, "sobremisterioso.png")) },
+};
 
                     // Verificar si hay parámetros para el botón pulsado
                     if (juegoParams.TryGetValue(numeroBoton, out var parametros))
@@ -173,7 +170,7 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
                         await DisplayAlert("Juego no completado", "No has completado el juego. Inténtalo más tarde.", "OK");
                     }
                 }
-              
+
             }
             catch (Exception ex)
             {
