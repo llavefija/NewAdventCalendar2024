@@ -16,7 +16,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Ahorcado
         private TaskCompletionSource<bool> _tcs;
         private bool gameCompleted = false;
 
-        public AhorcadoPage(string word)
+        public AhorcadoPage(string word, string titulo)
         {
             InitializeComponent();
             wordToGuess = word.ToUpper(); // Guardar la palabra en mayúsculas
@@ -26,6 +26,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Ahorcado
             UpdateWordDisplay();
             UpdateAttemptsDisplay();
             UpdateHangmanImage();
+            titleLabel.Text = titulo;
         }
 
         public void InicializarTcs(TaskCompletionSource<bool> tcs)
@@ -68,9 +69,9 @@ namespace NewAdventCalendar2024.Views.Juegos.Ahorcado
                 if (incorrectGuesses >= MaxAttempts)
                 {
                     gameCompleted = true;
-                    await DisplayAlert("Fin", "¡Has perdido!", "OK");
-                    resultLabel.Text = "Perdiste. La palabra era: " + wordToGuess;
-                    _tcs.SetResult(false); // Indica que el juego terminó sin éxito
+                    _tcs.SetResult(false);
+                    await Navigation.PopAsync();
+
                 }
             }
             else
@@ -79,9 +80,9 @@ namespace NewAdventCalendar2024.Views.Juegos.Ahorcado
                 if (wordToGuess.All(c => guessedLetters.Contains(c)))
                 {
                     gameCompleted = true;
-                    await DisplayAlert("Fin", "¡Has ganado!", "OK");
-                    resultLabel.Text = "¡Ganaste!";
-                    _tcs.SetResult(true); // Indica que el juego terminó con éxito
+                    _tcs.SetResult(true);
+                    await Navigation.PopAsync();
+
                 }
             }
         }

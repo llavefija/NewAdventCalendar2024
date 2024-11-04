@@ -11,7 +11,7 @@
                Text="Multi Clicks"
                FontSize="32"
                TextColor="#D32F2F" 
-            HorizontalTextAlignment="Center"
+               HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
                VerticalOptions="Start" />
 

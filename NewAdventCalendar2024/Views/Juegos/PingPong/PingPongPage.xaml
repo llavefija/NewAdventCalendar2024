@@ -6,13 +6,13 @@
 
     <Grid>
         <!-- Título del juego -->
-        <Label Text="PING PONG"
-               FontSize="30"
-               HorizontalOptions="Center"
-               VerticalOptions="Start"
-               TextColor="Yellow"
-               Margin="0,20,0,0"
-               FontFamily="HomeXmas"/>
+        <Label x:Name="titleLabel"
+               Text="Multi Clicks"
+               FontSize="32"
+               TextColor="#EFCF1B" 
+               HorizontalTextAlignment="Center"
+               FontFamily="HomeXmas"
+               VerticalOptions="Start" />  
 
         <!-- Aquí se dibujará el campo de juego -->
         <GraphicsView x:Name="GameView"

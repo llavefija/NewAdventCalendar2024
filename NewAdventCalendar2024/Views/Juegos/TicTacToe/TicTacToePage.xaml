@@ -5,6 +5,15 @@
              Title="Tres en Raya">
 
     <StackLayout Padding="20">
+
+        <Label x:Name="titleLabel"
+               Text="Multi Clicks"
+               FontSize="32"
+               TextColor="#AE00FF" 
+               HorizontalTextAlignment="Center"
+               FontFamily="HomeXmas"
+               VerticalOptions="Start" />      
+
         <Label x:Name="RoundLabel" Text="Ronda: 1" FontSize="24" HorizontalOptions="Center"/>
         <Label x:Name="StatusLabel" Text="Turno del Jugador" FontSize="18" HorizontalOptions="Center" />
 

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace NewAdventCalendar2024.Interfaces
 {
-    // Definición de la interfaz
+    // Interfaz para definir el contrato que deben seguir las páginas de juegos
     public interface IGamePage
     {
-        // Firma del método que debe implementar cualquier clase que implemente esta interfaz
+        // Inicializa el TaskCompletionSource para manejar el resultado del juego.
+        // Este método permite a la página de juego comunicar si el jugador ha ganado o perdido
         void InicializarTcs(TaskCompletionSource<bool> tcs);
     }
-
 }

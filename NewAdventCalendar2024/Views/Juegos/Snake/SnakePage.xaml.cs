@@ -22,10 +22,11 @@ namespace NewAdventCalendar2024.Views.Juegos.Snake
 
         private TaskCompletionSource<bool> gameCompletionSource;
 
-        public SnakePage(int puntos)
+        public SnakePage(int puntos, string titulo)
         {
             InitializeComponent();
             minimumApples = puntos; // Asignamos puntos al mínimo de manzanas
+            titleLabel.Text = titulo;
             InitializeGame();
         }
 
@@ -96,6 +97,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Snake
                 snakePositions.Contains(newHead))
             {
                 EndGame(); // Finaliza el juego
+                Navigation.PopAsync();
                 return;
             }
 
@@ -133,12 +135,10 @@ namespace NewAdventCalendar2024.Views.Juegos.Snake
             if (score >= minimumApples)
             {
                 gameCompletionSource?.SetResult(true); // Marca el juego como completado
-                DisplayAlert("¡Victoria!", $"Has alcanzado el mínimo de {minimumApples} manzanas. ¡Felicidades!", "OK");
             }
             else
             {
                 gameCompletionSource?.SetResult(false); // Marca el juego como fallido
-                DisplayAlert("Fin del juego", $"¡La serpiente ha muerto! Puntuación: {score}", "OK");
             }
         }
 

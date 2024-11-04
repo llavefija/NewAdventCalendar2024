@@ -4,7 +4,14 @@
              x:Class="NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras.PiPaTiPage"
              Title="Piedra, Papel o Tijeras">
     <VerticalStackLayout Spacing="20" Padding="30" HorizontalOptions="Center">
-        <Label x:Name="TitleLabel" Text="Piedra, Papel o Tijeras" FontSize="32" HorizontalOptions="Center" />
+        
+        <Label x:Name="titleLabel"
+        Text="Multi Clicks"
+        FontSize="32"
+        TextColor="#0AA7EA" 
+        HorizontalTextAlignment="Center"
+        FontFamily="HomeXmas"
+        VerticalOptions="Start" />
 
         <Label x:Name="RoundResultLabel" Text="Elige tu jugada" FontSize="24" HorizontalOptions="Center" />
 

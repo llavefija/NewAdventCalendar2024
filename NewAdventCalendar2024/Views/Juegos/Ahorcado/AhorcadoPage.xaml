@@ -7,6 +7,14 @@
     <ScrollView>
         <StackLayout Padding="20" Spacing="20">
 
+            <Label x:Name="titleLabel"
+                   Text="Multi Clicks"
+                   FontSize="32"
+                   TextColor="#000000" 
+                   HorizontalTextAlignment="Center"
+                   FontFamily="HomeXmas"
+                   VerticalOptions="Start" />   
+
             <!-- Imagen del ahorcado -->
             <Image x:Name="hangmanImage" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center" />
 
@@ -67,8 +75,7 @@
                 <Button Text="Z" Grid.Row="3" Grid.Column="4" Clicked="OnLetterClicked" />
             </Grid>
 
-            <!-- Resultado (Ganar o Perder) -->
-            <Label x:Name="resultLabel" FontSize="24" HorizontalOptions="Center" TextColor="Black" />
+        
         </StackLayout>
     </ScrollView>
 </ContentPage>

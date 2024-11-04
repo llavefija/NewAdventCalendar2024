@@ -15,11 +15,12 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
         private int wordLength;
         private TaskCompletionSource<bool> tcs; // TCS para manejar el resultado del juego
 
-        public WordlePage(string palabra)
+        public WordlePage(string palabra, string titulo)
         {
             InitializeComponent();
             secretWord = palabra.ToLower(); // Asigna la palabra secreta pasada por parámetro
             wordLength = secretWord.Length; // Determina la longitud de la palabra
+            titleLabel.Text = titulo;
             InitializeGame(); // Inicializa el juego
             tcs = new TaskCompletionSource<bool>();
         }
@@ -72,9 +73,10 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
             {
                 MessageLabel.Text = Attempts.Contains(secretWord)
                     ? "¡Felicidades! Has adivinado la palabra."
-                    : $"¡Lo siento! La palabra era {secretWord}.";
+                    : $"¡Lo siento! No has adivinado la palabra.";
                 GuessEntry.IsEnabled = false; // Desactiva el campo de entrada
                 tcs.SetResult(Attempts.Contains(secretWord)); // Finaliza el juego con el resultado
+                Navigation.PopAsync();
             }
             else
             {

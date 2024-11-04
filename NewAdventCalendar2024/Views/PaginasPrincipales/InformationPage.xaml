@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.PaginasPrincipales.InformationPage"
-             BackgroundColor="LightGreen">
+             BackgroundColor="#F5F5DC">
 
     <Grid Padding="20">
         <!-- Imagen de fondo -->
@@ -11,7 +11,7 @@
         <!-- Texto sobre la imagen -->
         <Label x:Name="PageText" 
                Text="Texto de la primera página" 
-               FontSize="10" 
+               FontSize="9" 
                FontAttributes="Bold" 
                HorizontalOptions="Center" 
                VerticalOptions="Center" 
@@ -21,9 +21,22 @@
                Padding="10"/>
 
         <!-- Botones para navegar entre páginas -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Padding="0">
-            <Button Text="Página Anterior" Clicked="OnPreviousPageClicked" FontFamily="HappyXmas"/>
-            <Button Text="Siguiente Página" Clicked="OnNextPageClicked" FontFamily="HappyXmas"/>
+        <StackLayout Orientation="Horizontal" 
+                     HorizontalOptions="Center" 
+                     VerticalOptions="End" 
+                     Spacing="20" 
+                     AbsoluteLayout.LayoutBounds="0.5,0.9,AutoSize,AutoSize"
+                     AbsoluteLayout.LayoutFlags="PositionProportional">
+            <Button Text="Pagina Anterior" 
+                    Clicked="OnPreviousPageClicked" 
+                    FontFamily="HappyXmas"
+                    BackgroundColor="#A0522D"
+                    TextColor="#FFFDD0"/>
+            <Button Text="Siguiente Pagina" 
+                    Clicked="OnNextPageClicked" 
+                    FontFamily="HappyXmas"
+                    BackgroundColor="#A0522D"
+                    TextColor="#FFFDD0"/>
         </StackLayout>
     </Grid>
     

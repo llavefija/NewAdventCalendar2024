@@ -12,12 +12,12 @@ namespace NewAdventCalendar2024.Views.Juegos.MultiClicks
         private TaskCompletionSource<bool> _tcs;
         private bool gameCompleted = false;
 
-        public MultiClicksPage(int initialClicks, string imageSource)
+        public MultiClicksPage(int initialClicks, string imageSource, string titulo)
         {
             InitializeComponent();
             RemainingClicks = initialClicks;
             ImageSource = imageSource;
-
+            titleLabel.Text = titulo;
             UpdateBindings();
         }
 
@@ -38,8 +38,6 @@ namespace NewAdventCalendar2024.Views.Juegos.MultiClicks
                 {
                     gameCompleted = true; // Evitar múltiples mensajes
                     clickableImage.IsEnabled = false;
-                    await DisplayAlert("Fin", "¡Se acabaron los clics!", "OK");
-
                     // Indica que el juego ha sido completado
                     _tcs.SetResult(true);
                     await Navigation.PopAsync();

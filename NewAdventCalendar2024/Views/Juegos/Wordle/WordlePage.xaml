@@ -4,10 +4,14 @@
              x:Class="NewAdventCalendar2024.Views.Juegos.Wordle.WordlePage"
              BackgroundColor="White">
     <StackLayout Padding="20" Spacing="10">
-        <Label Text="¡Bienvenido a Wordle!" 
-               FontSize="24" 
-               HorizontalOptions="Center" 
-               TextColor="Black"/>
+
+        <Label x:Name="titleLabel"
+               Text="Multi Clicks"
+               FontSize="32"
+               TextColor="#D32F2F" 
+               HorizontalTextAlignment="Center"
+               FontFamily="HomeXmas"
+               VerticalOptions="Start" />  
 
         <!-- Campo de texto para adivinar -->
         <Entry x:Name="GuessEntry" 

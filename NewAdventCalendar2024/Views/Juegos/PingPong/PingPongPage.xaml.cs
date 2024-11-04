@@ -19,7 +19,7 @@ namespace NewAdventCalendar2024.Views.Juegos.PingPong
 
         private TaskCompletionSource<bool> tcs;
 
-        public PingPongPage(float SpeedIncrement, int MinScoretoWin, float PaddleSpeed)
+        public PingPongPage(float SpeedIncrement, int MinScoretoWin, float PaddleSpeed, string titulo)
         {
             InitializeComponent();
 
@@ -45,6 +45,8 @@ namespace NewAdventCalendar2024.Views.Juegos.PingPong
 
             InicializarTcs(new TaskCompletionSource<bool>());
 
+            titleLabel.Text = titulo;
+
             Dispatcher.StartTimer(TimeSpan.FromMilliseconds(20), () =>
             {
                 UpdateGame();
@@ -52,11 +54,13 @@ namespace NewAdventCalendar2024.Views.Juegos.PingPong
                 if (playerScore >= minScoreToWin)
                 {
                     tcs.SetResult(true);
+                    Navigation.PopAsync();
                     return false;
                 }
                 else if (machineScore >= minScoreToWin)
                 {
                     tcs.SetResult(false);
+                    Navigation.PopAsync();
                     return false;
                 }
 

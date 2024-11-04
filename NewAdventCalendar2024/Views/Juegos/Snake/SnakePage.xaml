@@ -4,6 +4,15 @@
              Title="Snake Game">
 
     <Grid>
+
+        <Label x:Name="titleLabel"
+               Text="Multi Clicks"
+               FontSize="32"
+               TextColor="#06E725" 
+               HorizontalTextAlignment="Center"
+               FontFamily="HomeXmas"
+               VerticalOptions="Start" />  
+
         <GraphicsView x:Name="gameView"
                       HeightRequest="400"
                       WidthRequest="400"

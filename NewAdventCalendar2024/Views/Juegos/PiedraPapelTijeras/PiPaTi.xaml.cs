@@ -13,11 +13,12 @@ namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
         private TaskCompletionSource<bool> tcs;
 
         // Constructor que acepta la puntuación mínima como parámetro
-        public PiPaTiPage(int minScoreToWin)
+        public PiPaTiPage(int minScoreToWin, string titulo)
         {
             InitializeComponent();
             scoreToWin = minScoreToWin; // Asigna la puntuación mínima
             tcs = new TaskCompletionSource<bool>();
+            titleLabel.Text = titulo;
             UpdateScoreLabel();
         }
 
@@ -58,6 +59,7 @@ namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
                 if (playerScore >= scoreToWin || machineScore >= scoreToWin)
                 {
                     EndGame(playerScore >= scoreToWin);
+                    await Navigation.PopAsync();
                 }
             }
         }
@@ -77,6 +79,7 @@ namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
             // Muestra el estado final del juego
             GameStatusLabel.Text = playerWon ? "¡Has ganado el juego!" : "La máquina ha ganado el juego.";
             tcs.SetResult(playerWon); // Finaliza el juego con base en la puntuación
+
         }
 
         private void UpdateChoiceImages(string playerChoice, string machineChoice)

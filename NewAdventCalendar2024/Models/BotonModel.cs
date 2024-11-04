@@ -15,7 +15,6 @@ namespace NewAdventCalendar2024.Models
 
             public string MisterioDescripcion {  get; set; } // Texto que apuntara al diario
             public int RecompensaId { get; set; } // Relación con la recompensa
-            //public RecompensaModel Recompensas { get; set; } // Navegación a la entidad Recompensa
         
     }
 }

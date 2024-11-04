@@ -13,10 +13,11 @@ namespace NewAdventCalendar2024.Views.Juegos.TicTacToe
         private TaskCompletionSource<bool> tcs; // Variable para el TaskCompletionSource
         private const int minScoreToWin = 3; // Establecer el puntaje mínimo para ganar
 
-        public TicTacToePage(int puntos)
+        public TicTacToePage(int puntos, string titulo)
         {
             InitializeComponent();
             ResetBoard();
+            titleLabel.Text = titulo;
         }
 
         // Método requerido por la interfaz
@@ -159,8 +160,8 @@ namespace NewAdventCalendar2024.Views.Juegos.TicTacToe
             if (playerScore >= minScoreToWin || aiScore >= minScoreToWin)
             {
                 tcs.SetResult(playerScore >= minScoreToWin); // Devuelve true si el jugador ha ganado
-                DisplayAlert("Juego Terminado", $"Resultado final - Jugador: {playerScore}, Máquina: {aiScore}", "Aceptar");
                 DisableGame(); // Deshabilitar el juego
+                Navigation.PopAsync();
             }
             else
             {

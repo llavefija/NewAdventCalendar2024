@@ -19,27 +19,29 @@ namespace NewAdventCalendar2024.Data;
 
 public class AppDb
 {
+    // Conexión de base de datos asincrónica
     SQLiteAsyncConnection Database;
 
-    // Constructor de la clase
+    // Constructor de la clase sin inicialización inmediata de la base de datos
     public AppDb()
     {
     }
 
-    // Conecta la base de datos
+    // Inicializa la base de datos si aún no está conectada
     async Task Init()
     {
         if (Database is not null)
             return;
 
+        // Inicializa la conexión a la base de datos usando la ruta y configuraciones definidas en Constants
         Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
 
         try
         {
-            // Crea la primera tabla
+            // Crea la tabla RecompensaModel
             var result1 = await Database.CreateTableAsync<RecompensaModel>();
 
-            // Verifica si la tabla se creó correctamente antes de continuar
+            // Si la tabla fue creada o migrada, procede a crear la tabla BotonModel
             if (result1 == CreateTableResult.Created || result1 == CreateTableResult.Migrated)
             {
                 var result2 = await Database.CreateTableAsync<BotonModel>();
@@ -51,97 +53,86 @@ public class AppDb
         }
     }
 
-
-    // Devuelve una lista de todos los botones
+    // Recupera todos los registros de la tabla BotonModel
     public async Task<List<BotonModel>> GetBotones()
     {
-        await Init();
+        await Init(); // Asegura que la base de datos esté inicializada
         return await Database.Table<BotonModel>().ToListAsync();
     }
 
+    // Marca un botón como completado en la base de datos, identificado por su ID
     public async Task<bool> CompletarBoton(int id)
     {
-        await Init(); // Inicializa la base de datos
+        await Init();
 
-        // Busca el botón por ID
+        // Busca el botón en la base de datos
         var boton = await Database.Table<BotonModel>().Where(i => i.Id == id).FirstOrDefaultAsync();
 
-        // Verifica si el botón existe
         if (boton != null)
         {
-            // Marca el botón como completado
-            boton.Completado = true;
-
-            // Actualiza el botón en la base de datos
-            await Database.UpdateAsync(boton);
-
-            // Puedes retornar true si la operación fue exitosa
+            boton.Completado = true; // Marca el botón como completado
+            await Database.UpdateAsync(boton); // Actualiza el botón en la base de datos
             return true;
         }
 
-        // Retorna false si el botón no fue encontrado
-        return false;
+        return false; // Retorna false si el botón no fue encontrado
     }
 
-
-    // Devuelve una lista de todas las recompensas
+    // Recupera todas las recompensas de la base de datos
     public async Task<List<RecompensaModel>> GetRecompensas()
     {
         await Init();
         return await Database.Table<RecompensaModel>().ToListAsync();
     }
 
-    // Devuelve una lista de todos los botones no completados
+    // Recupera todos los botones que no han sido completados
     public async Task<List<BotonModel>> GetBotonesNoCompletados()
     {
         await Init();
         return await Database.Table<BotonModel>().Where(t => !t.Completado).ToListAsync();
     }
 
-    // Devuelve una lista de todas las recompensas no desbloqueadas
+    // Recupera todas las recompensas que no han sido desbloqueadas
     public async Task<List<RecompensaModel>> GetRecompensasNoDesbloqueadas()
     {
         await Init();
         return await Database.Table<RecompensaModel>().Where(t => !t.Desbloqueada).ToListAsync();
     }
 
-    // Devuelve una lista de todos los botones buscados por ID
+    // Obtiene un botón específico por ID
     public async Task<BotonModel> GetBotonPorId(int id)
     {
         await Init();
         return await Database.Table<BotonModel>().Where(i => i.Id == id).FirstOrDefaultAsync();
     }
 
-    // Devuelve una lista de todas las recompensas buscadas por ID
+    // Obtiene una recompensa específica por ID
     public async Task<RecompensaModel> GetRecompensaPorId(int id)
     {
         await Init();
         return await Database.Table<RecompensaModel>().Where(i => i.Id == id).FirstOrDefaultAsync();
     }
 
-    // Desbloquea la recompensa
+    // Desbloquea una recompensa basada en el estado de un botón asociado
     public async Task DesbloquearRecompensa(int botonId)
     {
         await Init();
 
-        // Busca el botón por su ID
+        // Recupera el botón por su ID y verifica si está completado
         var boton = await GetBotonPorId(botonId);
-
-        // Verifica que el botón existe y está completado
         if (boton?.Completado == true)
         {
-            // Busca la recompensa asociada al botón, si no está desbloqueada
+            // Recupera la recompensa asociada y verifica si aún no está desbloqueada
             var recompensa = await GetRecompensaPorId(boton.RecompensaId);
             if (recompensa?.Desbloqueada == false)
             {
-                // Desbloquea la recompensa
-                recompensa.Desbloqueada = true;
-                await SaveRecompensa(recompensa);
+                recompensa.Desbloqueada = true; // Marca la recompensa como desbloqueada
+                await SaveRecompensa(recompensa); // Guarda la recompensa en la base de datos
             }
         }
     }
 
-    // Guarda el boton
+    // Guarda un botón en la base de datos. Inserta o actualiza según el ID del botón
     public async Task<int> SaveBoton(BotonModel item)
     {
         await Init();
@@ -155,7 +146,7 @@ public class AppDb
         }
     }
 
-    // Guarda la recompensa
+    // Guarda una recompensa en la base de datos. Inserta o actualiza según el ID de la recompensa
     public async Task<int> SaveRecompensa(RecompensaModel item)
     {
         await Init();
@@ -168,6 +159,7 @@ public class AppDb
             return await Database.InsertAsync(item);
         }
     }
+
 
     // Inicializa los botones y las recompensas
     public async Task InicializarBotonesYRecompensas()
@@ -187,16 +179,12 @@ public class AppDb
             RecompensaId = 1,
             MisterioDescripcion = @"El chalet.
 
-Tal como indicaba la tarjeta de ayer, parece que he llegado a la dirección correcta: el número 12 en dorado. Un chalet en medio de la nada; curioso, cuanto menos. El número brilla en una robusta puerta de madera, y el chalet es más grande de lo que imaginaba. Sus paredes de madera oscura crujen con el viento, pero al menos la decoración navideña le quita algo de lo tenebroso.
-Hoy me he asegurado de llevar de todo en la mochila: el teléfono, el cargador, mi cartera, la famosa libreta de casos, una pequeña navaja multiusos y unas cuantas golosinas (el azúcar me ayuda a pensar).
+Tal como indicaba la tarjeta de ayer, parece que he llegado a la dirección correcta: el número 12 en dorado. Un chalet en medio de la nada; curioso, cuanto menos. El número brilla en una robusta puerta de madera, y el chalet es más grande de lo que imaginaba. Sus paredes de madera oscura crujen con el viento, pero al menos la decoración navideña le quita algo de lo tenebroso. Hoy me he asegurado de llevar de todo en la mochila: el teléfono, el cargador, mi cartera, la famosa libreta de casos, una pequeña navaja multiusos y unas cuantas golosinas (el azúcar me ayuda a pensar).
 
 Nada más llegar, he mirado por las ventanas, pero no logro ver nada en el interior; está envuelto en sombras. Tras aporrear cuidadosamente la puerta, esta se abre y... ¡PUM! Un portazo a mis espaldas la cierra de golpe. Sin posibilidad de abrirla de nuevo, me invade el pánico. 
 Por un instante, los nervios me consumen, pero me digo: “Ray, basta, ¡tranquila!”. Cierro los ojos, respiro hondo y cuento hasta tres. Al abrirlos, me siento más centrada. Busco en mi bolsillo una piruleta y la saboreo, tratando de encontrar calma.
 
-A oscuras, tanteo hasta dar con el interruptor de la luz. La habitación se ilumina tenuemente, revelando una entrada polvorienta con muebles cubiertos por sábanas blancas, como fantasmas en espera de ser descubiertos. Las ventanas están tapiadas y un olor a humedad y madera vieja llena el aire.
-Un escalofrío me recorre al notar que no hay señales de vida. Me esperan largas horas... y la creciente sensación de que este lugar guarda más secretos de los que se ven a simple vista.
-
-Al dar un paso más en la penumbra, un susurro lejano parece provenir de algún rincón oculto. ¿Será el viento, o algo más? La intriga crece, y en el fondo sé que, pase lo que pase, debo seguir adelante.
+A oscuras, tanteo hasta dar con el interruptor de la luz. La habitación se ilumina tenuemente, revelando una entrada polvorienta con muebles cubiertos por sábanas blancas, como fantasmas en espera de ser descubiertos. Las ventanas están tapiadas y un olor a humedad y madera vieja llena el aire. Un escalofrío me recorre al notar que no hay señales de vida. Me esperan largas horas... y la creciente sensación de que este lugar guarda más secretos de los que se ven a simple vista. Al dar un paso más en la penumbra, un susurro lejano parece provenir de algún rincón oculto. ¿Será el viento, o algo más? La intriga crece, y en el fondo sé que, pase lo que pase, debo seguir adelante.
 "
         };
 
@@ -223,19 +211,15 @@ Al dar un paso más en la penumbra, un susurro lejano parece provenir de algún 
             RecompensaId = 2,
             MisterioDescripcion = @"Una mala noche.
 
-No hay peor manera de pasar una noche... en un chalet misterioso, lleno de polvo, con un frío que cala hasta los huesos. Y esos muebles... dan escalofríos solo de verlos. Se nota que hace mucho tiempo que nadie pasa por aquí: la calefacción no funciona y sería necesaria una limpieza a fondo.
-
-Lo primero que he hecho ha sido quitar las sábanas blancas de los muebles, buscando algo que me ayude a resolver este misterio o a abrir la puerta, pero mis primeras búsquedas no han dado resultados. Para mi sorpresa, descubrí que el chalet está decorado con adornos navideños e incluso tiene un bonito árbol en el comedor. Está totalmente abandonado, pero alguien se ha asegurado de darle un toque festivo.
+No hay peor manera de pasar una noche... en un chalet misterioso, lleno de polvo, con un frío que cala hasta los huesos. Y esos muebles... dan escalofríos solo de verlos. Se nota que hace mucho tiempo que nadie pasa por aquí: la calefacción no funciona y sería necesaria una limpieza a fondo. Lo primero que he hecho ha sido quitar las sábanas blancas de los muebles, buscando algo que me ayude a resolver este misterio o a abrir la puerta, pero mis primeras búsquedas no han dado resultados. Para mi sorpresa, descubrí que el chalet está decorado con adornos navideños e incluso tiene un bonito árbol en el comedor. Está totalmente abandonado, pero alguien se ha asegurado de darle un toque festivo.
 
 Lo único útil que he encontrado es una especie de calentador de manos; espero que al menos me ayude a soportar el frío. 
+En mi cabeza no dejo de pensar en un nombre: “Mateo”. ¿Será cosa suya? Imposible, hace años que le perdí la pista. ¿Entonces quién está detrás de todo esto? Ayer me dije que me esperaban largas horas, pero a este ritmo... parece que me perderé las vacaciones de Navidad este año.
 
-En mi cabeza no dejo de pensar en un nombre: “Mateo”. ¿Será cosa suya? Imposible, hace años que le perdí la pista. ¿Entonces quién está detrás de todo esto? 
-
-Ayer me dije que me esperaban largas horas, pero a este ritmo... parece que me perderé las vacaciones de Navidad este año.
+Al anochecer, mientras intento calentarme con el artefacto que encontré, observé cómo una pequeña fuente de luz provenía del piso de abajo. No sé si es mi imaginación, pero el chalet parece guardar más de lo que aparenta.
 
 P.D.: De forma misteriosa, la despensa y la nevera están llenas de comida. Creo que será suficiente para unos días, pero... ¿quién se encargó de dejarla aquí?
 
-Al anochecer, mientras intento calentarme con el artefacto que encontré, observé cómo una pequeña fuente de luz provenía del piso de abajo. No sé si es mi imaginación, pero el chalet parece guardar más de lo que aparenta.
 "
         };
 
@@ -261,16 +245,11 @@ Al anochecer, mientras intento calentarme con el artefacto que encontré, observ
             RecompensaId = 3,
             MisterioDescripcion = @"Un juego de mi imaginación.
 
-Creo que me estoy volviendo loca. Nada tiene sentido hoy. Anoche intenté seguir aquella luz extraña, pero desapareció cuando estaba a mitad de camino bajando las escaleras. Ya no sé si fue real o solo un juego de mi imaginación.
+Creo que me estoy volviendo loca. Nada tiene sentido hoy. Anoche intenté seguir aquella luz extraña, pero desapareció cuando estaba a mitad de camino bajando las escaleras. Ya no sé si fue real o solo un juego de mi imaginación. Lo único que he encontrado al volver a la “cama” —si se le puede llamar así— ha sido una pequeña pelota blanca brillante. Mi cama improvisada es en realidad un viejo colchón sucio sobre un somier de hierro, aunque he reutilizado las sábanas de los muebles para cubrirlo y hacerlo algo más soportable.
 
-Lo único que he encontrado al volver a la “cama” —si se le puede llamar así— ha sido una pequeña pelota blanca brillante. Mi cama improvisada es en realidad un viejo colchón sucio sobre un somier de hierro, aunque he reutilizado las sábanas de los muebles para cubrirlo y hacerlo algo más soportable.
-
-No estoy segura de si la pelota estaba allí antes, pero de todas formas me sirve. La he hecho rebotar varias veces contra la pared; a veces eso me ayuda a pensar, pero hoy no tengo suerte. Estoy en blanco.
-
-¿Tercer día y ya estoy así? Espero que sea un bajón puntual. Quizás esta pelota pueda ayudarme a encontrar algo más, porque ahora mismo solo siento que estoy atrapada en un laberinto sin salida...
+No estoy segura de si la pelota estaba allí antes, pero de todas formas me sirve. La he hecho rebotar varias veces contra la pared; a veces eso me ayuda a pensar, pero hoy no tengo suerte. Estoy en blanco. ¿Tercer día y ya estoy así? Espero que sea un bajón puntual. Quizás esta pelota pueda ayudarme a encontrar algo más, porque ahora mismo solo siento que estoy atrapada en un laberinto sin salida...
 
 He aprovechado el tiempo para investigar un poco más a fondo este espacio y he esbozado un pequeño plano, por si me es útil en el futuro.
-
 El chalet, un lugar acogedor de dos plantas, cuenta con un amplio comedor conectado directamente a la cocina. La chimenea que adorna el comedor, aunque parece no tener salida, le da un toque cálido al ambiente, y en su repisa hay varios elementos decorativos, además de una vela con aroma a almendras tostadas. En la segunda planta, he encontrado varios dormitorios y un baño, y desde el pasillo que conecta las habitaciones, puedo ver el comedor en la planta baja. Todo esto me recuerda que estoy en un lugar con más secretos de los que imaginaba.
 "
         };
@@ -443,17 +422,7 @@ P.D.: Mi humor va mejorando cada día, aunque el entorno me advierte que no debo
             RecompensaId = 8,
             MisterioDescripcion = @"¿El rosa es mi color?
 
-Llevo horas dándole vueltas a todo: no solo a lo que ocurre en este extraño chalet, sino también a mis propias cosas, a mi vida y a quién soy.
-
-Este lugar, con su atmósfera inquietante, ha tenido un efecto curioso en mí; me ha forzado a estar más tranquila, casi sin quererlo. Mañana cumplo 30 años, y la verdad es que añoro aquella época en la que tenía 20. Todo era más sencillo y despreocupado. Valorar las cosas en su momento es un arte que casi nadie domina, y quizás ahora, en medio de este misterio, estoy comenzando a aprenderlo.
-
-A medida que el tiempo pasa, mis prioridades han cambiado, y la nostalgia se convierte en una sombra persistente. Aquella chica de 20 años, siempre apurada y llena de energía, era tan distinta. Yo, ahora, intento quejarme menos, disfrutar más y darme un respiro cuando las cosas no salen como espero. Sin embargo, a veces, esa chispa de espontaneidad se siente lejana, como un eco de un pasado más vibrante.
-
-Entre esos recuerdos, uno tonto me viene a la mente: mi funda de móvil de entonces, de un rosa suave y bonito. Nunca le presté demasiada atención, pero ahora me doy cuenta de que el rosa siempre ha estado en mi vida, como un hilo invisible que une mis experiencias. Hoy llevo una mochila de ese mismo color, y me pregunto... ¿será que el rosa es mi color favorito y yo sin saberlo?
-
-Esta revelación provoca una mezcla de emociones; quizás hay detalles de nosotros mismos que llevan años con nosotros y que solo entendemos mucho después. Mientras la oscuridad de este chalet me rodea, pienso en cómo las cosas pequeñas pueden llevar consigo grandes significados. Aunque haya aspectos de mi vida que no puedo cambiar, estoy empezando a apreciar quién soy hoy, con 30 años y todo lo vivido. Eso, en sí mismo, es todo un descubrimiento.
-
-A medida que las horas pasan, una inquietud crece en mí, un presentimiento de que el rosa puede ser más que solo un color; tal vez sea una señal, una conexión con un pasado que podría contener las respuestas que busco en este lugar. ¿Qué otras verdades se esconden en este chalet, y qué secretos guardan las sombras que me observan?
+Llevo horas dándole vueltas a todo: no solo a lo que ocurre en este extraño chalet, sino también a mis propias cosas, a mi vida y a quién soy. Este lugar, con su atmósfera inquietante, ha tenido un efecto curioso en mí; me ha forzado a estar más tranquila, casi sin quererlo. Mañana cumplo 30 años, y la verdad es que añoro aquella época en la que tenía 20. Todo era más sencillo y despreocupado. Valorar las cosas en su momento es un arte que casi nadie domina, y quizás ahora, en medio de este misterio, estoy comenzando a aprenderlo. A medida que el tiempo pasa, mis prioridades han cambiado, y la nostalgia se convierte en una sombra persistente. Aquella chica de 20 años, siempre apurada y llena de energía, era tan distinta. Yo, ahora, intento quejarme menos, disfrutar más y darme un respiro cuando las cosas no salen como espero. Sin embargo, a veces, esa chispa de espontaneidad se siente lejana, como un eco de un pasado más vibrante. Entre esos recuerdos, uno tonto me viene a la mente: mi funda de móvil de entonces, de un rosa suave y bonito. Nunca le presté demasiada atención, pero ahora me doy cuenta de que el rosa siempre ha estado en mi vida, como un hilo invisible que une mis experiencias. Hoy llevo una mochila de ese mismo color, y me pregunto... ¿será que el rosa es mi color favorito y yo sin saberlo? Esta revelación provoca una mezcla de emociones; quizás hay detalles de nosotros mismos que llevan años con nosotros y que solo entendemos mucho después. Mientras la oscuridad de este chalet me rodea, pienso en cómo las cosas pequeñas pueden llevar consigo grandes significados. Aunque haya aspectos de mi vida que no puedo cambiar, estoy empezando a apreciar quién soy hoy, con 30 años y todo lo vivido. Eso, en sí mismo, es todo un descubrimiento. A medida que las horas pasan, una inquietud crece en mí, un presentimiento de que el rosa puede ser más que solo un color; tal vez sea una señal, una conexión con un pasado que podría contener las respuestas que busco en este lugar. ¿Qué otras verdades se esconden en este chalet, y qué secretos guardan las sombras que me observan?
 "
         };
 
@@ -480,19 +449,7 @@ A medida que las horas pasan, una inquietud crece en mí, un presentimiento de q
             RecompensaId = 9,
             MisterioDescripcion = @"Un enorme regalo en el comedor.
 
-Estoy desconcertada. No entiendo nada. ¿¿Por qué?? ¿¿Cómo??
-
-Al despertar, me encuentro un gran paquete en el centro de la sala principal del chalet. Sigo sin comprender cómo ha llegado aquí sin que yo me diera cuenta, y mucho menos en un lugar tan apartado como este. Hoy es mi cumpleaños, y aunque nunca habría imaginado pasarlo aquí, entre estas paredes y en soledad, esto supera cualquier sorpresa que pudiera esperar...
-
-Desde el momento en que lo vi, una sensación extraña me invadió. Una etiqueta colgaba del paquete, y en ella estaba escrito mi nombre. Eso significa que quien haya dejado este ""regalo"" sabe algo sobre mí... quizás más de lo que quisiera admitir. Y, para colmo de rarezas, el paquete no dejaba de moverse ligeramente, como si algo o alguien en su interior intentara liberarse.
-
-Decidí abrirlo, entre la curiosidad y la cautela. Lo primero que encontré fue algo inesperado: una llave de color rosa chicle, ¡super cuqui, cabe decir! Al igual que la primera llave verde que encontré, esta también tiene en el mango un muñeco de jengibre, pero esta vez la punta de la llave parece formar una letra o un símbolo extraño, como si estuviera destinada a usarse junto con la otra. Quizás juntas puedan abrir algo importante en este lugar. Así que, de momento, las guardaré en mi mochila hasta que descubra cómo funcionan.
-
-Pero eso no es lo más sorprendente... Dentro del paquete había ¡un perro! Un cachorro de mirada brillante, juguetón y sin ningún miedo en absoluto. Aunque me pilló por sorpresa (¿qué se supone que voy a hacer con un perro en este lugar?), me siento aliviada de tener algo de compañía. La idea de compartir este misterio con alguien más, aunque sea un cachorro, hace que este sitio se sienta menos solitario y tenebroso.
-
-Sin embargo, la inquietud sigue ahí. Quien sea que haya preparado esto para mí no solo sabe que hoy es mi cumpleaños, sino que tiene acceso directo a este chalet y me vigila de cerca. Esa sensación es escalofriante, como si estuviera atrapada en un juego del que no entiendo las reglas. Pero, extrañamente, también me siento más decidida que nunca a desentrañar qué secretos esconde este lugar y qué papel juego yo en todo esto.
-
-Por ahora, sumo esta llave misteriosa a mi colección y, con mi nuevo compañero a mi lado, quizás esté un paso más cerca de resolver el rompecabezas que este lugar esconde. La combinación de la llave rosa y la presencia del cachorro me hace preguntarme si el misterio se está desvelando o si, por el contrario, solo me estoy adentrando en un laberinto aún más complicado.
+Estoy desconcertada. No entiendo nada. ¿¿Por qué?? ¿¿Cómo?? Al despertar, me encuentro un gran paquete en el centro de la sala principal del chalet. Sigo sin comprender cómo ha llegado aquí sin que yo me diera cuenta, y mucho menos en un lugar tan apartado como este. Hoy es mi cumpleaños, y aunque nunca habría imaginado pasarlo aquí, entre estas paredes y en soledad, esto supera cualquier sorpresa que pudiera esperar... Desde el momento en que lo vi, una sensación extraña me invadió. Una etiqueta colgaba del paquete, y en ella estaba escrito mi nombre. Eso significa que quien haya dejado este ""regalo"" sabe algo sobre mí... quizás más de lo que quisiera admitir. Y, para colmo de rarezas, el paquete no dejaba de moverse ligeramente, como si algo o alguien en su interior intentara liberarse. Decidí abrirlo, entre la curiosidad y la cautela. Lo primero que encontré fue algo inesperado: una llave de color rosa chicle, ¡super cuqui, cabe decir! Al igual que la primera llave verde que encontré, esta también tiene en el mango un muñeco de jengibre, pero esta vez la punta de la llave parece formar una letra o un símbolo extraño, como si estuviera destinada a usarse junto con la otra. Quizás juntas puedan abrir algo importante en este lugar. Así que, de momento, las guardaré en mi mochila hasta que descubra cómo funcionan. Pero eso no es lo más sorprendente... Dentro del paquete había ¡un perro! Un cachorro de mirada brillante, juguetón y sin ningún miedo en absoluto. Aunque me pilló por sorpresa (¿qué se supone que voy a hacer con un perro en este lugar?), me siento aliviada de tener algo de compañía. La idea de compartir este misterio con alguien más, aunque sea un cachorro, hace que este sitio se sienta menos solitario y tenebroso. Sin embargo, la inquietud sigue ahí. Quien sea que haya preparado esto para mí no solo sabe que hoy es mi cumpleaños, sino que tiene acceso directo a este chalet y me vigila de cerca. Esa sensación es escalofriante, como si estuviera atrapada en un juego del que no entiendo las reglas. Pero, extrañamente, también me siento más decidida que nunca a desentrañar qué secretos esconde este lugar y qué papel juego yo en todo esto. Por ahora, sumo esta llave misteriosa a mi colección y, con mi nuevo compañero a mi lado, quizás esté un paso más cerca de resolver el rompecabezas que este lugar esconde. La combinación de la llave rosa y la presencia del cachorro me hace preguntarme si el misterio se está desvelando o si, por el contrario, solo me estoy adentrando en un laberinto aún más complicado.
 "
         };
 
@@ -521,15 +478,7 @@ Por ahora, sumo esta llave misteriosa a mi colección y, con mi nuevo compañero
             RecompensaId = 10,
             MisterioDescripcion = @"Mi fiel compañero.
 
-Siempre me ha gustado el nombre de Jingle; tiene un sonido alegre, como campanas tintineantes, y con las fechas tan cercanas a la Navidad, no pude resistirme a llamarlo así. Parecía la opción perfecta para un compañero tan especial.
-
-Jingle es un adorable perro salchicha de pelaje negro con unas manchas de color café claro que le dan un toque encantador y único. Su mirada curiosa y su energía contagiosa han llenado de vida este extraño lugar. No puedo evitar sentirme agradecida por tenerle aquí; en medio de esta soledad y misterio, su presencia hace que todo sea un poco más soportable.
-
-Mientras disfrutaba de un magnífico caramelo dorado de sabor a miel, no he parado de pensar en cómo puede estar conectado todo esto, especialmente mis reflexiones de ayer sobre los colores y la aparición de la llave rosa. La dulzura del caramelo me acompañaba, contrastando con la inquietud que sentía. La coincidencia es inquietante: justo cuando me detuve a pensar en el rosa y su significado, aparece una llave de ese color. Esto me lleva a dos conclusiones, y ambas son perturbadoras. La opción más realista es que alguien con mucho tiempo libre se haya dedicado a estudiarme y sabe cómo influir en mis pensamientos. La segunda opción, más fantasiosa, es que este chalet esté de alguna manera conectado conmigo, como si mis pensamientos y mis experiencias se entrelazaran con los secretos que esconde.
-
-Esta noche, mientras he explorado cada rincón del chalet en busca de más pistas, he sentido que, aunque tengo a Jingle a mi lado, no estamos completamente solos. Hay una sensación en el aire, una presencia que parece moverse más allá de las paredes que puedo ver. Escuché ruidos apagados que venían desde algún lugar en el suelo, como si hubiera una habitación secreta debajo de nosotros, justo fuera de mi alcance. Eran pasos suaves, resonando apenas, pero lo suficiente como para que la piel se me erizara.
-
-No sé si son imaginaciones mías o si realmente alguien —o algo— está allí abajo, observándonos o esperando. Sea como sea, siento que este lugar esconde algo más profundo, algo que aún no puedo ver. Con Jingle a mi lado, me siento menos vulnerable, pero también más alerta que nunca. La inquietud de lo desconocido me acompaña, y no puedo dejar de preguntarme qué revelaciones me esperan en este enigma, un laberinto donde cada color, cada sonido y cada susurro parecen tener un significado oculto.
+Siempre me ha gustado el nombre de Jingle; tiene un sonido alegre, como campanas tintineantes, y con las fechas tan cercanas a la Navidad, no pude resistirme a llamarlo así. Parecía la opción perfecta para un compañero tan especial. Jingle es un adorable perro salchicha de pelaje negro con unas manchas de color café claro que le dan un toque encantador y único. Su mirada curiosa y su energía contagiosa han llenado de vida este extraño lugar. No puedo evitar sentirme agradecida por tenerle aquí; en medio de esta soledad y misterio, su presencia hace que todo sea un poco más soportable. Mientras disfrutaba de un magnífico caramelo dorado de sabor a miel, no he parado de pensar en cómo puede estar conectado todo esto, especialmente mis reflexiones de ayer sobre los colores y la aparición de la llave rosa. La dulzura del caramelo me acompañaba, contrastando con la inquietud que sentía. La coincidencia es inquietante: justo cuando me detuve a pensar en el rosa y su significado, aparece una llave de ese color. Esto me lleva a dos conclusiones, y ambas son perturbadoras. La opción más realista es que alguien con mucho tiempo libre se haya dedicado a estudiarme y sabe cómo influir en mis pensamientos. La segunda opción, más fantasiosa, es que este chalet esté de alguna manera conectado conmigo, como si mis pensamientos y mis experiencias se entrelazaran con los secretos que esconde. Esta noche, mientras he explorado cada rincón del chalet en busca de más pistas, he sentido que, aunque tengo a Jingle a mi lado, no estamos completamente solos. Hay una sensación en el aire, una presencia que parece moverse más allá de las paredes que puedo ver. Escuché ruidos apagados que venían desde algún lugar en el suelo, como si hubiera una habitación secreta debajo de nosotros, justo fuera de mi alcance. Eran pasos suaves, resonando apenas, pero lo suficiente como para que la piel se me erizara. No sé si son imaginaciones mías o si realmente alguien —o algo— está allí abajo, observándonos o esperando. Sea como sea, siento que este lugar esconde algo más profundo, algo que aún no puedo ver. Con Jingle a mi lado, me siento menos vulnerable, pero también más alerta que nunca. La inquietud de lo desconocido me acompaña, y no puedo dejar de preguntarme qué revelaciones me esperan en este enigma, un laberinto donde cada color, cada sonido y cada susurro parecen tener un significado oculto.
 "
         };
 
@@ -593,17 +542,8 @@ Con un nudo en la garganta, leí la nota y descubrí que era algo más que una b
             RecompensaId = 12,
             MisterioDescripcion = @"Una cajita misteriosa en la pared.
 
-Hoy me he topado con una caja inesperada. La he encontrado incrustada en la pared, perfectamente disimulada como si fuera un cuadro. En todo este tiempo no había notado su presencia, como si alguien la hubiera colocado ahí a propósito, esperando que pasara desapercibida.
-
-La caja en sí es preciosa, de aspecto antiguo, con una perla roja en forma de corazón en la parte delantera que le da un toque elegante. Sin embargo, el óxido y el polvo revelan que lleva demasiado tiempo olvidada. Al intentar abrirla, me di cuenta de que el cierre estaba atascado; debía estar completamente oxidada por dentro. Me desesperé tanto que, después de varios intentos, la lancé al aire en un arrebato de frustración.
-
-¡¡PAAAAM!! La caja estalló en mil pedazos al caer al suelo. El ruido fue tan fuerte que Jingle salió corriendo, asustado y con las orejas bien bajas. ¡Pobre! Pero el golpe ha sido toda una suerte porque, al romperse, reveló un nuevo tesoro: una tercera llave, esta vez de un azul profundo y brillante, probablemente la más sencilla de todas, pero igualmente fascinante. La pequeña figura de jengibre sigue presente en el diseño, como en las anteriores. Parece que este detalle tiene un significado que aún debo desentrañar.
-
-Junto a la llave, la perla roja también se desprendió, rodando hasta mis pies. La recogí con cuidado; tiene un tono carmesí tan intenso que parece latir con vida propia. Quizás tiene un valor simbólico, o tal vez solo sea otro capricho del creador de este lugar, pero por si acaso, la guardaré como un talismán.
-
-Este lugar empieza a revelarse poco a poco, pero mi mente no deja de pensar en el tiempo que llevo aquí encerrada. Hoy es el día 12, una fecha especial para mí porque es nuestro aniversario, el día que cada año celebro con mi pareja. Nos queda solo un mes para alcanzar los 13 años juntos... y todo lo que quiero es salir de aquí y darle un abrazo. Nada más. Me pregunto si quien me ha dejado estas pistas sabría la importancia de esta fecha para mí. Cada detalle nuevo que encuentro parece desafiarme, recordándome que no puedo rendirme ahora.
-
-Este avance es algo esperanzador. Ahora tengo tres llaves, cada una con su propio color y misterioso muñeco de jengibre. La idea de descubrir su función es el siguiente paso hacia la salida. ¡Ya lo verás! Cada pista me acerca un poco más. No pienso perder la esperanza, porque cada descubrimiento es un paso adelante... aunque sea en esta jaula dorada que me mantiene alejada de lo que más amo.
+Hoy me he topado con una caja inesperada. La he encontrado incrustada en la pared, perfectamente disimulada como si fuera un cuadro. En todo este tiempo no había notado su presencia, como si alguien la hubiera colocado ahí a propósito, esperando que pasara desapercibida. La caja en sí es preciosa, de aspecto antiguo, con una perla roja en forma de corazón en la parte delantera que le da un toque elegante. Sin embargo, el óxido y el polvo revelan que lleva demasiado tiempo olvidada. Al intentar abrirla, me di cuenta de que el cierre estaba atascado; debía estar completamente oxidada por dentro. Me desesperé tanto que, después de varios intentos, la lancé al aire en un arrebato de frustración.
+¡¡PAAAAM!! La caja estalló en mil pedazos al caer al suelo. El ruido fue tan fuerte que Jingle salió corriendo, asustado y con las orejas bien bajas. ¡Pobre! Pero el golpe ha sido toda una suerte porque, al romperse, reveló un nuevo tesoro: una tercera llave, esta vez de un azul profundo y brillante, probablemente la más sencilla de todas, pero igualmente fascinante. La pequeña figura de jengibre sigue presente en el diseño, como en las anteriores. Parece que este detalle tiene un significado que aún debo desentrañar. Junto a la llave, la perla roja también se desprendió, rodando hasta mis pies. La recogí con cuidado; tiene un tono carmesí tan intenso que parece latir con vida propia. Quizás tiene un valor simbólico, o tal vez solo sea otro capricho del creador de este lugar, pero por si acaso, la guardaré como un talismán. Este lugar empieza a revelarse poco a poco, pero mi mente no deja de pensar en el tiempo que llevo aquí encerrada. Hoy es el día 12, una fecha especial para mí porque es nuestro aniversario, el día que cada año celebro con mi pareja. Nos queda solo un mes para alcanzar los 13 años juntos... y todo lo que quiero es salir de aquí y darle un abrazo. Nada más. Me pregunto si quien me ha dejado estas pistas sabría la importancia de esta fecha para mí. Cada detalle nuevo que encuentro parece desafiarme, recordándome que no puedo rendirme ahora. Este avance es algo esperanzador. Ahora tengo tres llaves, cada una con su propio color y misterioso muñeco de jengibre. La idea de descubrir su función es el siguiente paso hacia la salida. ¡Ya lo verás! Cada pista me acerca un poco más. No pienso perder la esperanza, porque cada descubrimiento es un paso adelante... aunque sea en esta jaula dorada que me mantiene alejada de lo que más amo.
 "
         };
 
@@ -1015,19 +955,9 @@ Ahora que tengo esta información, estoy más cerca que nunca de desentrañar el
             RecompensaId = 24, // Se debe corregir el ID para que sea 24
             MisterioDescripcion = @"Nochebuena en el encierro.
 
-Nochebuena en el encierro
+Ríete, sí, te lo mereces. Es Nochebuena y aquí estoy, encerrada, sin más pistas que me ayuden a salir. ¡Tonta que soy! Imbécil. Buffff, qué rabia. La frustración empieza a apoderarse de mí, y la desesperación se asoma cada vez más. Me va a dar algo. No estoy preparada para lo que pueda haber ahí.
 
-Ríete, sí, te lo mereces. Es Nochebuena y aquí estoy, encerrada, sin más pistas que me ayuden a salir. ¡Tonta que soy! Imbécil.
-
-Buffff, qué rabia. La frustración empieza a apoderarse de mí, y la desesperación se asoma cada vez más. Me va a dar algo. No estoy preparada para lo que pueda haber ahí.
-
-Hoy he estado dándole vueltas a la nota que dice: “La llave oscura, úsala en el lugar donde el silencio es más profundo.” Pero, ¿qué significa en verdad? He pasado todo el día pensando, dándole vueltas a cada palabra, hasta que, de repente, la revelación me golpea. ¡El armario! Claro, ese es el lugar donde el silencio es más profundo. Cuando cierro las puertas, el mundo exterior desaparece y me encuentro en un vacío donde solo el eco de mis pensamientos resuena.
-
-Con cada minuto que pasa, la idea de enfrentarme a lo desconocido se vuelve más abrumadora. ¿Por qué no puedo simplemente estar en casa, con mi familia, celebrando como todos los demás? En lugar de eso, estoy aquí, rodeada de polvo y misterio, con el estómago revuelto y la mente llena de preguntas sin respuesta.
-
-Voy a por más gominolas. Quizás eso me ayude a calmar los nervios. No puedo permitir que esto me consuma. Necesito encontrar una manera de seguir adelante, pero a medida que miro hacia el armario, la ansiedad se mezcla con un resquicio de esperanza. Tal vez haya algo allí que me ayude a resolver este enigma. O tal vez solo me encontraré con más confusión. ¡No sé qué pensar!
-
-Con una gominola en la mano y el corazón acelerado, me acerco al armario, lista para descubrir lo que el silencio profundo tiene reservado para mí esta Nochebuena.
+Hoy he estado dándole vueltas a la nota que dice: “La llave oscura, úsala en el lugar donde el silencio es más profundo.” Pero, ¿qué significa en verdad? He pasado todo el día pensando, dándole vueltas a cada palabra, hasta que, de repente, la revelación me golpea. ¡El armario! Claro, ese es el lugar donde el silencio es más profundo. Cuando cierro las puertas, el mundo exterior desaparece y me encuentro en un vacío donde solo el eco de mis pensamientos resuena. Con cada minuto que pasa, la idea de enfrentarme a lo desconocido se vuelve más abrumadora. ¿Por qué no puedo simplemente estar en casa, con mi familia, celebrando como todos los demás? En lugar de eso, estoy aquí, rodeada de polvo y misterio, con el estómago revuelto y la mente llena de preguntas sin respuesta. Voy a por más gominolas. Quizás eso me ayude a calmar los nervios. No puedo permitir que esto me consuma. Necesito encontrar una manera de seguir adelante, pero a medida que miro hacia el armario, la ansiedad se mezcla con un resquicio de esperanza. Tal vez haya algo allí que me ayude a resolver este enigma. O tal vez solo me encontraré con más confusión. ¡No sé qué pensar! Con una gominola en la mano y el corazón acelerado, me acerco al armario, lista para descubrir lo que el silencio profundo tiene reservado para mí esta Nochebuena.
 "
         };
 
@@ -1055,17 +985,11 @@ Con una gominola en la mano y el corazón acelerado, me acerco al armario, lista
             RecompensaId = 25, // ID correcto para el día 25
             MisterioDescripcion = @"El peluche oculto.
 
-Así que, en medio de esta soledad y desesperación, decidí jugar un poco con Jingle. Es Navidad y me lo estoy perdiendo... Mientras revisaba el armario, algo llamó mi atención. En la oscuridad, había una pequeña puerta secreta pintada de negro, oculta por el vacío del armario. Con un poco de nerviosismo, me acerqué a ella. El eco resonaba dentro, y aunque aún no había metido nada en el armario, podía sentir que algo esperaba ser descubierto.
-
-Con la llave negra en la mano, la encajé en la cerradura. Para mi sorpresa, la puerta se abrió con un suave clic, revelando un extraño peluche con forma de pingüino. Era adorable, con grandes ojos brillantes y una pequeña sonrisa, pero lo que realmente captó mi atención fue el cartel que sostenía entre sus patas. En letras grandes y enigmáticas decía:
+Así que, en medio de esta soledad y desesperación, decidí jugar un poco con Jingle. Es Navidad y me lo estoy perdiendo... Mientras revisaba el armario, algo llamó mi atención. En la oscuridad, había una pequeña puerta secreta pintada de negro, oculta por el vacío del armario. Con un poco de nerviosismo, me acerqué a ella. El eco resonaba dentro, y aunque aún no había metido nada en el armario, podía sentir que algo esperaba ser descubierto. Con la llave negra en la mano, la encajé en la cerradura. Para mi sorpresa, la puerta se abrió con un suave clic, revelando un extraño peluche con forma de pingüino. Era adorable, con grandes ojos brillantes y una pequeña sonrisa, pero lo que realmente captó mi atención fue el cartel que sostenía entre sus patas. En letras grandes y enigmáticas decía:
 
 “4 llaves hay, cuando las tengas ven a buscarme, ya estarás preparada.”
 
-La idea de enfrentarte a alguien peligroso me aterraba, pero, curiosamente, había sentido que esta presencia desconocida me había cuidado bien durante estos días. Tenía comida, agua y, aunque podía haberme atacado mientras dormía, nunca lo había hecho. ¿Qué estaba sucediendo?
-
-Mientras sostenía el peluche en mis manos, noté que pesaba más de lo que debería. Con cuidado, decidí descoser un poco la costura. No quería dañar a mi nuevo amigo. Al abrirlo, ¡sorpresa! Dentro había una llave más, ¡y era dorada! Esta era más grande que el resto y mantenía el mismo detalle del muñeco de jengibre.
-
-Mientras me asomo a pensar en el significado de esto, no puedo evitar sentir una mezcla de incredulidad y frustración. No sé quién está organizando este juego macabro, pero no tiene nada de gracia. ¿Qué se supone que debo hacer con todas estas llaves? Cada vez que descubro algo nuevo, este juego se siente más como una trampa, y me pregunto qué me espera al final de este enigmático laberinto.
+La idea de enfrentarte a alguien peligroso me aterraba, pero, curiosamente, había sentido que esta presencia desconocida me había cuidado bien durante estos días. Tenía comida, agua y, aunque podía haberme atacado mientras dormía, nunca lo había hecho. ¿Qué estaba sucediendo? Mientras sostenía el peluche en mis manos, noté que pesaba más de lo que debería. Con cuidado, decidí descoser un poco la costura. No quería dañar a mi nuevo amigo. Al abrirlo, ¡sorpresa! Dentro había una llave más, ¡y era dorada! Esta era más grande que el resto y mantenía el mismo detalle del muñeco de jengibre. Mientras me asomo a pensar en el significado de esto, no puedo evitar sentir una mezcla de incredulidad y frustración. No sé quién está organizando este juego macabro, pero no tiene nada de gracia. ¿Qué se supone que debo hacer con todas estas llaves? Cada vez que descubro algo nuevo, este juego se siente más como una trampa, y me pregunto qué me espera al final de este enigmático laberinto.
 "
         };
 
@@ -1093,15 +1017,7 @@ Mientras me asomo a pensar en el significado de esto, no puedo evitar sentir una
             RecompensaId = 26, // ID correcto para el día 26
             MisterioDescripcion = @"Ansias por salir.
 
-No puedo más, deseo salir... Eso es todo lo que puedo decir. He logrado reunir cuatro llaves, y aunque debería sentirme emocionada, la realidad es que no tengo ni idea de qué hacer con ellas. Cada día se siente como una eternidad, y estoy empezando a sentir que esta situación me está consumiendo.
-
-La frustración se acumula dentro de mí, como una olla a presión lista para estallar. He pensado varias veces en la locura de intentar destruir todo lo que me rodea: esas llaves que parecen burlarse de mí, el peluche que ha sido mi único compañero y hasta el armario que me ha mantenido atrapada. La idea de romperlos me brinda, extrañamente, un pequeño alivio. Pero también sé que eso no solucionará nada; solo sería una explosión de rabia sin sentido.
-
-Así que aquí estoy, sentada con un puñado de gominolas, intentando calmar mi mente. La dulzura es un respiro momentáneo en este mar de desesperación, pero no es suficiente para ahogar este creciente deseo de libertad. Cada vez que miro las llaves, un nudo se forma en mi estómago. ¿Qué significan realmente? ¿A dónde me llevarán? Todo este juego se ha vuelto un laberinto sin salida, y no sé cuánto tiempo más podré soportar esta incertidumbre.
-
-Las horas se alargan, y el silencio se siente como una broma cruel. La noche anterior, me desperté de un sueño inquietante en el que corría sin rumbo, buscando una puerta que nunca llegaba a encontrar. Esa imagen se ha grabado en mi mente, y ahora es un recordatorio constante de que debo encontrar una salida. No quiero que esta experiencia me defina; necesito recuperar el control.
-
-Es hora de tomar una decisión. Debo investigar esas llaves, un intento desesperado por encontrar sentido a este caos. Tal vez, solo tal vez, la respuesta que tanto anhelo esté más cerca de lo que pienso. Mañana, me prometo a mí misma, tomaré el primer paso. Ya no puedo quedarme aquí sentada, atrapada en esta espiral de ansiedad y frustración. ¡Necesito una salida!
+No puedo más, deseo salir... Eso es todo lo que puedo decir. He logrado reunir cuatro llaves, y aunque debería sentirme emocionada, la realidad es que no tengo ni idea de qué hacer con ellas. Cada día se siente como una eternidad, y estoy empezando a sentir que esta situación me está consumiendo. La frustración se acumula dentro de mí, como una olla a presión lista para estallar. He pensado varias veces en la locura de intentar destruir todo lo que me rodea: esas llaves que parecen burlarse de mí, el peluche que ha sido mi único compañero y hasta el armario que me ha mantenido atrapada. La idea de romperlos me brinda, extrañamente, un pequeño alivio. Pero también sé que eso no solucionará nada; solo sería una explosión de rabia sin sentido. Así que aquí estoy, sentada con un puñado de gominolas, intentando calmar mi mente. La dulzura es un respiro momentáneo en este mar de desesperación, pero no es suficiente para ahogar este creciente deseo de libertad. Cada vez que miro las llaves, un nudo se forma en mi estómago. ¿Qué significan realmente? ¿A dónde me llevarán? Todo este juego se ha vuelto un laberinto sin salida, y no sé cuánto tiempo más podré soportar esta incertidumbre. Las horas se alargan, y el silencio se siente como una broma cruel. La noche anterior, me desperté de un sueño inquietante en el que corría sin rumbo, buscando una puerta que nunca llegaba a encontrar. Esa imagen se ha grabado en mi mente, y ahora es un recordatorio constante de que debo encontrar una salida. No quiero que esta experiencia me defina; necesito recuperar el control. Es hora de tomar una decisión. Debo investigar esas llaves, un intento desesperado por encontrar sentido a este caos. Tal vez, solo tal vez, la respuesta que tanto anhelo esté más cerca de lo que pienso. Mañana, me prometo a mí misma, tomaré el primer paso. Ya no puedo quedarme aquí sentada, atrapada en esta espiral de ansiedad y frustración. ¡Necesito una salida!
        "
         };
 
@@ -1201,21 +1117,7 @@ P.D.: Jingle está a salvo. Al menos él no tiene que lidiar con este caos. Suer
             RecompensaId = 29, // ID correcto para el día 29
             MisterioDescripcion = @"Creo que tengo una pista.
 
-La mañana ha comenzado con la resaca del caos de ayer. Mirando a mi alrededor, no puedo evitar sentirme abrumada por la destrucción que he causado. El comedor se asemeja a un campo de batalla, con escombros y trozos de pared esparcidos por todas partes. No sé si debo sentirme aliviada o culpable por lo que he hecho.
-
-Mientras evalúo el desastre, algo llama mi atención: una pequeña rendija en la pared que antes había pasado desapercibida. La curiosidad se apodera de mí, y me acerco para inspeccionarla más de cerca. Con un empujón firme, la sección de la pared se desplaza, revelando una puerta oculta que lleva a unas escaleras.
-
-La emoción se mezcla con la ansiedad; esto podría ser lo que he estado buscando. La oscuridad que emana de las escaleras promete una nueva aventura, un paso más hacia la libertad.
-
-Con cuidado, empiezo a despejar el camino, retirando escombros y trozos de madera. Cada paso me acerca más a la verdad. Con un último esfuerzo, empujo la puerta y me asomo a las escaleras que se hunden en la penumbra.
-
-Desciendo con cautela, cada peldaño cruje bajo mi peso. Cuando llego al final, me encuentro ante una puerta con cuatro cerraduras. Mis pulsaciones aumentan. ¿Qué se esconde detrás de ella? ¿Serán las respuestas que tanto busco?
-
-Contemplo la puerta, sintiendo la mezcla de desesperación y emoción. Hoy ha sido un día largo, y este descubrimiento se siente como un hito. Sin embargo, no puedo abrirla, al menos no todavía. La ansiedad burbujea en mi interior, pero sé que estoy más cerca que nunca de descubrir lo que hay detrás de esta puerta.
-
-Siento un poco de culpa por el propietario del chalet; debe estar horrorizado al ver lo que he hecho y las reparaciones que le tocará pagar. Pero, sinceramente, la violencia de ayer me ha llevado a un paso más cerca de la libertad.
-
-Mañana será otro día, y estoy decidida a desentrañar el misterio que se esconde tras esas cuatro cerraduras.
+La mañana ha comenzado con la resaca del caos de ayer. Mirando a mi alrededor, no puedo evitar sentirme abrumada por la destrucción que he causado. El comedor se asemeja a un campo de batalla, con escombros y trozos de pared esparcidos por todas partes. No sé si debo sentirme aliviada o culpable por lo que he hecho. Mientras evalúo el desastre, algo llama mi atención: una pequeña rendija en la pared que antes había pasado desapercibida. La curiosidad se apodera de mí, y me acerco para inspeccionarla más de cerca. Con un empujón firme, la sección de la pared se desplaza, revelando una puerta oculta que lleva a unas escaleras. La emoción se mezcla con la ansiedad; esto podría ser lo que he estado buscando. La oscuridad que emana de las escaleras promete una nueva aventura, un paso más hacia la libertad. Con cuidado, empiezo a despejar el camino, retirando escombros y trozos de madera. Cada paso me acerca más a la verdad. Con un último esfuerzo, empujo la puerta y me asomo a las escaleras que se hunden en la penumbra. Desciendo con cautela, cada peldaño cruje bajo mi peso. Cuando llego al final, me encuentro ante una puerta con cuatro cerraduras. Mis pulsaciones aumentan. ¿Qué se esconde detrás de ella? ¿Serán las respuestas que tanto busco? Contemplo la puerta, sintiendo la mezcla de desesperación y emoción. Hoy ha sido un día largo, y este descubrimiento se siente como un hito. Sin embargo, no puedo abrirla, al menos no todavía. La ansiedad burbujea en mi interior, pero sé que estoy más cerca que nunca de descubrir lo que hay detrás de esta puerta. Siento un poco de culpa por el propietario del chalet; debe estar horrorizado al ver lo que he hecho y las reparaciones que le tocará pagar. Pero, sinceramente, la violencia de ayer me ha llevado a un paso más cerca de la libertad. Mañana será otro día, y estoy decidida a desentrañar el misterio que se esconde tras esas cuatro cerraduras.
 "
         };
 
@@ -1243,17 +1145,7 @@ Mañana será otro día, y estoy decidida a desentrañar el misterio que se esco
             RecompensaId = 30, // ID correcto para el día 30
             MisterioDescripcion = @"La puerta a lo desconocido.
 
-Después de una larga noche de pensamientos agitados, me despierto decidida. Hoy es el día en que tengo que abrir esa puerta. Detrás de ella podría haber horror o, tal vez, una salida. No lo sabré hasta que me atreva a dar el paso.
-
-Para darme un último empujón, me acerco a mi mochila y saco la última piruleta. La sostengo entre mis manos, su color brillante me da un pequeño consuelo en medio de esta incertidumbre. La como lentamente, saboreando cada instante, con la esperanza de que no necesite más dulces para enfrentar lo que está por venir.
-
-Al acercarme a la puerta, mi respiración se hace más rápida. La observación me deja sin aliento. Es una sala grande, su apariencia es metálica, pero el sonido que emite no es el de metal, sino más bien un suave eco como si fuera madera, quizás con un barniz especial que oculta su verdadera naturaleza.
-
-Las cuatro cerraduras brillan, perfectamente alineadas, encajando con el color y la forma de las llaves que he ido encontrando. Cada una parece contar una historia, un pedazo de este enigma que he estado resolviendo. La pintura de la puerta está dividida en dos mitades: una blanca, otra negra. La imagen que se forma es la de un ángel y un demonio, un curioso detalle que me recuerda a un cierto artista...
-
-Siento una mezcla de adrenalina y miedo mientras introduzco la primera llave. La cerradura gira, pero no se abre. Así que continúo con la segunda, luego la tercera, y finalmente, la cuarta. Todo mi esfuerzo me lleva a un punto en el que la puerta comienza a ceder, pero aún así, me cuesta mucho abrirla.
-
-Con un último empujón, la puerta se abre de par en par. Lo que veo al otro lado me deja paralizada: “¡Abel! ¿Qué haces tú aquí?” La incredulidad me inunda mientras un torrente de emociones me invade al reconocer a la persona que menos esperaba encontrar en este lugar.
+Después de una larga noche de pensamientos agitados, me despierto decidida. Hoy es el día en que tengo que abrir esa puerta. Detrás de ella podría haber horror o, tal vez, una salida. No lo sabré hasta que me atreva a dar el paso. Para darme un último empujón, me acerco a mi mochila y saco la última piruleta. La sostengo entre mis manos, su color brillante me da un pequeño consuelo en medio de esta incertidumbre. La como lentamente, saboreando cada instante, con la esperanza de que no necesite más dulces para enfrentar lo que está por venir. Al acercarme a la puerta, mi respiración se hace más rápida. La observación me deja sin aliento. Es una sala grande, su apariencia es metálica, pero el sonido que emite no es el de metal, sino más bien un suave eco como si fuera madera, quizás con un barniz especial que oculta su verdadera naturaleza. Las cuatro cerraduras brillan, perfectamente alineadas, encajando con el color y la forma de las llaves que he ido encontrando. Cada una parece contar una historia, un pedazo de este enigma que he estado resolviendo. La pintura de la puerta está dividida en dos mitades: una blanca, otra negra. La imagen que se forma es la de un ángel y un demonio, un curioso detalle que me recuerda a un cierto artista... Siento una mezcla de adrenalina y miedo mientras introduzco la primera llave. La cerradura gira, pero no se abre. Así que continúo con la segunda, luego la tercera, y finalmente, la cuarta. Todo mi esfuerzo me lleva a un punto en el que la puerta comienza a ceder, pero aún así, me cuesta mucho abrirla. Con un último empujón, la puerta se abre de par en par. Lo que veo al otro lado me deja paralizada: “¡Abel! ¿Qué haces tú aquí?” La incredulidad me inunda mientras un torrente de emociones me invade al reconocer a la persona que menos esperaba encontrar en este lugar.
 "
         };
 
@@ -1281,19 +1173,7 @@ Con un último empujón, la puerta se abre de par en par. Lo que veo al otro lad
             RecompensaId = 31, // ID correcto para el día 31
             MisterioDescripcion = @"El sobre rojo.
 
-Al abrir la puerta del cobertizo, me encuentro con Abel, mi novio. La incredulidad me inunda mientras mis emociones se agolpan. Todo esto fue una broma. No era una caja, ni Mateo, ni David... Abel había planeado una serie de acertijos y desafíos con un regalo original en mente, con la esperanza de que pudiera resolver el misterio antes de que llegara el día de Navidad.
-
-La sala en la que me encuentro es grande y luminosa, iluminada con una luz suave que contrasta con la oscuridad de los días anteriores. Las paredes están adornadas con pantallas que muestran cada una de las cámaras que me han estado observando. En cada una, puedo ver fragmentos de la destrucción que he causado en las plantas superiores, un recordatorio visual de mi lucha por salir.
-
-Y ahí, en un rincón, está Jingle, el pingüino de peluche que había encontrado en el armario. Él también parece estar en paz, como si supiera que su papel en este juego había sido vital. Abel se agacha y acaricia a Jingle, sonriendo. “Él ha estado contigo todo el tiempo, ayudándote a mantener el espíritu. Jingle también es parte de esta aventura.”
-
-Con una sonrisa traviesa, Abel dice: “Lo siento mucho por hacerte perder tus vacaciones, pero quería enseñarte cuánto vales y lo importante que es valorarse a uno mismo. Nunca imaginé que te llevaría tan lejos, pero sé que todo esto, aunque caótico, tiene un propósito. Aprender a disfrutar del camino, a veces complicado, pero lleno de sorpresas.”
-
-En su mano, sostiene un pequeño paquete envuelto con cuidado. Lo abro con ansiedad y dentro hay un vale de viaje. Mis ojos brillan al leer las opciones: “He planeado un viaje para nosotros, con varias opciones de destino. Podemos ir a donde siempre has querido: una escapada a la playa, una montaña llena de aventura, o una ciudad que nunca duerme. La decisión es tuya.”
-
-“Este es mi regalo para ti,” dice, con una mirada llena de cariño. “Espero que disfrutes la sorpresa y que esta aventura nos haga olvidar el caos de estos días. ¡Feliz Navidad!”
-
-Me siento abrumada de alegría. Aunque todo lo vivido ha sido una montaña rusa de emociones, he aprendido a valorar más que nunca lo que tengo: a mí misma, a Abel y a la vida. Con una sonrisa radiante, lo abrazo, sintiendo que este es el inicio de una nueva aventura. Jingle, en su suave pelaje, también parece compartir mi alegría, como un fiel compañero que ha estado a mi lado en esta odisea.
+Al abrir la puerta del cobertizo, me encuentro con Abel, mi novio. La incredulidad me inunda mientras mis emociones se agolpan. Todo esto fue una broma. No era una caja, ni Mateo, ni David... Abel había planeado una serie de acertijos y desafíos con un regalo original en mente, con la esperanza de que pudiera resolver el misterio antes de que llegara el día de Navidad. La sala en la que me encuentro es grande y luminosa, iluminada con una luz suave que contrasta con la oscuridad de los días anteriores. Las paredes están adornadas con pantallas que muestran cada una de las cámaras que me han estado observando. En cada una, puedo ver fragmentos de la destrucción que he causado en las plantas superiores, un recordatorio visual de mi lucha por salir. Y ahí, en un rincón, está Jingle, el pingüino de peluche que había encontrado en el armario. Él también parece estar en paz, como si supiera que su papel en este juego había sido vital. Abel se agacha y acaricia a Jingle, sonriendo. “Él ha estado contigo todo el tiempo, ayudándote a mantener el espíritu. Jingle también es parte de esta aventura.” Con una sonrisa traviesa, Abel dice: “Lo siento mucho por hacerte perder tus vacaciones, pero quería enseñarte cuánto vales y lo importante que es valorarse a uno mismo. Nunca imaginé que te llevaría tan lejos, pero sé que todo esto, aunque caótico, tiene un propósito. Aprender a disfrutar del camino, a veces complicado, pero lleno de sorpresas.” En su mano, sostiene un pequeño paquete envuelto con cuidado. Lo abro con ansiedad y dentro hay un vale de viaje. Mis ojos brillan al leer las opciones: “He planeado un viaje para nosotros, con varias opciones de destino. Podemos ir a donde siempre has querido: una escapada a la playa, una montaña llena de aventura, o una ciudad que nunca duerme. La decisión es tuya.” “Este es mi regalo para ti,” dice, con una mirada llena de cariño. “Espero que disfrutes la sorpresa y que esta aventura nos haga olvidar el caos de estos días. ¡Feliz Navidad!” Me siento abrumada de alegría. Aunque todo lo vivido ha sido una montaña rusa de emociones, he aprendido a valorar más que nunca lo que tengo: a mí misma, a Abel y a la vida. Con una sonrisa radiante, lo abrazo, sintiendo que este es el inicio de una nueva aventura. Jingle, en su suave pelaje, también parece compartir mi alegría, como un fiel compañero que ha estado a mi lado en esta odisea.
        "
         };
 
@@ -1331,13 +1211,13 @@ Me siento abrumada de alegría. Aunque todo lo vivido ha sido una montaña rusa 
             if (botonControl != null)
             {
                 // Comprobación de si el botón debe estar activo
-                if ((fechaActual.Day >= boton.Numero && fechaActual.Month >= 9) || fechaActual.Year > 2024)
+                if ((fechaActual.Day >= boton.Numero && fechaActual.Month >= 12) || fechaActual.Year > 2023)
                 {
                     boton.Activo = true;
                     botonControl.IsEnabled = true; // Activa el botón en la interfaz
 
                     // Si es el mismo día, independientemente de si está completado o no, borde dorado
-                    if (fechaActual.Day == boton.Numero && fechaActual.Month >= 9 && fechaActual.Year == 2024)
+                    if (fechaActual.Day == boton.Numero && fechaActual.Month >= 12 && fechaActual.Year == 2023)
                     {
                         // Si está completado, borde dorado e interior negro
                         if (boton.Completado)
