@@ -19,6 +19,8 @@ namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
             scoreToWin = minScoreToWin; // Asigna la puntuación mínima
             tcs = new TaskCompletionSource<bool>();
             titleLabel.Text = titulo;
+            NavigationPage.SetHasNavigationBar(this, false);
+
             UpdateScoreLabel();
         }
 

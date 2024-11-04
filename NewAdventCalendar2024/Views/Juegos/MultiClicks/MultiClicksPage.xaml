@@ -1,8 +1,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.Juegos.MultiClicks.MultiClicksPage"
-             Title="Contador de Clicks"
-             BackgroundColor="White">
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
     <!-- Color de fondo navideño -->
 
     <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Center" Spacing="20" Padding="50">

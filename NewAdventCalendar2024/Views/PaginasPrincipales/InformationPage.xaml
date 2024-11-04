@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.PaginasPrincipales.InformationPage"
-             BackgroundColor="#F5F5DC">
+             BackgroundColor="#F5F5DC"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
 
     <Grid Padding="20">
         <!-- Imagen de fondo -->
@@ -27,14 +29,14 @@
                      Spacing="20" 
                      AbsoluteLayout.LayoutBounds="0.5,0.9,AutoSize,AutoSize"
                      AbsoluteLayout.LayoutFlags="PositionProportional">
-            <Button Text="Pagina Anterior" 
+            <Button Text="Anterior Pagina" 
                     Clicked="OnPreviousPageClicked" 
-                    FontFamily="HappyXmas"
+                    FontFamily="Candy"
                     BackgroundColor="#A0522D"
                     TextColor="#FFFDD0"/>
             <Button Text="Siguiente Pagina" 
                     Clicked="OnNextPageClicked" 
-                    FontFamily="HappyXmas"
+                    FontFamily="Candy"
                     BackgroundColor="#A0522D"
                     TextColor="#FFFDD0"/>
         </StackLayout>

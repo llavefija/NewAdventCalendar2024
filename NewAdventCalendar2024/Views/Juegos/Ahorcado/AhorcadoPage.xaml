@@ -1,8 +1,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.Juegos.Ahorcado.AhorcadoPage"
-             Title="Ahorcado"
-             BackgroundColor="#f0f0f0">
+             BackgroundColor="#f0f0f0"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
 
     <ScrollView>
         <StackLayout Padding="20" Spacing="20">
@@ -19,13 +20,13 @@
             <Image x:Name="hangmanImage" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center" />
 
             <!-- Palabra oculta con guiones bajos separados -->
-            <Label x:Name="wordLabel" FontSize="24" HorizontalOptions="Center" TextColor="Black" />
+            <Label x:Name="wordLabel" FontSize="24" HorizontalOptions="Center" TextColor="Black" FontFamily="Candy"/>
 
             <!-- Letras incorrectas -->
-            <Label x:Name="wrongLettersLabel" Text="Letras incorrectas: " FontSize="18" TextColor="Red" />
+            <Label x:Name="wrongLettersLabel" Text="Letras incorrectas: " FontSize="18" TextColor="#8B0000" FontFamily="HomeXmas"/>
 
             <!-- Intentos restantes -->
-            <Label x:Name="attemptsLabel" FontSize="18" TextColor="Black" />
+            <Label x:Name="attemptsLabel" FontSize="18" TextColor="Black" FontFamily="HomeXmas" />
 
             <!-- Teclado para seleccionar letras, ajustado para que no se salga de la pantalla -->
             <Grid x:Name="letterGrid" RowSpacing="5" ColumnSpacing="5" HorizontalOptions="Center" WidthRequest="300">
@@ -47,32 +48,32 @@
 
                 <!-- Letras del teclado en Grid -->
                 <!-- Ahora se muestran las letras en filas de 7 columnas -->
-                <Button Text="A" Grid.Row="0" Grid.Column="0" Clicked="OnLetterClicked" />
-                <Button Text="B" Grid.Row="0" Grid.Column="1" Clicked="OnLetterClicked" />
-                <Button Text="C" Grid.Row="0" Grid.Column="2" Clicked="OnLetterClicked" />
-                <Button Text="D" Grid.Row="0" Grid.Column="3" Clicked="OnLetterClicked" />
-                <Button Text="E" Grid.Row="0" Grid.Column="4" Clicked="OnLetterClicked" />
-                <Button Text="F" Grid.Row="0" Grid.Column="5" Clicked="OnLetterClicked" />
-                <Button Text="G" Grid.Row="0" Grid.Column="6" Clicked="OnLetterClicked" />
-                <Button Text="H" Grid.Row="1" Grid.Column="0" Clicked="OnLetterClicked" />
-                <Button Text="I" Grid.Row="1" Grid.Column="1" Clicked="OnLetterClicked" />
-                <Button Text="J" Grid.Row="1" Grid.Column="2" Clicked="OnLetterClicked" />
-                <Button Text="K" Grid.Row="1" Grid.Column="3" Clicked="OnLetterClicked" />
-                <Button Text="L" Grid.Row="1" Grid.Column="4" Clicked="OnLetterClicked" />
-                <Button Text="M" Grid.Row="1" Grid.Column="5" Clicked="OnLetterClicked" />
-                <Button Text="N" Grid.Row="1" Grid.Column="6" Clicked="OnLetterClicked" />
-                <Button Text="O" Grid.Row="2" Grid.Column="0" Clicked="OnLetterClicked" />
-                <Button Text="P" Grid.Row="2" Grid.Column="1" Clicked="OnLetterClicked" />
-                <Button Text="Q" Grid.Row="2" Grid.Column="2" Clicked="OnLetterClicked" />
-                <Button Text="R" Grid.Row="2" Grid.Column="3" Clicked="OnLetterClicked" />
-                <Button Text="S" Grid.Row="2" Grid.Column="4" Clicked="OnLetterClicked" />
-                <Button Text="T" Grid.Row="2" Grid.Column="5" Clicked="OnLetterClicked" />
-                <Button Text="U" Grid.Row="2" Grid.Column="6" Clicked="OnLetterClicked" />
-                <Button Text="V" Grid.Row="3" Grid.Column="0" Clicked="OnLetterClicked" />
-                <Button Text="W" Grid.Row="3" Grid.Column="1" Clicked="OnLetterClicked" />
-                <Button Text="X" Grid.Row="3" Grid.Column="2" Clicked="OnLetterClicked" />
-                <Button Text="Y" Grid.Row="3" Grid.Column="3" Clicked="OnLetterClicked" />
-                <Button Text="Z" Grid.Row="3" Grid.Column="4" Clicked="OnLetterClicked" />
+                <Button Text="A" Grid.Row="0" Grid.Column="0" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="B" Grid.Row="0" Grid.Column="1" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="C" Grid.Row="0" Grid.Column="2" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="D" Grid.Row="0" Grid.Column="3" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="E" Grid.Row="0" Grid.Column="4" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="F" Grid.Row="0" Grid.Column="5" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="G" Grid.Row="0" Grid.Column="6" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="H" Grid.Row="1" Grid.Column="0" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="I" Grid.Row="1" Grid.Column="1" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="J" Grid.Row="1" Grid.Column="2" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="K" Grid.Row="1" Grid.Column="3" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="L" Grid.Row="1" Grid.Column="4" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="M" Grid.Row="1" Grid.Column="5" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="N" Grid.Row="1" Grid.Column="6" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="O" Grid.Row="2" Grid.Column="0" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="P" Grid.Row="2" Grid.Column="1" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="Q" Grid.Row="2" Grid.Column="2" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="R" Grid.Row="2" Grid.Column="3" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="S" Grid.Row="2" Grid.Column="4" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="T" Grid.Row="2" Grid.Column="5" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="U" Grid.Row="2" Grid.Column="6" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="V" Grid.Row="3" Grid.Column="1" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="W" Grid.Row="3" Grid.Column="2" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="X" Grid.Row="3" Grid.Column="3" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="Y" Grid.Row="3" Grid.Column="4" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
+                <Button Text="Z" Grid.Row="3" Grid.Column="5" Clicked="OnLetterClicked" FontFamily="HappyXmas" Background="#D3D3D3" BorderColor="Black" BorderWidth="1"/>
             </Grid>
 
         

@@ -17,6 +17,7 @@ namespace NewAdventCalendar2024.Views.Juegos.TicTacToe
         {
             InitializeComponent();
             ResetBoard();
+            NavigationPage.SetHasNavigationBar(this, false);
             titleLabel.Text = titulo;
         }
 

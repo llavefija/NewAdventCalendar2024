@@ -15,6 +15,7 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
         {
             InitializeComponent();
             _db = db;
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializePages();
         }
 

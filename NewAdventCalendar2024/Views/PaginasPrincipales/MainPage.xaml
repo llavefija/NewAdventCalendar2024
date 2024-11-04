@@ -14,7 +14,7 @@
                CornerRadius="10" 
                Padding="5" 
                BackgroundColor="Transparent">
-            <Label Text="Ray: el misterio del calendario"
+            <Label Text="ray: secretos de diciembre"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                FontSize="40"
@@ -45,7 +45,7 @@
                 BorderColor="Gold" 
                 BorderWidth="2" 
                 BackgroundColor="#006400"  
-                TextColor="White"
+                TextColor="Snow"
                 FontFamily="Candy"
                 CornerRadius="35"/>
 
@@ -59,7 +59,7 @@
                 BorderColor="Gold" 
                 BorderWidth="2" 
                 BackgroundColor="#006400" 
-                TextColor="White"
+                TextColor="Snow"
                 FontFamily="Candy"
                 CornerRadius="35"/>
 
@@ -73,7 +73,7 @@
                 BorderColor="Gold" 
                 BorderWidth="2" 
                 BackgroundColor="#006400" 
-                TextColor="White"
+                TextColor="Snow"
                 FontFamily="Candy"
                 CornerRadius="35"/>
             

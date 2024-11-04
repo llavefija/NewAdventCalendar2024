@@ -10,6 +10,7 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
         public MainPage(AppDb db)
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
             _database = db;
         }
 

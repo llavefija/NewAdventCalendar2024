@@ -12,12 +12,18 @@ namespace NewAdventCalendar2024.Views.Juegos.MultiClicks
         private TaskCompletionSource<bool> _tcs;
         private bool gameCompleted = false;
 
-        public MultiClicksPage(int initialClicks, string imageSource, string titulo)
+        public MultiClicksPage(int initialClicks, string imageSource, string titulo, Color backgroundColor)
         {
             InitializeComponent();
             RemainingClicks = initialClicks;
             ImageSource = imageSource;
             titleLabel.Text = titulo;
+
+            this.BackgroundColor = backgroundColor;
+
+            NavigationPage.SetHasNavigationBar(this, false);
+
+
             UpdateBindings();
         }
 

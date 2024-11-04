@@ -21,6 +21,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
             secretWord = palabra.ToLower(); // Asigna la palabra secreta pasada por parámetro
             wordLength = secretWord.Length; // Determina la longitud de la palabra
             titleLabel.Text = titulo;
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeGame(); // Inicializa el juego
             tcs = new TaskCompletionSource<bool>();
         }
@@ -121,11 +122,12 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
                     Text = guess[i].ToString().ToUpper(),
                     FontSize = 30,
                     BackgroundColor = GetResultColor(result[i]),
-                    TextColor = Colors.White,
+                    TextColor = Colors.Black,
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
                     WidthRequest = 50,
-                    HeightRequest = 50
+                    HeightRequest = 50,
+                    FontFamily = "Candy"
                 };
 
                 // Agrega el label al Children
@@ -141,9 +143,9 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
         {
             return result switch
             {
-                'G' => Colors.Green,
-                'Y' => Colors.Yellow,
-                _ => Colors.Gray,
+                'G' => Color.FromArgb("#388E3C"),
+                'Y' => Color.FromArgb("#FFB300"),
+                _ => Color.FromArgb("FFFCF2"),
             };
         }
 

@@ -27,6 +27,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Snake
             InitializeComponent();
             minimumApples = puntos; // Asignamos puntos al mínimo de manzanas
             titleLabel.Text = titulo;
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeGame();
         }
 

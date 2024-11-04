@@ -43,6 +43,8 @@ namespace NewAdventCalendar2024.Views.Juegos.PingPong
             GameView.Drawable = this;
             MinScoreLabel.Text = $"Puntuación mínima para ganar: {minScoreToWin}";
 
+            NavigationPage.SetHasNavigationBar(this, false);
+
             InicializarTcs(new TaskCompletionSource<bool>());
 
             titleLabel.Text = titulo;

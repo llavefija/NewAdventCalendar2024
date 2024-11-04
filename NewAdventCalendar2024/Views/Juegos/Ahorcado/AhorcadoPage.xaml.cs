@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
+using NewAdventCalendar2024.Tools;
 using NewAdventCalendar2024.Interfaces;
 
 namespace NewAdventCalendar2024.Views.Juegos.Ahorcado
@@ -22,7 +23,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Ahorcado
             wordToGuess = word.ToUpper(); // Guardar la palabra en mayúsculas
             guessedLetters = new List<char>();
             incorrectGuesses = 0;
-
+            NavigationPage.SetHasNavigationBar(this, false);
             UpdateWordDisplay();
             UpdateAttemptsDisplay();
             UpdateHangmanImage();
@@ -58,6 +59,10 @@ namespace NewAdventCalendar2024.Views.Juegos.Ahorcado
             var button = sender as Button;
             char guessedLetter = button.Text[0];
             button.IsEnabled = false; // Deshabilitar el botón de letra seleccionada
+          
+
+
+
             guessedLetters.Add(guessedLetter);
 
             if (!wordToGuess.Contains(guessedLetter))
@@ -65,6 +70,13 @@ namespace NewAdventCalendar2024.Views.Juegos.Ahorcado
                 incorrectGuesses++;
                 UpdateHangmanImage();
                 UpdateAttemptsDisplay();
+
+                var toolButton = new ToolBotones((Button)sender);
+
+                await toolButton.AnimateButtonJump();
+
+                button.TextColor = Color.FromArgb("#8B0000"); // Asegurar que el texto sea visible
+                button.BorderColor = Color.FromArgb("#8B0000");
 
                 if (incorrectGuesses >= MaxAttempts)
                 {
@@ -77,6 +89,14 @@ namespace NewAdventCalendar2024.Views.Juegos.Ahorcado
             else
             {
                 UpdateWordDisplay();
+
+                var toolButton = new ToolBotones((Button)sender);
+
+                await toolButton.AnimateButton();
+
+                button.TextColor = Color.FromArgb("#006400"); // Asegurar que el texto sea visible
+                button.BorderColor = Color.FromArgb("#006400");
+
                 if (wordToGuess.All(c => guessedLetters.Contains(c)))
                 {
                     gameCompleted = true;
