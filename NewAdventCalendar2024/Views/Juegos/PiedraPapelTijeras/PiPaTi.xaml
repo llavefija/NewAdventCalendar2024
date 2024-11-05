@@ -4,32 +4,62 @@
              x:Class="NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras.PiPaTiPage"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False">
-    
+
     <VerticalStackLayout Spacing="20" Padding="30" HorizontalOptions="Center">
-        
+
+        <!-- Título del Juego -->
         <Label x:Name="titleLabel"
-        Text="Multi Clicks"
-        FontSize="32"
-        TextColor="#0AA7EA" 
-        HorizontalTextAlignment="Center"
-        FontFamily="HomeXmas"
-        VerticalOptions="Start" />
+               Text="Piedra, Papel o Tijeras"
+               FontSize="32"
+               TextColor="#0AA7EA"
+               HorizontalTextAlignment="Center"
+               FontFamily="HomeXmas"
+               VerticalOptions="Start" />
 
-        <Label x:Name="RoundResultLabel" Text="Elige tu jugada" FontSize="24" HorizontalOptions="Center" />
+        <!-- Visualización de la Elección de la Máquina -->
+        <Label Text="Eleccion de la Maquina:" FontSize="18" HorizontalOptions="Center" FontFamily="Candy"/>
+        <Image x:Name="MachineChoiceImage" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" />
+        <Label x:Name="MachineChoiceLabel" FontSize="19" Text="" HorizontalOptions="Center" FontFamily="Candy"/>
 
-        <HorizontalStackLayout HorizontalOptions="Center">
-            <Image x:Name="PlayerChoiceImage" WidthRequest="100" HeightRequest="100" />
-            <Label x:Name="ResultLabel" Text="VS" FontSize="32" HorizontalOptions="Center" />
-            <Image x:Name="MachineChoiceImage" WidthRequest="100" HeightRequest="100" />
+        <!-- Resultado de la Ronda -->
+        <Label x:Name="RoundResultLabel" Text="Elige tu jugada" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="HomeXmas"/>
+
+        <!-- Marcador -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+            <Label x:Name="PlayerScoreLabel" Text="0" FontSize="24" TextColor="Cyan" HorizontalOptions="Center" FontFamily="HomeXmas"/>
+            <Label x:Name="ScoreLabel" Text="VS" FontSize="24" TextColor="#FFFFFF" HorizontalOptions="Center" FontFamily="HomeXmas"/>
+            <Label x:Name="MachineScoreLabel" Text="0" FontSize="24" TextColor="Red" HorizontalOptions="Center" FontFamily="HomeXmas"/>
+        </StackLayout>
+        <Label x:Name="GameStatusLabel" Text="" FontSize="24" HorizontalOptions="Center" FontFamily="HomeXmas"/>
+
+        <!-- Botones de Piedra, Papel y Tijeras con Imágenes -->
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="10">
+            <!-- Espaciado entre los botones -->
+            <StackLayout HorizontalOptions="Center">
+                <Button x:Name="ButtonPiedra" Clicked="OnPlayerChoice" CommandParameter="Piedra" BackgroundColor="Transparent">
+                    <Button.ImageSource>
+                        <FileImageSource File="piedra.png" />
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="Piedra" HorizontalOptions="Center" FontFamily="Candy" FontSize="19"/>
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center">
+                <Button x:Name="ButtonPapel" Clicked="OnPlayerChoice" CommandParameter="Papel" BackgroundColor="Transparent" >
+                    <Button.ImageSource>
+                        <FileImageSource File="papel.png" />
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="Papel" HorizontalOptions="Center" FontFamily="Candy" FontSize="19"/>
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center">
+                <Button x:Name="ButtonTijeras" Clicked="OnPlayerChoice" CommandParameter="Tijeras" BackgroundColor="Transparent">
+                    <Button.ImageSource>
+                        <FileImageSource File="tijeras.png" />
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="Tijeras" HorizontalOptions="Center" FontFamily="Candy" FontSize="19"/>
+            </StackLayout>
         </HorizontalStackLayout>
 
-        <HorizontalStackLayout HorizontalOptions="Center">
-            <Button x:Name="ButtonPiedra" Text="Piedra" Clicked="OnPlayerChoice" CommandParameter="Piedra" />
-            <Button x:Name="ButtonPapel" Text="Papel" Clicked="OnPlayerChoice" CommandParameter="Papel" />
-            <Button x:Name="ButtonTijeras" Text="Tijeras" Clicked="OnPlayerChoice" CommandParameter="Tijeras" />
-        </HorizontalStackLayout>
-
-        <Label x:Name="ScoreLabel" Text="Tu Puntuación: 0 | Máquina: 0" FontSize="24" HorizontalOptions="Center" />
-        <Label x:Name="GameStatusLabel" Text="" FontSize="24" HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

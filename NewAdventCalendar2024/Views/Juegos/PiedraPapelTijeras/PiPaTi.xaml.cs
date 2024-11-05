@@ -7,16 +7,15 @@ namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
 {
     public partial class PiPaTiPage : ContentPage, IGamePage
     {
-        private int playerScore = 0;         // Puntuación del jugador
-        private int machineScore = 0;         // Puntuación de la máquina
-        private int scoreToWin;                // Puntuación para ganar
+        private int playerScore = 0;
+        private int machineScore = 0;
+        private int scoreToWin;
         private TaskCompletionSource<bool> tcs;
 
-        // Constructor que acepta la puntuación mínima como parámetro
         public PiPaTiPage(int minScoreToWin, string titulo)
         {
             InitializeComponent();
-            scoreToWin = minScoreToWin; // Asigna la puntuación mínima
+            scoreToWin = minScoreToWin;
             tcs = new TaskCompletionSource<bool>();
             titleLabel.Text = titulo;
             NavigationPage.SetHasNavigationBar(this, false);
@@ -24,7 +23,6 @@ namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
             UpdateScoreLabel();
         }
 
-        // Implementación del método de la interfaz
         public void InicializarTcs(TaskCompletionSource<bool> tcs)
         {
             this.tcs = tcs;
@@ -38,14 +36,14 @@ namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
                 string machineChoice = GetMachineChoice();
                 string result = GetResult(playerChoice, machineChoice);
 
-                // Actualiza las imágenes basadas en las elecciones
+                // Actualiza las imágenes y las etiquetas de elección
                 UpdateChoiceImages(playerChoice, machineChoice);
 
                 // Muestra el resultado de la ronda
                 RoundResultLabel.Text = $"Tú elegiste: {playerChoice} | Máquina eligió: {machineChoice}";
                 GameStatusLabel.Text = result;
 
-                // Actualiza el marcador según el resultado
+                // Actualiza el marcador basado en el resultado
                 if (result == "Ganaste!")
                 {
                     playerScore++;
@@ -57,7 +55,7 @@ namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
 
                 UpdateScoreLabel();
 
-                // Verifica si alguien ha alcanzado la puntuación objetivo
+                // Verifica si alguien alcanzó la puntuación objetivo
                 if (playerScore >= scoreToWin || machineScore >= scoreToWin)
                 {
                     EndGame(playerScore >= scoreToWin);
@@ -68,7 +66,8 @@ namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
 
         private void UpdateScoreLabel()
         {
-            ScoreLabel.Text = $"Tu Puntuación: {playerScore} | Máquina: {machineScore}";
+            PlayerScoreLabel.Text = playerScore.ToString();
+            MachineScoreLabel.Text = machineScore.ToString();
         }
 
         private void EndGame(bool playerWon)
@@ -80,15 +79,14 @@ namespace NewAdventCalendar2024.Views.Juegos.PiedraPapelTijeras
 
             // Muestra el estado final del juego
             GameStatusLabel.Text = playerWon ? "¡Has ganado el juego!" : "La máquina ha ganado el juego.";
-            tcs.SetResult(playerWon); // Finaliza el juego con base en la puntuación
-
+            tcs.SetResult(playerWon);
         }
 
         private void UpdateChoiceImages(string playerChoice, string machineChoice)
         {
-            // Asegúrate de tener las imágenes correctamente nombradas
-            MachineChoiceImage.Source = $"machine_{machineChoice.ToLower()}.png";
-            PlayerChoiceImage.Source = $"player_{playerChoice.ToLower()}.png";
+            // Actualiza las imágenes de acuerdo a las elecciones
+            MachineChoiceImage.Source = $"{machineChoice.ToLower()}.png";
+            MachineChoiceLabel.Text = machineChoice; // Muestra la elección de la máquina
         }
 
         private string GetMachineChoice()
