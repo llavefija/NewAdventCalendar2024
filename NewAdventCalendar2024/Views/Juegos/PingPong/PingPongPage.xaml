@@ -14,7 +14,7 @@
                TextColor="#EFCF1B" 
                HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
-               VerticalOptions="Start" />  
+               VerticalOptions="Start" />
 
         <!-- Aquí se dibujará el campo de juego -->
         <GraphicsView x:Name="GameView"
@@ -29,16 +29,22 @@
              HorizontalOptions="Center"
              Spacing="20"
              Padding="20">
-            
+
             <!-- Boton de subida -->
             <Button Text="UP" WidthRequest="100" HeightRequest="100" 
                     Pressed="MoveUp" Released="OnButtonReleased"
-                    FontFamily="HomeXmas"/>
-            
+                    BackgroundColor="SandyBrown"
+                    BorderWidth="1"
+                    BorderColor="White"
+                    FontFamily="Candy"/>
+
             <!-- Boton de bajada -->
             <Button Text="DOWN" WidthRequest="100" HeightRequest="100" 
                     Pressed="MoveDown" Released="OnButtonReleased"
-                    FontFamily="HomeXmas"/>
+                    BackgroundColor="SandyBrown"
+                    BorderWidth="1"
+                    BorderColor="White"
+                    FontFamily="Candy"/>
 
         </StackLayout>
 

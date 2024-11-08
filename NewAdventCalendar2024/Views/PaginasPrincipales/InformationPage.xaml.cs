@@ -75,8 +75,24 @@ Este chalet misterioso llama a mi curiosidad, aunque preferiría estar tomando el
 
         private void DisplayCurrentPage()
         {
+            // Mostrar la imagen de tapa en la primera página y la hoja en las demás
+            if (_currentPageIndex == 0)
+            {
+                // Configurar tapa y ocultar texto
+                BackgroundImage.Source = "tapalibreta.png";
+                PageText.IsVisible = false; // Ocultar texto en la tapa
+            }
+            else
+            {
+                // Configurar hoja y mostrar texto
+                BackgroundImage.Source = "hojalibreta.png";
+                PageText.IsVisible = true; // Mostrar texto en el resto de páginas
+            }
+
+            // Actualizar el texto de la página
             PageText.Text = _pages[_currentPageIndex];
         }
+
 
         private void OnPreviousPageClicked(object sender, EventArgs e)
         {

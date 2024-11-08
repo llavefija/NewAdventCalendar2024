@@ -2,44 +2,50 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.PaginasPrincipales.InformationPage"
-             BackgroundColor="#F5F5DC"
+             BackgroundColor="Black"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False">
 
-    <Grid Padding="20">
-        <!-- Imagen de fondo -->
-        <Image Source="libretaimage.png" Aspect="AspectFill"/>
+    <Grid Padding="0">
+        <!-- Imagen de fondo ajustada para llenar toda la pantalla -->
+        <Image x:Name="BackgroundImage" 
+               Aspect="Fill" 
+               VerticalOptions="FillAndExpand"
+               HorizontalOptions="FillAndExpand"/>
 
-        <!-- Texto sobre la imagen -->
-        <Label x:Name="PageText" 
-               Text="Texto de la primera página" 
-               FontSize="9" 
-               FontAttributes="Bold" 
-               HorizontalOptions="Center" 
-               VerticalOptions="Center" 
-               TextColor="Black"
-               BackgroundColor="Transparent"
-               FontFamily="Libretasemibold"
-               Padding="10"/>
+        <!-- Contenedor para el texto sobre la imagen -->
+        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Label x:Name="PageText" 
+                   Text="Texto de la primera página" 
+                   FontSize="9" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Start" 
+                   VerticalOptions="Start" 
+                   TextColor="Black"
+                   BackgroundColor="Transparent"
+                   FontFamily="Libretasemibold"
+                   Padding="10"
+                   Margin="20, 50, 0, 0"
+                   IsVisible="False" />
+                <!-- Oculto por defecto -->
 
-        <!-- Botones para navegar entre páginas -->
-        <StackLayout Orientation="Horizontal" 
-                     HorizontalOptions="Center" 
-                     VerticalOptions="End" 
-                     Spacing="20" 
-                     AbsoluteLayout.LayoutBounds="0.5,0.9,AutoSize,AutoSize"
-                     AbsoluteLayout.LayoutFlags="PositionProportional">
-            <Button Text="Anterior Pagina" 
-                    Clicked="OnPreviousPageClicked" 
-                    FontFamily="Candy"
-                    BackgroundColor="#A0522D"
-                    TextColor="#FFFDD0"/>
-            <Button Text="Siguiente Pagina" 
-                    Clicked="OnNextPageClicked" 
-                    FontFamily="Candy"
-                    BackgroundColor="#A0522D"
-                    TextColor="#FFFDD0"/>
-        </StackLayout>
+                <!-- Botones para navegar entre páginas -->
+                <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="Center" 
+                         VerticalOptions="End" 
+                         Spacing="20" 
+                         Padding="10, 0">
+                    <Button Text="Anterior Pagina" 
+                        Clicked="OnPreviousPageClicked" 
+                        FontFamily="Candy"
+                        BackgroundColor="#A0522D"
+                        TextColor="#FFFDD0"/>
+                    <Button Text="Siguiente Pagina" 
+                        Clicked="OnNextPageClicked" 
+                        FontFamily="Candy"
+                        BackgroundColor="#A0522D"
+                        TextColor="#FFFDD0"/>
+                </StackLayout>
+        </Grid>
     </Grid>
-    
 </ContentPage>

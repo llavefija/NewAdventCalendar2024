@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
@@ -18,37 +19,56 @@ namespace NewAdventCalendar2024.Views.Juegos.PingPong
         private float speedIncrement = 1f, paddleSpeed = 8f;
 
         private TaskCompletionSource<bool> tcs;
+        private bool ballDirectionToRight; // Determina la dirección inicial después de cada gol
+
+        private bool isPaused = false; // Nueva variable para controlar la pausa
 
         public PingPongPage(float SpeedIncrement, int MinScoretoWin, float PaddleSpeed, string titulo)
         {
             InitializeComponent();
 
+            // Guardar las configuraciones iniciales de juego
+            this.paddleSpeed = PaddleSpeed;
+            this.speedIncrement = SpeedIncrement;
+            this.minScoreToWin = MinScoretoWin;
+
+            // Configurar la vista y otros elementos
+            GameView.Drawable = this;
+            MinScoreLabel.Text = $"Puntuación mínima para ganar: {minScoreToWin}";
+            titleLabel.Text = titulo;
+
+            // Inicializar tcs
+            InicializarTcs(new TaskCompletionSource<bool>());
+
+            // Ocultar barra de navegación
+            NavigationPage.SetHasNavigationBar(this, false);
+
+            // Llamar al método de inicialización asíncrona
+            _ = InicializarJuegoAsync(); // Ignoramos el resultado ya que no necesitamos esperar aquí
+        }
+
+        private async Task InicializarJuegoAsync()
+        {
+
+            // Calcular dimensiones del campo de juego
             float screenWidth = (float)(DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density);
             float fieldAspectRatio = 4f / 3f;
             fieldWidth = screenWidth * 0.9f;
             fieldHeight = fieldWidth / fieldAspectRatio + 100;
 
-            this.paddleSpeed = PaddleSpeed;
-            this.speedIncrement = SpeedIncrement;
-            this.minScoreToWin = MinScoretoWin;
-
+            // Ubicar pelota y palas en sus posiciones iniciales
             ballX = fieldWidth / 2;
             ballY = fieldHeight / 2;
             paddle1Y = fieldHeight / 2 - paddleHeight / 2;
             paddle2Y = fieldHeight / 2 - paddleHeight / 2;
 
-            ballSpeedX = 3f; // Velocidad inicial de la pelota
-            ballSpeedY = 3f; // Velocidad inicial de la pelota
+            // Comenzar con la dirección hacia la derecha
+            ballDirectionToRight = true;
 
-            GameView.Drawable = this;
-            MinScoreLabel.Text = $"Puntuación mínima para ganar: {minScoreToWin}";
+            // Asignar una dirección inicial aleatoria a la pelota
+            SetRandomInitialBallDirection();
 
-            NavigationPage.SetHasNavigationBar(this, false);
-
-            InicializarTcs(new TaskCompletionSource<bool>());
-
-            titleLabel.Text = titulo;
-
+            // Iniciar el temporizador para la actualización del juego
             Dispatcher.StartTimer(TimeSpan.FromMilliseconds(20), () =>
             {
                 UpdateGame();
@@ -70,6 +90,59 @@ namespace NewAdventCalendar2024.Views.Juegos.PingPong
             });
         }
 
+        private void SetRandomInitialBallDirection()
+        {
+            // Generar dirección inicial aleatoria en una de las cuatro diagonales
+            Random rnd = new Random();
+            int direction = rnd.Next(4); // Valores 0-3
+            float initialSpeed = 3f;
+
+            switch (direction)
+            {
+                case 0: // Derecha hacia arriba
+                    ballSpeedX = initialSpeed;
+                    ballSpeedY = -initialSpeed;
+                    break;
+                case 1: // Derecha hacia abajo
+                    ballSpeedX = initialSpeed;
+                    ballSpeedY = initialSpeed;
+                    break;
+                case 2: // Izquierda hacia arriba
+                    ballSpeedX = -initialSpeed;
+                    ballSpeedY = -initialSpeed;
+                    break;
+                case 3: // Izquierda hacia abajo
+                    ballSpeedX = -initialSpeed;
+                    ballSpeedY = initialSpeed;
+                    break;
+            }
+        }
+
+        private async void ResetBallAfterGoal()
+        {
+            // Centrar la pelota después de cada gol
+            ballX = fieldWidth / 2;
+            ballY = fieldHeight / 2;
+
+            // Configurar velocidad base y elegir dirección según el último gol
+            float baseSpeed = 3f;
+            ballSpeedX = ballDirectionToRight ? -baseSpeed : baseSpeed;
+
+            // Evitar un movimiento completamente vertical
+            Random rnd = new Random();
+            ballSpeedY = rnd.Next(0, 2) == 0 ? -baseSpeed : baseSpeed;
+
+            // Reiniciar las palas a su posición inicial
+            paddle1Y = fieldHeight / 2 - paddleHeight / 2;
+            paddle2Y = fieldHeight / 2 - paddleHeight / 2;
+
+            // Pausar el juego por 3 segundos
+            isPaused = true;
+            await Task.Delay(3000); // Pausa de 3 segundos
+            isPaused = false;
+        }
+
+
         public void InicializarTcs(TaskCompletionSource<bool> tcs)
         {
             this.tcs = tcs;
@@ -80,10 +153,10 @@ namespace NewAdventCalendar2024.Views.Juegos.PingPong
             float offsetX = (dirtyRect.Width - fieldWidth) / 2;
             float offsetY = (dirtyRect.Height - fieldHeight) / 2;
 
-            canvas.FillColor = Colors.Black;
+            canvas.FillColor = Colors.ForestGreen;
             canvas.FillRectangle(dirtyRect);
 
-            canvas.StrokeColor = Colors.White;
+            canvas.StrokeColor = Colors.SandyBrown;
             canvas.StrokeSize = 2;
             canvas.DrawLine(offsetX, offsetY, offsetX + fieldWidth, offsetY);
             canvas.DrawLine(offsetX, offsetY + fieldHeight, offsetX + fieldWidth, offsetY + fieldHeight);
@@ -102,54 +175,48 @@ namespace NewAdventCalendar2024.Views.Juegos.PingPong
 
         private void UpdateGame()
         {
+            // Si el juego está pausado, no actualizamos nada
+            if (isPaused) return;
+
             ballX += ballSpeedX;
             ballY += ballSpeedY;
 
-            // Rebotar al llegar al borde superior o inferior
-            if (ballY <= 0 || ballY >= fieldHeight)
-                ballSpeedY = -ballSpeedY;
+            if (ballY <= 0 || ballY >= fieldHeight) ballSpeedY = -ballSpeedY;
 
-            // Colisiones con las palas
             if (ballX <= 60 && ballY >= paddle1Y && ballY <= paddle1Y + paddleHeight)
             {
-                // Ajuste de rebote basado en la posición de la pala
                 float impactPoint = (ballY - paddle1Y) / paddleHeight;
-                ballSpeedX = -ballSpeedX; // Cambiar dirección
-                ballSpeedY = (impactPoint - 0.5f) * 10; // Aumentar/reducir velocidad en Y basado en el impacto
-                ballSpeedX = Math.Abs(ballSpeedX) + speedIncrement; // Mantener dirección positiva y añadir incremento
+                ballSpeedX = Math.Abs(ballSpeedX) + speedIncrement;
+                ballSpeedY = (impactPoint - 0.5f) * 10;
             }
 
             if (ballX >= fieldWidth - 60 && ballY >= paddle2Y && ballY <= paddle2Y + paddleHeight)
             {
                 float impactPoint = (ballY - paddle2Y) / paddleHeight;
-                ballSpeedX = -ballSpeedX;
+                ballSpeedX = -Math.Abs(ballSpeedX) - speedIncrement;
                 ballSpeedY = (impactPoint - 0.5f) * 10;
-                ballSpeedX = -Math.Abs(ballSpeedX) - speedIncrement; // Mantener dirección negativa y añadir incremento
             }
 
-            // Puntos y reinicio de la pelota
             if (ballX <= 0)
             {
                 machineScore++;
+                ballDirectionToRight = true;
                 ResetBallAfterGoal();
             }
             else if (ballX >= fieldWidth)
             {
                 playerScore++;
+                ballDirectionToRight = false;
                 ResetBallAfterGoal();
             }
 
-            // Movimiento de la pala del rival (IA simple)
             if (paddle2Y < ballY - paddleHeight / 2 && paddle2Y < fieldHeight - paddleHeight)
                 paddle2Y += paddleSpeed;
             else if (paddle2Y > ballY - paddleHeight / 2 && paddle2Y > 0)
                 paddle2Y -= paddleSpeed;
 
-            // Movimiento de la pala del jugador
-            if (isMovingUp && paddle1Y > 0)
-                paddle1Y -= paddleSpeed;
-            if (isMovingDown && paddle1Y < fieldHeight - paddleHeight)
-                paddle1Y += paddleSpeed;
+            if (isMovingUp && paddle1Y > 0) paddle1Y -= paddleSpeed;
+            if (isMovingDown && paddle1Y < fieldHeight - paddleHeight) paddle1Y += paddleSpeed;
 
             ScoreLabel.Text = $"Jugador: {playerScore} | Máquina: {machineScore}";
 
@@ -168,15 +235,6 @@ namespace NewAdventCalendar2024.Views.Juegos.PingPong
                 else if (button.Text == "DOWN")
                     isMovingDown = false;
             }
-        }
-
-        private async void ResetBallAfterGoal()
-        {
-            ballX = fieldWidth / 2;
-            ballY = fieldHeight / 2;
-            ballSpeedX = 3f; // Reiniciar velocidad
-            ballSpeedY = 3f;
-            await Task.Delay(1000);
         }
 
         public Task<bool> GetGameResultAsync() => tcs.Task;

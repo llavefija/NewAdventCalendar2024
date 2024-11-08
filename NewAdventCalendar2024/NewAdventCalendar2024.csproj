@@ -86,12 +86,13 @@
 	  <None Remove="Resources\Images\corrazongorro.svg" />
 	  <None Remove="Resources\Images\fondoicon2.png" />
 	  <None Remove="Resources\Images\grancaja.png" />
-	  <None Remove="Resources\Images\libretaimage.png" />
+	  <None Remove="Resources\Images\hojalibreta.png" />
 	  <None Remove="Resources\Images\papel.png" />
 	  <None Remove="Resources\Images\piedra.png" />
 	  <None Remove="Resources\Images\pingu.png" />
 	  <None Remove="Resources\Images\puerta.png" />
 	  <None Remove="Resources\Images\regalo.png" />
+	  <None Remove="Resources\Images\tapalibreta.png" />
 	  <None Remove="Resources\Images\tijeras.png" />
 	</ItemGroup>
 

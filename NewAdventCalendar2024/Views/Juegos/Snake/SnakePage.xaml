@@ -12,28 +12,30 @@
                TextColor="#06E725" 
                HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
-               VerticalOptions="Start" />  
-
-        <GraphicsView x:Name="gameView"
-                      HeightRequest="400"
-                      WidthRequest="400"
-                      VerticalOptions="CenterAndExpand"
-                      HorizontalOptions="CenterAndExpand"/>
+               VerticalOptions="Start"
+               Margin="0, 20, 0, 0"/>
 
         <Label x:Name="scoreLabel"
                Text="Puntaje: 0 / Min Apples"
-               HorizontalOptions="Center"
-               VerticalOptions="Start"
                FontSize="18"
-               Margin="10"/>
+               TextColor="#06E725"
+               HorizontalTextAlignment="Center"
+               VerticalOptions="Start"
+               Margin="0, 60, 0, 0"/>
+
+        <GraphicsView x:Name="gameView"
+              HeightRequest="250"
+              WidthRequest="250"
+              VerticalOptions="CenterAndExpand"
+              HorizontalOptions="CenterAndExpand"/>
 
         <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="End" Padding="10">
-            <Button Text="↑" Clicked="OnMoveUpClicked"/>
+            <Button Text="↑" Clicked="OnMoveUpClicked" WidthRequest="60" HeightRequest="60"/>
             <StackLayout Orientation="Horizontal">
-                <Button Text="←" Clicked="OnMoveLeftClicked"/>
-                <Button Text="→" Clicked="OnMoveRightClicked"/>
+                <Button Text="←" Clicked="OnMoveLeftClicked" WidthRequest="60" HeightRequest="60"/>
+                <Button Text="→" Clicked="OnMoveRightClicked" WidthRequest="60" HeightRequest="60"/>
             </StackLayout>
-            <Button Text="↓" Clicked="OnMoveDownClicked"/>
+            <Button Text="↓" Clicked="OnMoveDownClicked" WidthRequest="60" HeightRequest="60"/>
         </StackLayout>
     </Grid>
 </ContentPage>
