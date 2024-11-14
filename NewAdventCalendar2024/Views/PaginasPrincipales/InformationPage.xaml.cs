@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Maui.Controls;
 using NewAdventCalendar2024.Data;
 using System.Threading.Tasks;
+using NewAdventCalendar2024.Models;
 
 namespace NewAdventCalendar2024.Views.PaginasPrincipales
 {
@@ -21,29 +22,47 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
 
         private async void InitializePages()
         {
+            var botonDia1 = await _db.GetBotonPorId(1);
             _pages = new List<string>
-            {
+            {"", 
+       // Condición para incluir "Anotaciones de Ray" solo si el botón está activo.
+         botonDia1.Activo ? @"Mis anotaciones para este juego misterioso.
+
+He decidido escribir algunas notas... en caso de que algo salga mal. No sé por qué, pero siento que lo que estoy a punto de enfrentar no será tan sencillo como parece.
+
+--Advertencias para Sobrevivir al Juego Diario--
+
+·31 días, 31 recompensas, 31 riesgos ocultos
+
+    Cada día está envuelto en una nueva capa de misterio. No sé exactamente qué obtendré, ni qué debo hacer para conseguirlo. Al parecer, hay algo escondido tras cada desafío diario, pero algo me dice que estas recompensas no serán solo trofeos... ¿qué podría encontrar al final?
+
+·Un Enigma Diferente Cada Día
+
+    No puedo detener el tiempo. El reloj avanza, y cada día tiene un propósito. Me dijeron que debo enfrentar algo diferente cada vez, y que solo al resolverlo encontraré la clave para desbloquear lo siguiente. Lo que parece un juego puede ser más que eso; quizás, cada desafío diario me esté preparando para algo mayor, más oscuro. Algo que aún no he descubierto.
+
+·Una Cuenta Atrás hasta el Último Día
+
+    Parece un juego de niños, pero hay algo inquietante en esta cuenta atrás. Mi instinto me dice que hay algo esperando al final, y aunque no sé qué será, debo mantenerme alerta. Esto no será una simple aventura, y cada paso hacia adelante también puede ser uno hacia el peligro..."
+        : "Aun Ray no ha apuntado nada",
+
                 // Entrada del 29 de noviembre
           @"29 de noviembre de 2024 - Expectativa de Vacaciones
 
-¡Por fin! Las vacaciones están a la vuelta de la esquina. He estado soñando con este momento: un lugar caluroso, donde el sol brilla y la arena se siente suave bajo mis pies. A pesar de que el frío se siente cada vez más intenso, tengo la mente llena de imágenes de playas tropicales y cócteles refrescantes.
+Vacaciones, por fin. Solo la idea me llena de entusiasmo y me hace olvidar el estrés de los últimos días. Tengo un billete para un lugar soleado, y ya casi puedo sentir la arena caliente bajo mis pies. ¿Por qué no? Me lo he ganado.
 
-¡Y me lo merezco, claro que sí! Después de tantos casos, sobre todo este mes de noviembre, ¡bufff! Tengo la cabeza hecha un bombo...
+Los casos de noviembre han sido agotadores, pero todo eso está a punto de quedar atrás. Llevo semanas preparando mi maleta con cada detalle: mis gafas de sol, mi protector solar, un buen libro. Mi plan es simple: relajarme y desconectar de todo. Solo paz... o eso creía.
 
-Llevo días preparando mi maleta, asegurándome de no olvidar nada: gafas de sol, protector solar y un buen libro para leer mientras me relajo. Después de semanas de trabajo duro y casos estresantes, este descanso es más que merecido. ¡Diciembre será solo para mí!
-
-Cierro mi libreta con una sonrisa, lista para emprender mi aventura. Este diciembre, solo paz y desconexión me esperan.",
+Pero mientras hago los últimos preparativos, tengo una sensación extraña. Algo que me impide celebrar plenamente. No es nada específico, solo... una corazonada. Trato de ignorarla, atribuyéndolo al cansancio. Cierro mi libreta con una sonrisa, tratando de convencerme de que, a partir de ahora, todo será calma. Estoy lista para este viaje... aunque hay algo que me dice que no todo está bajo mi control.",
 
 
                 // Entrada del 30 de noviembre
                  @"30 de noviembre de 2024 - La Tarjeta Misteriosa
 
-Hoy, mientras organizaba mis cosas, encontré algo inesperado: una tarjeta que decía “Nos vemos pronto, Sra. detective”, seguida de una dirección. Al leerla, mi corazón se hundió. Era la dirección de un chalet en medio de la nada.
+Hoy, mientras organizaba mis cosas para el viaje, una tarjeta inesperada se deslizó fuera de mi bolso. En ella, unas pocas palabras bastaron para hacerme olvidar el sol y la playa: 'Nos vemos pronto, Sra. detective'. Seguido de una dirección... en mitad de la nada.
 
-¿Realmente tengo que ir allí en lugar de disfrutar de la playa? ¿Por qué me pasa esto justo cuando estoy lista para escapar del frío? Me siento frustrada, pero sé que como detective no puedo ignorarlo.
+Al verla, mi mente intenta encontrar alguna explicación lógica, pero solo siento que el suelo se vuelve inestable bajo mis pies. Esta dirección no me resulta familiar, y aunque preferiría ignorarla y seguir con mis vacaciones, mi deber como detective me llama. ¿Es una simple coincidencia o alguien me está buscando?
 
-Este chalet misterioso llama a mi curiosidad, aunque preferiría estar tomando el sol. Parece que el destino tiene otros planes para mí. Tendré que enfrentar este misterio, aunque me pese. Una vez más, cierro mi libreta con la esperanza de no usarla... pero por si acaso, mejor la guardo en mi mochila."
-        };
+Mi instinto me dice que algo está por comenzar, y aunque cada fibra de mi ser me dice que evite esa dirección, no puedo hacerlo. Cierro mi libreta, pero esta vez con una sensación de incertidumbre que no puedo disipar. Ya no siento la misma emoción por el viaje; algo mucho más serio ha captado mi atención. Decido llevar conmigo la libreta. Puede que la necesite. Quizás más pronto de lo que creo..."};
 
             // Añade las páginas de diciembre
             for (int day = 1; day <= 31; day++)
@@ -75,24 +94,27 @@ Este chalet misterioso llama a mi curiosidad, aunque preferiría estar tomando el
 
         private void DisplayCurrentPage()
         {
-            // Mostrar la imagen de tapa en la primera página y la hoja en las demás
+            // Lógica para mostrar las tapas y las hojas según el índice de página actual
             if (_currentPageIndex == 0)
             {
-                // Configurar tapa y ocultar texto
-                BackgroundImage.Source = "tapalibreta.png";
+                // Primera página: mostrar la tapa delantera
+                BackgroundImage.Source = "tapadelanteralibreta.png";
+                PageText.IsVisible = false; // Ocultar texto en la tapa
+            }
+            else if (_currentPageIndex == _pages.Count) // La página final + 1
+            {
+                // Última página + 1: mostrar la tapa trasera
+                BackgroundImage.Source = "tapatraseralibreta.png";
                 PageText.IsVisible = false; // Ocultar texto en la tapa
             }
             else
             {
-                // Configurar hoja y mostrar texto
+                // Páginas intermedias: mostrar las hojas
                 BackgroundImage.Source = "hojalibreta.png";
                 PageText.IsVisible = true; // Mostrar texto en el resto de páginas
+                PageText.Text = _pages[_currentPageIndex]; // Actualizar el texto de la página
             }
-
-            // Actualizar el texto de la página
-            PageText.Text = _pages[_currentPageIndex];
         }
-
 
         private void OnPreviousPageClicked(object sender, EventArgs e)
         {
@@ -105,7 +127,7 @@ Este chalet misterioso llama a mi curiosidad, aunque preferiría estar tomando el
 
         private void OnNextPageClicked(object sender, EventArgs e)
         {
-            if (_currentPageIndex < _pages.Count - 1)
+            if (_currentPageIndex <= _pages.Count) // Permitir acceder a la última + 1 para la tapa trasera
             {
                 _currentPageIndex++;
                 DisplayCurrentPage();

@@ -1,7 +1,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewAdventCalendar2024.Views.Juegos.MultiClicks.MultiClicksPage"
-             BackgroundColor="White"
+             BackgroundColor="#0A0A0A"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False">
     <!-- Color de fondo navideño -->
@@ -11,7 +11,7 @@
         <Label x:Name="titleLabel"
                Text="Multi Clicks"
                FontSize="32"
-               TextColor="#D32F2F" 
+               TextColor="#FFD700" 
                HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
                VerticalOptions="Start" />
@@ -20,9 +20,9 @@
             <Label x:Name="clickCountLabel"
                Text="{Binding RemainingClicks, StringFormat='Clicks restantes: {0}'}"
                 FontSize="24"
-               TextColor="#388E3C"
+               TextColor="White"
                 HorizontalTextAlignment="Center"
-               FontFamily="HomeXmas"
+               FontFamily="PlayfulXmas"
                VerticalOptions="Start" />
 
                 <!-- Imagen que reducirá su tamaño sin límite -->

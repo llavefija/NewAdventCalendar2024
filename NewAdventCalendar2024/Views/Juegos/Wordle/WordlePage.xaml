@@ -17,25 +17,29 @@
 
         <!-- Campo de texto para adivinar -->
         <Entry x:Name="GuessEntry" 
-               Placeholder="Ingresa tu palabra" 
+               Placeholder="INGRESA TU PALABRA" 
                TextColor="Black"
                BackgroundColor="Snow"
-               FontFamily="HomeXmas"/>
+               FontSize="30"
+               Margin="30,30,30,30"
+               HorizontalTextAlignment="Center"
+               FontFamily="PlayfulXmas"/>
 
         <!-- Botón para hacer la conjetura -->
-        <Button Text="adivinar" 
+        <Button Text="ADIVINAR" 
                 Clicked="OnGuessButtonClicked" 
                 BackgroundColor="#4CAF50" 
                 TextColor="Snow"
-                FontFamily="HomeXmas"/>
+                FontSize="30"
+                FontFamily="PlayfulXmas"/>
 
         <!-- Cuadrícula dinámica para mostrar las letras adivinadas -->
-        <Grid x:Name="WordGrid" Padding="10" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Grid x:Name="WordGrid" Padding="10" HorizontalOptions="Center" VerticalOptions="Center" />
 
         <Label x:Name="MessageLabel" 
-               FontSize="18" 
                HorizontalOptions="Center" 
                TextColor="Black"
-               FontFamily="HomeXmas"/>
+               FontSize="25"   
+               FontFamily="PlayfulXmas"/>
     </StackLayout>
 </ContentPage>

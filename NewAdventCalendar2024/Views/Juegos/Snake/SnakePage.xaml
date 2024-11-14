@@ -6,36 +6,89 @@
 
     <Grid>
 
+        <!-- Título -->
         <Label x:Name="titleLabel"
                Text="Multi Clicks"
                FontSize="32"
-               TextColor="#06E725" 
+               TextColor="#FFD700"
                HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
                VerticalOptions="Start"
                Margin="0, 20, 0, 0"/>
 
+        <!-- Puntaje -->
         <Label x:Name="scoreLabel"
                Text="Puntaje: 0 / Min Apples"
-               FontSize="18"
-               TextColor="#06E725"
+               FontSize="20"
+               TextColor="White" 
                HorizontalTextAlignment="Center"
                VerticalOptions="Start"
-               Margin="0, 60, 0, 0"/>
+               Margin="0, 100, 0, 0"
+               FontFamily="PlayfulXmas"/>
 
+        <!-- Vista del Juego (Campo Jugable) -->
         <GraphicsView x:Name="gameView"
-              HeightRequest="250"
-              WidthRequest="250"
-              VerticalOptions="CenterAndExpand"
-              HorizontalOptions="CenterAndExpand"/>
+                      HeightRequest="319"
+                      WidthRequest="319"
+                      VerticalOptions="CenterAndExpand"
+                      HorizontalOptions="CenterAndExpand"
+                      Margin="0, -150, 0, 0"/>
 
+        <!-- Controles de Navegación en forma de cruz -->
         <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="End" Padding="10">
-            <Button Text="↑" Clicked="OnMoveUpClicked" WidthRequest="60" HeightRequest="60"/>
-            <StackLayout Orientation="Horizontal">
-                <Button Text="←" Clicked="OnMoveLeftClicked" WidthRequest="60" HeightRequest="60"/>
-                <Button Text="→" Clicked="OnMoveRightClicked" WidthRequest="60" HeightRequest="60"/>
-            </StackLayout>
-            <Button Text="↓" Clicked="OnMoveDownClicked" WidthRequest="60" HeightRequest="60"/>
+
+            <!-- Grid para los botones en forma de cruz -->
+            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, Auto, Auto" Padding="0">
+
+                <!-- Botón de Movimiento Arriba -->
+                <Button Text="F" 
+                        Clicked="OnMoveUpClicked" 
+                        WidthRequest="80" 
+                        HeightRequest="80" 
+                        FontFamily="PixArrows" 
+                        BackgroundColor="Transparent" 
+                        TextColor="#FFD700"
+                        FontSize="50"
+                        Grid.Row="0" 
+                        Grid.Column="1"/>
+
+                <!-- Botón de Movimiento Izquierda -->
+                <Button Text="e" 
+                        Clicked="OnMoveLeftClicked" 
+                        WidthRequest="80" 
+                        HeightRequest="80" 
+                        FontFamily="PixArrows" 
+                        BackgroundColor="Transparent"
+                        TextColor="#FFD700"
+                        FontSize="50"
+                        Grid.Row="1" 
+                        Grid.Column="0"/>
+
+                <!-- Botón de Movimiento Derecha -->
+                <Button Text="E" 
+                        Clicked="OnMoveRightClicked" 
+                        WidthRequest="80" 
+                        HeightRequest="80" 
+                        FontFamily="PixArrows" 
+                        BackgroundColor="Transparent"
+                        TextColor="#FFD700"
+                        FontSize="50"
+                        Grid.Row="1" 
+                        Grid.Column="2"/>
+
+                <!-- Botón de Movimiento Abajo -->
+                <Button Text="f" 
+                        Clicked="OnMoveDownClicked" 
+                        WidthRequest="80" 
+                        HeightRequest="80" 
+                        FontFamily="PixArrows" 
+                        BackgroundColor="Transparent"
+                        TextColor="#FFD700"
+                        FontSize="50"
+                        Grid.Row="2" 
+                        Grid.Column="1"/>
+            </Grid>
         </StackLayout>
+
     </Grid>
 </ContentPage>

@@ -14,7 +14,8 @@
                TextColor="#EFCF1B" 
                HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
-               VerticalOptions="Start" />
+               VerticalOptions="Start"
+               Margin="0,30,0,0"/>
 
         <!-- Aquí se dibujará el campo de juego -->
         <GraphicsView x:Name="GameView"
@@ -31,23 +32,24 @@
              Padding="20">
 
             <!-- Boton de subida -->
-            <Button Text="UP" WidthRequest="100" HeightRequest="100" 
+            <Button Text="B" WidthRequest="100" HeightRequest="100" 
                     Pressed="MoveUp" Released="OnButtonReleased"
                     BackgroundColor="SandyBrown"
                     BorderWidth="1"
                     BorderColor="White"
-                    FontFamily="Candy"/>
+                    FontSize="20"
+                    FontFamily="PixArrows"/>
 
             <!-- Boton de bajada -->
-            <Button Text="DOWN" WidthRequest="100" HeightRequest="100" 
+            <Button Text="b" WidthRequest="100" HeightRequest="100" 
                     Pressed="MoveDown" Released="OnButtonReleased"
                     BackgroundColor="SandyBrown"
                     BorderWidth="1"
                     BorderColor="White"
-                    FontFamily="Candy"/>
+                    FontSize="20"
+                    FontFamily="PixArrows"/>
 
         </StackLayout>
-
 
         <!-- Marcador -->
         <Label x:Name="ScoreLabel"
@@ -55,8 +57,9 @@
                HorizontalOptions="Center"
                VerticalOptions="Start"
                TextColor="White"
-               Margin="0,50,0,0"
-               FontFamily="CartoonXmasRegular"/>
+               Margin="0,80,0,0"
+               FontSize="30"
+               FontFamily="PlayfulXmas"/>
 
         <!-- Puntuación mínima -->
         <Label x:Name="MinScoreLabel"
@@ -64,7 +67,8 @@
                HorizontalOptions="Center"
                VerticalOptions="Start"
                TextColor="White"
-               Margin="0,80,0,0"
-               FontFamily="CartoonXmasRegular"/>
+               Margin="0,130,0,0"
+               FontSize="20"
+               FontFamily="PlayfulXmas"/>
     </Grid>
 </ContentPage>

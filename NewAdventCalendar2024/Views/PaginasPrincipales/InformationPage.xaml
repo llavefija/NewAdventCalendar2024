@@ -7,45 +7,62 @@
              NavigationPage.HasBackButton="False">
 
     <Grid Padding="0">
+        <!-- Definir las filas del grid, la última para los botones -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <!-- Para el contenido principal -->
+            <RowDefinition Height="Auto" />
+            <!-- Para los botones abajo -->
+        </Grid.RowDefinitions>
+
         <!-- Imagen de fondo ajustada para llenar toda la pantalla -->
         <Image x:Name="BackgroundImage" 
                Aspect="Fill" 
                VerticalOptions="FillAndExpand"
-               HorizontalOptions="FillAndExpand"/>
+               HorizontalOptions="FillAndExpand"
+               Grid.Row="0"/>
 
-        <!-- Contenedor para el texto sobre la imagen -->
-        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <!-- Contenedor para el texto sobre la imagen, en la primera fila -->
+        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0">
             <Label x:Name="PageText" 
                    Text="Texto de la primera página" 
-                   FontSize="9" 
+                   FontSize="13.7" 
                    FontAttributes="Bold" 
                    HorizontalOptions="Start" 
                    VerticalOptions="Start" 
                    TextColor="Black"
                    BackgroundColor="Transparent"
-                   FontFamily="Libretasemibold"
+                   FontFamily="Firme"
                    Padding="10"
-                   Margin="20, 50, 0, 0"
+                   Margin="30, 40, 5, 0"
                    IsVisible="False" />
-                <!-- Oculto por defecto -->
-
-                <!-- Botones para navegar entre páginas -->
-                <StackLayout Orientation="Horizontal" 
-                         HorizontalOptions="Center" 
-                         VerticalOptions="End" 
-                         Spacing="20" 
-                         Padding="10, 0">
-                    <Button Text="Anterior Pagina" 
-                        Clicked="OnPreviousPageClicked" 
-                        FontFamily="Candy"
-                        BackgroundColor="#A0522D"
-                        TextColor="#FFFDD0"/>
-                    <Button Text="Siguiente Pagina" 
-                        Clicked="OnNextPageClicked" 
-                        FontFamily="Candy"
-                        BackgroundColor="#A0522D"
-                        TextColor="#FFFDD0"/>
-                </StackLayout>
         </Grid>
+
+        <!-- Contenedor de botones de navegación ocupando todo el ancho y anclado abajo en la segunda fila -->
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="End"
+                     BackgroundColor="Black"
+                     Padding="5, 5"
+                     Grid.Row="1">
+            <Button Text="a" 
+                    Clicked="OnPreviousPageClicked" 
+                    FontFamily="Flechas"
+                    BackgroundColor="#A0522D"
+                    TextColor="#FFFDD0"
+                    HorizontalOptions="FillAndExpand"
+                    FontSize="30" 
+                    Margin="0,0,10,0"/>
+            <Button Text="A" 
+                    Clicked="OnNextPageClicked" 
+                    FontFamily="Flechas"
+                    BackgroundColor="#A0522D"
+                    TextColor="#FFFDD0"
+                    HorizontalOptions="FillAndExpand"
+                    FontSize="30" 
+                    Margin="10,0,0,0"
+
+            />
+        </StackLayout>
     </Grid>
 </ContentPage>

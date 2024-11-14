@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
+using NewAdventCalendar2024.Tools;
 using NewAdventCalendar2024.Interfaces;
 
 namespace NewAdventCalendar2024.Views.Juegos.Snake
@@ -54,6 +55,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Snake
         private void PlaceFood()
         {
             var random = new Random();
+            // Asegúrate de que la comida esté dentro de los límites de la cuadrícula
             foodPosition = (random.Next(0, (int)(gameView.Width / GridSize)),
                             random.Next(0, (int)(gameView.Height / GridSize)));
             while (snakePositions.Contains(foodPosition))
@@ -61,30 +63,6 @@ namespace NewAdventCalendar2024.Views.Juegos.Snake
                 foodPosition = (random.Next(0, (int)(gameView.Width / GridSize)),
                                 random.Next(0, (int)(gameView.Height / GridSize)));
             }
-        }
-
-        private void MoveUp()
-        {
-            if (directionY == 0) // Evita moverse hacia atrás
-                (directionX, directionY) = (0, -1);
-        }
-
-        private void MoveDown()
-        {
-            if (directionY == 0)
-                (directionX, directionY) = (0, 1);
-        }
-
-        private void MoveLeft()
-        {
-            if (directionX == 0)
-                (directionX, directionY) = (-1, 0);
-        }
-
-        private void MoveRight()
-        {
-            if (directionX == 0)
-                (directionX, directionY) = (1, 0);
         }
 
         private void UpdateSnakePosition()
@@ -102,7 +80,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Snake
                 return;
             }
 
-            // Verifica si la serpiente ha comido la comida
+            // Lógica para mover la serpiente y manejar la comida
             if (newHead == foodPosition)
             {
                 snakePositions.Insert(0, newHead);
@@ -117,6 +95,44 @@ namespace NewAdventCalendar2024.Views.Juegos.Snake
             }
 
             DrawGame();
+        }
+
+        private void MoveUp(object sender)
+        {
+            if (directionY == 0) // Evita moverse hacia atrás
+                (directionX, directionY) = (0, -1);
+            var botonPulsado = sender as Button;
+            var toolButton = new ToolBotones((Button)sender);
+            toolButton.AnimateButton();
+
+        }
+
+        private void MoveDown(object sender)
+        {
+            if (directionY == 0)
+                (directionX, directionY) = (0, 1);
+            var botonPulsado = sender as Button;
+            var toolButton = new ToolBotones((Button)sender);
+            toolButton.AnimateButton();
+        }
+
+        private void MoveLeft(object sender)
+        {
+            if (directionX == 0)
+                (directionX, directionY) = (-1, 0);
+            var botonPulsado = sender as Button;
+            var toolButton = new ToolBotones((Button)sender);
+            toolButton.AnimateButton();
+        }
+
+        private void MoveRight(object sender)
+        {
+            if (directionX == 0)
+                (directionX, directionY) = (1, 0);
+            var botonPulsado = sender as Button;
+            var toolButton = new ToolBotones((Button)sender);
+            toolButton.AnimateButton();
+
         }
 
         private void UpdateScoreLabel()
@@ -153,10 +169,10 @@ namespace NewAdventCalendar2024.Views.Juegos.Snake
             });
         }
 
-        private void OnMoveUpClicked(object sender, EventArgs e) => MoveUp();
-        private void OnMoveDownClicked(object sender, EventArgs e) => MoveDown();
-        private void OnMoveLeftClicked(object sender, EventArgs e) => MoveLeft();
-        private void OnMoveRightClicked(object sender, EventArgs e) => MoveRight();
+        private void OnMoveUpClicked(object sender, EventArgs e) => MoveUp(sender);
+        private void OnMoveDownClicked(object sender, EventArgs e) => MoveDown(sender);
+        private void OnMoveLeftClicked(object sender, EventArgs e) => MoveLeft(sender);
+        private void OnMoveRightClicked(object sender, EventArgs e) => MoveRight(sender);
     }
 
     public class GameDrawable : IDrawable

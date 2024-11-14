@@ -10,13 +10,13 @@
         <Label x:Name="titleLabel"
                Text="Multi Clicks"
                FontSize="32"
-               TextColor="#AE00FF" 
+               TextColor="#FFD700" 
                HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
-               VerticalOptions="Start" />      
+               VerticalOptions="Start" />
 
-        <Label x:Name="RoundLabel" Text="Ronda: 1" FontSize="24" HorizontalOptions="Center"/>
-        <Label x:Name="StatusLabel" Text="Turno del Jugador" FontSize="18" HorizontalOptions="Center" />
+        <Label x:Name="RoundLabel" Text="Ronda: 1" FontSize="24" HorizontalOptions="Center" FontFamily="PlayfulXmas"/>
+        <Label x:Name="StatusLabel" Text="Turno del Jugador" FontSize="18" HorizontalOptions="Center" FontFamily="PlayfulXmas"/>
 
         <Grid x:Name="GameGrid" RowSpacing="5" ColumnSpacing="5" HorizontalOptions="Center" VerticalOptions="Center">
             <Grid.RowDefinitions>

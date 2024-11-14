@@ -62,7 +62,7 @@ namespace NewAdventCalendar2024.Views.Juegos.TicTacToe
 
             // Cambiar color de la ficha
             label.TextColor = currentPlayer == "X" ? Colors.Red : Colors.Cyan;
-
+            label.FontFamily = "XmasSeason";
             if (CheckWinner(currentPlayer))
             {
                 UpdateScores(currentPlayer);
@@ -91,7 +91,7 @@ namespace NewAdventCalendar2024.Views.Juegos.TicTacToe
             var label = GetLabel(row, col);
             label.Text = currentPlayer;
             label.TextColor = Colors.Cyan; // Color de la máquina
-
+            label.FontFamily = "XmasSeason";
             if (CheckWinner(currentPlayer))
             {
                 UpdateScores(currentPlayer);

@@ -38,7 +38,35 @@ namespace NewAdventCalendar2024
                     fonts.AddFont("Lobster-Regular.ttf", "Lobster"); 
 
                     // Fuente con aspecto navideño con nieve
-                    fonts.AddFont("PWHappyXmas.ttf", "HappyXmas"); 
+                    fonts.AddFont("PWHappyXmas.ttf", "HappyXmas");
+
+                    // Fuente con aspecto de flechas
+                    fonts.AddFont("VNArrows.ttf", "Flechas");
+
+                    // Fuente con aspecto de flechas
+                    fonts.AddFont("ChristmasSeason.ttf", "XmasSeason");
+
+                    // Fuente con aspecto de flechas
+                    fonts.AddFont("CityOfLight.ttf", "Lights");
+
+                    // Fuente con aspecto de flechas
+                    fonts.AddFont("PlayfulChristmas.otf", "PlayfulXmas");
+
+                    // Fuente con aspecto de flechas
+                    fonts.AddFont("SantaAirMail.ttf", "XmasMail");
+
+                    // Fuente con aspecto de flechas pixeladas
+                    fonts.AddFont("PixArrows.ttf", "PixArrows");
+
+                    // Fuente con aspecto de notas hechas a mano
+                    fonts.AddFont("AdorableHandmade.ttf", "Handmade");
+
+                    // Fuente con aspecto de de notas
+                    fonts.AddFont("ByNote.ttf", "Notes");
+
+                    // Fuente con aspecto firme
+                    fonts.AddFont("LettersForLearners.ttf", "Firme");
+
                 });
 
             builder.Services.AddSingleton<AppDb>(); // Registro de la base de datos como Singleton

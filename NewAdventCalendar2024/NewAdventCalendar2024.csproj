@@ -42,7 +42,7 @@
 		<!-- App Icon -->
 		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />-->
 		<!--<MauiIcon Include="Resources\AppIcon\corazongorroicon.jpg" ForegroundScale="0.65" />-->
-		<MauiIcon Include="Resources\AppIcon\fondoicon2.png" ForegroundScale="0.65" />
+		<MauiIcon Include="Resources\AppIcon\logollave.png" ForegroundScale="0.64" />
 		<MauiSplashScreen Include="Resources\Splash\corrazongorro.svg" Color="#B22222" BaseSize="128,128" />
 		<!--<MauiIcon Include="Resources\AppIcon\corazongorroiconvector.svg" />-->
 
@@ -74,6 +74,16 @@
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon\corazongorroicon.jpg" />
 	  <None Remove="Resources\AppIcon\fondoicon.png" />
+	  <None Remove="Resources\AppIcon\logollave.png" />
+	  <None Remove="Resources\Fonts\AdorableHandmade.ttf" />
+	  <None Remove="Resources\Fonts\ByNote.ttf" />
+	  <None Remove="Resources\Fonts\ChristmasSeason.ttf" />
+	  <None Remove="Resources\Fonts\CityOfLight.ttf" />
+	  <None Remove="Resources\Fonts\LettersForLearners.ttf" />
+	  <None Remove="Resources\Fonts\PixArrows.ttf" />
+	  <None Remove="Resources\Fonts\PlayfulChristmas.otf" />
+	  <None Remove="Resources\Fonts\SantaAirMail.ttf" />
+	  <None Remove="Resources\Fonts\VNArrows.ttf" />
 	  <None Remove="Resources\Images\ahorcado0.png" />
 	  <None Remove="Resources\Images\ahorcado1.png" />
 	  <None Remove="Resources\Images\ahorcado2.png" />
@@ -92,7 +102,8 @@
 	  <None Remove="Resources\Images\pingu.png" />
 	  <None Remove="Resources\Images\puerta.png" />
 	  <None Remove="Resources\Images\regalo.png" />
-	  <None Remove="Resources\Images\tapalibreta.png" />
+	  <None Remove="Resources\Images\tapadelanteralibreta.png" />
+	  <None Remove="Resources\Images\tapatraseralibreta.png" />
 	  <None Remove="Resources\Images\tijeras.png" />
 	</ItemGroup>
 

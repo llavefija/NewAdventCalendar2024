@@ -17,7 +17,7 @@
             <Label Text="ray: secretos de diciembre"
                HorizontalOptions="Center"
                VerticalOptions="Center"
-               FontSize="40"
+               FontSize="50"
                TextColor="Gold" 
                HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
@@ -41,12 +41,12 @@
                 HorizontalOptions="Center" 
                 HeightRequest="60" 
                 WidthRequest="300" 
-                FontSize="25" 
+                FontSize="20" 
                 BorderColor="Gold" 
                 BorderWidth="2" 
                 BackgroundColor="#006400"  
                 TextColor="Snow"
-                FontFamily="Candy"
+                FontFamily="Lights"
                 CornerRadius="35"/>
 
         <Button x:Name="BtInformacion"
@@ -55,12 +55,12 @@
                 HorizontalOptions="Center" 
                 HeightRequest="60" 
                 WidthRequest="300" 
-                FontSize="25"  
+                FontSize="20"  
                 BorderColor="Gold" 
                 BorderWidth="2" 
                 BackgroundColor="#006400" 
                 TextColor="Snow"
-                FontFamily="Candy"
+                FontFamily="Lights"
                 CornerRadius="35"/>
 
         <Button x:Name="BtSalir"
@@ -69,12 +69,12 @@
                 HorizontalOptions="Center" 
                 HeightRequest="60" 
                 WidthRequest="300" 
-                FontSize="25"  
+                FontSize="20"  
                 BorderColor="Gold" 
                 BorderWidth="2" 
                 BackgroundColor="#006400" 
                 TextColor="Snow"
-                FontFamily="Candy"
+                FontFamily="Lights"
                 CornerRadius="35"/>
             
     </VerticalStackLayout>

@@ -127,7 +127,7 @@ namespace NewAdventCalendar2024.Views.Juegos.Wordle
                     VerticalTextAlignment = TextAlignment.Center,
                     WidthRequest = 50,
                     HeightRequest = 50,
-                    FontFamily = "Candy"
+                    FontFamily = "PlayfulXmas"
                 };
 
                 // Agrega el label al Children

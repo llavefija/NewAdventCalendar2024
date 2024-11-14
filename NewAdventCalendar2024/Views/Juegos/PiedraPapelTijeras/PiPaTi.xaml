@@ -11,26 +11,26 @@
         <Label x:Name="titleLabel"
                Text="Piedra, Papel o Tijeras"
                FontSize="32"
-               TextColor="#0AA7EA"
+               TextColor="#FFD700"
                HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
                VerticalOptions="Start" />
 
         <!-- Visualización de la Elección de la Máquina -->
-        <Label Text="Eleccion de la Maquina:" FontSize="18" HorizontalOptions="Center" FontFamily="Candy"/>
+        <Label Text="Eleccion de la Maquina:" FontSize="25" HorizontalOptions="Center" FontFamily="PlayfulXmas"/>
         <Image x:Name="MachineChoiceImage" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" />
-        <Label x:Name="MachineChoiceLabel" FontSize="19" Text="" HorizontalOptions="Center" FontFamily="Candy"/>
+        <Label x:Name="MachineChoiceLabel" FontSize="22" Text="" HorizontalOptions="Center" FontFamily="PlayfulXmas"/>
 
         <!-- Resultado de la Ronda -->
-        <Label x:Name="RoundResultLabel" Text="Elige tu jugada" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="HomeXmas"/>
+        <Label x:Name="RoundResultLabel" Text="Elige tu jugada" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="PlayfulXmas"/>
 
         <!-- Marcador -->
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
-            <Label x:Name="PlayerScoreLabel" Text="0" FontSize="24" TextColor="Cyan" HorizontalOptions="Center" FontFamily="HomeXmas"/>
-            <Label x:Name="ScoreLabel" Text="VS" FontSize="24" TextColor="#FFFFFF" HorizontalOptions="Center" FontFamily="HomeXmas"/>
-            <Label x:Name="MachineScoreLabel" Text="0" FontSize="24" TextColor="Red" HorizontalOptions="Center" FontFamily="HomeXmas"/>
+            <Label x:Name="PlayerScoreLabel" Text="0" FontSize="25" TextColor="Cyan" HorizontalOptions="Center" FontFamily="PlayfulXmas"/>
+            <Label x:Name="ScoreLabel" Text="VS" FontSize="25" TextColor="#FFFFFF" HorizontalOptions="Center" FontFamily="PlayfulXmas"/>
+            <Label x:Name="MachineScoreLabel" Text="0" FontSize="25" TextColor="Red" HorizontalOptions="Center" FontFamily="PlayfulXmas"/>
         </StackLayout>
-        <Label x:Name="GameStatusLabel" Text="" FontSize="24" HorizontalOptions="Center" FontFamily="HomeXmas"/>
+        <Label x:Name="GameStatusLabel" Text="" FontSize="30" HorizontalOptions="Center" FontFamily="PlayfulXmas"/>
 
         <!-- Botones de Piedra, Papel y Tijeras con Imágenes -->
         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="10">
@@ -41,7 +41,7 @@
                         <FileImageSource File="piedra.png" />
                     </Button.ImageSource>
                 </Button>
-                <Label Text="Piedra" HorizontalOptions="Center" FontFamily="Candy" FontSize="19"/>
+                <Label Text="Piedra" HorizontalOptions="Center" FontFamily="PlayfulXmas" FontSize="22"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center">
                 <Button x:Name="ButtonPapel" Clicked="OnPlayerChoice" CommandParameter="Papel" BackgroundColor="Transparent" >
@@ -49,7 +49,7 @@
                         <FileImageSource File="papel.png" />
                     </Button.ImageSource>
                 </Button>
-                <Label Text="Papel" HorizontalOptions="Center" FontFamily="Candy" FontSize="19"/>
+                <Label Text="Papel" HorizontalOptions="Center" FontFamily="PlayfulXmas" FontSize="22"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center">
                 <Button x:Name="ButtonTijeras" Clicked="OnPlayerChoice" CommandParameter="Tijeras" BackgroundColor="Transparent">
@@ -57,7 +57,7 @@
                         <FileImageSource File="tijeras.png" />
                     </Button.ImageSource>
                 </Button>
-                <Label Text="Tijeras" HorizontalOptions="Center" FontFamily="Candy" FontSize="19"/>
+                <Label Text="Tijeras" HorizontalOptions="Center" FontFamily="PlayfulXmas" FontSize="22"/>
             </StackLayout>
         </HorizontalStackLayout>
 

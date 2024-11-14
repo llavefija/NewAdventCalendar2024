@@ -11,6 +11,8 @@ using NewAdventCalendar2024.Views.Juegos.Wordle;
 using System.Runtime.InteropServices;
 using NewAdventCalendar2024.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Globalization;
+
 
 
 namespace NewAdventCalendar2024.Views.PaginasPrincipales
@@ -27,7 +29,8 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
             InitializeComponent();
 
             this.Dispatcher.StartTimer(TimeSpan.FromSeconds(1), ActualizarContador); // Inicia un contador y lo actualiza hasta el dia siguiente
-            FechaActualLabel.Text = $"Hoy es  {DateTime.Now.ToString("dddd d 'de' MMMM yyyy")}. Proximo dia en...";
+
+            FechaActualLabel.Text = $"Hoy es {DateTime.Now.ToString("dddd d 'de' MMMM yyyy", new CultureInfo("es-ES"))}. Próximo día en...";
 
             NavigationPage.SetHasNavigationBar(this, false);
 
@@ -62,7 +65,6 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
                 var botonPulsado = sender as Button;
                 var toolButton = new ToolBotones((Button)sender);
 
-                await toolButton.AnimateButton();
 
                 if (botonPulsado != null)
                 {
@@ -75,19 +77,19 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
                     // Parámetros predeterminados
                     var juegoParams = new Dictionary<int, (string, string, ContentPage)>
                     {
-    { 1, ("El chalet", "Parece que esta es la dirección. Veamos si funciona al picar.\n\nJuego: MultiClicks.\nDificultad: 3 picadas.", new MultiClicksPage(3, "puerta.png", "el chalet", Color.FromArgb("#1A3A5F"))) },
+    { 1, ("El chalet", "Parece que esta es la dirección. Veamos si funciona al picar.\n\nJuego: MultiClicks.\nDificultad: 3 picadas.", new MultiClicksPage(3, "puerta.png", "el chalet", Color.FromArgb("#0A0A0A"))) },
     { 2, ("Una mala noche", "Llevo todo el día pensando en ese nombre, no me lo quito de la cabeza.\n\nJuego: Wordle.\nPista: Nombre.", new WordlePage("MATEO", "una mala noche")) },
     { 3, ("Un juego de mi imaginación", "Nada como hacer botar una pelota para despejar la mente.\n\nJuego: Ping Pong.\nDificultad: 3 encajes.", new PingPongPage(0.1f, 3, 3.2f, "un juego de mi imaginación")) },
     { 4, ("Algo de música", "Encuentro una radio antigua; la música me recuerda a tiempos mejores.\n\nJuego: Wordle.\nPista: Grupo.", new WordlePage("QUEEN", "algo de música")) },
     { 5, ("Venganza", "Quizás ordenar mis ideas me dé una pista sobre quién está detrás de todo esto.\n\nJuego: Tic Tac Toe.\nDificultad: 3 conexiones.", new TicTacToePage(3, "venganza")) },
-    { 6, ("Una caja demasiado fuerte", "Una caja fuerte bloquea mi avance. Necesito un código o algo para abrirla.\n\nJuego: MultiClicks.\nDificultad: 250 golpeos.", new MultiClicksPage(250, "cajafuerte.png", "una caja demasiado fuerte", Color.FromArgb("#4682B4"))) },
+    { 6, ("Una caja demasiado fuerte", "Una caja fuerte bloquea mi avance. Necesito un código o algo para abrirla.\n\nJuego: MultiClicks.\nDificultad: 250 golpeos.", new MultiClicksPage(250, "cajafuerte.png", "una caja demasiado fuerte", Color.FromArgb("#0A0A0A"))) },
     { 7, ("Un gran chasco", "Necesito energía, y parece que tengo una fruta por aquí.\n\nJuego: Wordle.\nPista: Fruta.", new WordlePage("MELON", "un gran chasco")) },
     { 8, ("¿El rosa es mi color?", "Tener confianza en mí misma es clave. Veamos qué tal me va en este duelo.\n\nJuego: Piedra, Papel o Tijeras.\nDificultad: gana 3 duelos.", new PiPaTiPage(3, "¿el rosa es mi color?")) },
-    { 9, ("Un enorme regalo en el comedor", "Un paquete grande y sospechoso. Intentaré abrirlo con cuidado.\n\nJuego: MultiClicks.\nDificultad: 10 cortes.", new MultiClicksPage(10, "regalo.png", "un enorme regalo en el comedor", Color.FromArgb("#D3D3D3"))) },
+    { 9, ("Un enorme regalo en el comedor", "Un paquete grande y sospechoso. Intentaré abrirlo con cuidado.\n\nJuego: MultiClicks.\nDificultad: 10 cortes.", new MultiClicksPage(10, "regalo.png", "un enorme regalo en el comedor", Color.FromArgb("#0A0A0A"))) },
     { 10, ("Mi fiel compañero", "Un nombre me viene a la mente, el de alguien especial.\n\nJuego: Ahorcado.\nPista: Nombre.", new AhorcadoPage("JINGLE", "mi fiel compañero")) },
 
     { 11, ("Una misteriosa nota", "Parece que Jingle me ha traído algo, un rastro que debo seguir.\n\nJuego: Snake.\nDificultad: 10 capturas.", new SnakePage(10, "Una misteriosa nota")) },
-    { 12, ("Una cajita misteriosa en la pared", "He encontrado una pequeña caja de madera que parece necesitar un empujón.\n\nJuego: MultiClicks.\nDificultad: 100 sacudidas.", new MultiClicksPage(100, "cajita.png", "una cajita misteriosa en la pared", Color.FromArgb("#D2B48C"))) },
+    { 12, ("Una cajita misteriosa en la pared", "He encontrado una pequeña caja de madera que parece necesitar un empujón.\n\nJuego: MultiClicks.\nDificultad: 100 sacudidas.", new MultiClicksPage(100, "cajita.png", "una cajita misteriosa en la pared", Color.FromArgb("#0A0A0A"))) },
     { 13, ("Un caramelo de esperanza", "Algo dulce me distrae de esta situación. Quizás un juego me relaje.\n\nJuego: Ping Pong.\nDificultad: 5 encajes.", new PingPongPage(0.1f, 5, 3.2f, "un caramelo de esperanza")) },
     { 14, ("Descubrimientos oscuros en un día gris", "La vela me revela algo inesperado mientras intento ordenar mis pensamientos.\n\nJuego: Tic Tac Toe.\nDificultad: 6 conexiones.", new TicTacToePage(6, "descubrimientos oscuros en un día gris")) },
     { 15, ("La gran receta", "Una receta de paciencia y habilidad. Necesito precisión con la pelota.\n\nJuego: Ping Pong.\nDificultad: 6 encajes más rápidos.", new PingPongPage(0.2f, 6, 3.5f, "la gran receta")) },
@@ -101,14 +103,14 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
     { 22, ("Un misterio que me tiene atrapada", "Siento que alguien me observa... pero no hay nadie más aquí.\n\nJuego: Ahorcado.\nPista: Objeto oculto.", new AhorcadoPage("CAMARA", "un misterio que me tiene atrapada")) },
     { 23, ("Un dulce descubrimiento", "Encuentro un cifrado. ¿Podría ser el famoso código César?\n\nJuego: Wordle.\nPista: Nombre del cifrado.", new WordlePage("CESAR", "un dulce descubrimiento")) },
     { 24, ("Nochebuena en el encierro", "Ya tengo una idea de dónde buscar. Espero que no me esté equivocando.\n\nJuego: Ahorcado.\nPista: Lugar oculto.", new AhorcadoPage("ARMARIO", "nochebuena en el encierro")) },
-    { 25, ("El peluche oculto", "Hay algo extraño en este peluche... debería examinarlo a fondo.\n\nJuego: MultiClicks.\nDificultad: 500 punzadas.", new MultiClicksPage(500, "pingu.png", "el peluche oculto", Color.FromArgb("#E6E6FA"))) },
+    { 25, ("El peluche oculto", "Hay algo extraño en este peluche... debería examinarlo a fondo.\n\nJuego: MultiClicks.\nDificultad: 500 punzadas.", new MultiClicksPage(500, "pingu.png", "el peluche oculto", Color.FromArgb("#0A0A0A"))) },
     { 26, ("Ansias por salir", "Mi paciencia se agota. Necesito superar este duelo.\n\nJuego: Piedra, Papel o Tijeras.\nDificultad: gana 10 duelos.", new PiPaTiPage(10, "ansias por salir")) },
     { 27, ("Un día más, un día menos", "Este material metálico me podría servir para mi plan.\n\nJuego: Wordle.\nPista: Material.", new WordlePage("METAL", "un día más, un día menos")) },
     { 28, ("Al ritmo del Rock", "La última vez que hago botar la pelota antes de tomar mi decisión final.\n\nJuego: Ping Pong.\nDificultad: 10 encajes pausados.", new PingPongPage(0.1f, 10, 3.5f, "al ritmo del Rock")) },
     { 29, ("Creo que tengo una pista", "Ya veo una posible salida. Solo necesito paciencia.\n\nJuego: Snake.\nDificultad: 30 capturas.", new SnakePage(25, "creo que tengo una pista")) },
-    { 30, ("La puerta a lo desconocido", "Las llaves encajan, pero la cerradura es más dura de lo que parece.\n\nJuego: MultiClicks.\nDificultad: 500 giros con fuerza.", new MultiClicksPage(500, "grancaja.png", "la puerta a lo desconocido", Color.FromArgb("#F5F5DC "))) },
+    { 30, ("La puerta a lo desconocido", "Las llaves encajan, pero la cerradura es más dura de lo que parece.\n\nJuego: MultiClicks.\nDificultad: 500 giros con fuerza.", new MultiClicksPage(500, "grancaja.png", "la puerta a lo desconocido", Color.FromArgb("#0A0A0A"))) },
 
-    { 31, ("El sobre rojo", "¿Qué contendrá este misterioso sobre? No sé si estoy lista.\n\nJuego: MultiClicks.\nDificultad: 1 corte.", new MultiClicksPage(1, "sobremisterioso.png", "l sobre rojo", Color.FromArgb("#98FB98 "))) },
+    { 31, ("El sobre rojo", "¿Qué contendrá este misterioso sobre? No sé si estoy lista.\n\nJuego: MultiClicks.\nDificultad: 1 corte.", new MultiClicksPage(1, "sobremisterioso.png", "l sobre rojo", Color.FromArgb("#0A0A0A"))) },
 };
                     if (numeroBoton > 1)
                     {
@@ -116,13 +118,16 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
 
                         if (!button.Completado)
                         {
+                            await toolButton.AnimateButtonJump();
+
                             await DisplayAlert("Juego No Completado", "Debes completar el juego anterior antes de continuar.", "OK");
                             return; // Salir del método si el juego anterior no está completo
                         }
                     }
-                   
 
-                   
+                    await toolButton.AnimateButton();
+
+
                     // Verificar si hay parámetros para el botón pulsado
                     if (juegoParams.TryGetValue(numeroBoton, out var parametros))
                     {
@@ -182,6 +187,8 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
                         // Marcar el botón como completado y desbloquear la recompensa
                         await _database.CompletarBoton(numeroBoton);
                         await _database.DesbloquearRecompensa(numeroBoton);
+
+                        recompensaNombre = await NombreRecompensa(numeroBoton);
 
                         await DisplayAlert("Felicidades", "¡Has completado el juego! Has ganado: " + recompensaNombre, "OK");
                     }
