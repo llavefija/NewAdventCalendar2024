@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
@@ -223,17 +224,33 @@ namespace NewAdventCalendar2024.Views.Juegos.PingPong
             GameView.Invalidate();
         }
 
-        private void MoveUp(object sender, EventArgs e) => isMovingUp = true;
-        private void MoveDown(object sender, EventArgs e) => isMovingDown = true;
+        private void MoveUp(object sender, EventArgs e)
+        {
+            isMovingUp = true;
+            Debug.WriteLine("MoveUp pressed");
+        }
+
+        private void MoveDown(object sender, EventArgs e)
+        {
+            isMovingDown = true;
+            Debug.WriteLine("MoveDown pressed");
+        }
+
 
         private void OnButtonReleased(object sender, EventArgs e)
         {
             if (sender is Button button)
             {
-                if (button.Text == "UP")
+                if (button.Text == "B")
+                {
                     isMovingUp = false;
-                else if (button.Text == "DOWN")
+                    Debug.WriteLine("MoveUp released");
+                }
+                else if (button.Text == "b")
+                {
                     isMovingDown = false;
+                    Debug.WriteLine("MoveDown released");
+                }
             }
         }
 

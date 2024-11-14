@@ -38,11 +38,14 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />-->
 		<!--<MauiIcon Include="Resources\AppIcon\corazongorroicon.jpg" ForegroundScale="0.65" />-->
-		<MauiIcon Include="Resources\AppIcon\logollave.png" ForegroundScale="0.64" />
 		<MauiSplashScreen Include="Resources\Splash\corrazongorro.svg" Color="#B22222" BaseSize="128,128" />
 		<!--<MauiIcon Include="Resources\AppIcon\corazongorroiconvector.svg" />-->
 
@@ -105,6 +108,10 @@
 	  <None Remove="Resources\Images\tapadelanteralibreta.png" />
 	  <None Remove="Resources\Images\tapatraseralibreta.png" />
 	  <None Remove="Resources\Images\tijeras.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiIcon Include="Resources\AppIcon\logollave.png" ForegroundScale="0.65" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -30,19 +30,19 @@ namespace NewAdventCalendar2024.Views.PaginasPrincipales
 
 He decidido escribir algunas notas... en caso de que algo salga mal. No sé por qué, pero siento que lo que estoy a punto de enfrentar no será tan sencillo como parece.
 
---Advertencias para Sobrevivir al Juego Diario--
+ADVERTENCIAS PARA SOBREVIVIR ESTAS NAVIDADES
 
-·31 días, 31 recompensas, 31 riesgos ocultos
+--31 días, 31 recompensas, 31 riesgos ocultos--
 
-    Cada día está envuelto en una nueva capa de misterio. No sé exactamente qué obtendré, ni qué debo hacer para conseguirlo. Al parecer, hay algo escondido tras cada desafío diario, pero algo me dice que estas recompensas no serán solo trofeos... ¿qué podría encontrar al final?
+Cada día está envuelto en una nueva capa de misterio. No sé exactamente qué obtendré, ni qué debo hacer para conseguirlo. Al parecer, hay algo escondido tras cada desafío diario, pero algo me dice que estas recompensas no serán solo trofeos... ¿qué podría encontrar al final?
 
-·Un Enigma Diferente Cada Día
+--Un Enigma Diferente Cada Día--
 
-    No puedo detener el tiempo. El reloj avanza, y cada día tiene un propósito. Me dijeron que debo enfrentar algo diferente cada vez, y que solo al resolverlo encontraré la clave para desbloquear lo siguiente. Lo que parece un juego puede ser más que eso; quizás, cada desafío diario me esté preparando para algo mayor, más oscuro. Algo que aún no he descubierto.
+No puedo detener el tiempo. El reloj avanza, y cada día tiene un propósito. Me dijeron que debo enfrentar algo diferente cada vez, y que solo al resolverlo encontraré la clave para desbloquear lo siguiente. Lo que parece un juego puede ser más que eso; quizás, cada desafío diario me esté preparando para algo mayor, más oscuro. Algo que aún no he descubierto.
 
-·Una Cuenta Atrás hasta el Último Día
+--Una Cuenta Atrás hasta el Último Día--
 
-    Parece un juego de niños, pero hay algo inquietante en esta cuenta atrás. Mi instinto me dice que hay algo esperando al final, y aunque no sé qué será, debo mantenerme alerta. Esto no será una simple aventura, y cada paso hacia adelante también puede ser uno hacia el peligro..."
+Parece un juego de niños, pero hay algo inquietante en esta cuenta atrás. Mi instinto me dice que hay algo esperando al final, y aunque no sé qué será, debo mantenerme alerta. Esto no será una simple aventura, y cada paso hacia adelante también puede ser uno hacia el peligro..."
         : "Aun Ray no ha apuntado nada",
 
                 // Entrada del 29 de noviembre

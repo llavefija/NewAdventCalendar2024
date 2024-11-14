@@ -1221,13 +1221,13 @@ Al abrir la puerta del cobertizo, me encuentro con Abel, mi novio. La incredulid
             if (botonControl != null)
             {
                 // Comprobación de si el botón debe estar activo
-                if ((fechaActual.Day >= boton.Numero && fechaActual.Month >= 12) || fechaActual.Year > 2023)
+                if ((fechaActual.Day >= boton.Numero && fechaActual.Month >= 12) || fechaActual.Year > 2024)
                 {
                     boton.Activo = true;
                     botonControl.IsEnabled = true; // Activa el botón en la interfaz
 
                     // Si es el mismo día, independientemente de si está completado o no, borde dorado
-                    if (fechaActual.Day == boton.Numero && fechaActual.Month >= 12 && fechaActual.Year == 2023)
+                    if (fechaActual.Day == boton.Numero && fechaActual.Month >= 12 && fechaActual.Year == 2024)
                     {
                         // Si está completado, borde dorado e interior negro
                         if (boton.Completado)
