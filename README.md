@@ -123,15 +123,15 @@ Para ello hay dos opciones.
 
 **2. Descargar el APK directamente**
 
-Dento del proyecto hay una carpeta con el APK comprimido: *downloadApk*
+Encuentra el APK comprimido en la carpeta `DownloadApk`. Descomprímelo y disfruta la experiencia.
 
 ¡Disfruta la experiencia!
 
 ## 🎯 Objetivos del Proyecto.
 
-- El objetivo principalmente es realizar un regalo diferente y divertido a mi pareja, y de mientras aprender lenguajes nuevos y mejorar mi tecnica con C#.
-
-- Aprender de este proyecto, diseñar minijuejos y ofrecer una historia seria la finalizad de este proyecto finalmente.
+- Crear un regalo único y personalizado.
+- Aprender nuevas tecnologías y reforzar habilidades en C# y .NET MAUI.
+- Experimentar con el diseño de minijuegos y narrativa interactiva.
 
 ## 👥 Contribuciones.
 
