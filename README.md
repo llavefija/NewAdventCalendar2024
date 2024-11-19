@@ -2,11 +2,9 @@
 
 # 🎄 Calendario de Adviento Interactivo 2024
 
-Este calendario de adviento es mi primer proyecto con .NET MAUI.
+Este proyecto es mi primer acercamiento a .NET MAUI y busca combinar narrativa, interactividad y diseño navideño en un calendario de adviento único. A diferencia de los tradicionales, este abarca 31 días , con días destacados y desafíos personalizados.
 
-Se basa en un calendario divertido e interactivo, donde cada dia representa un pequeño reto en forma de minijuego, y al completarlo se desbloquea un nuevo capitulo y una variedad de recompensas.
-
-El calendario esta enfocado a mi actual pareja, y por ello son 31 dias en vez de 24 como de costumbre, y los dias destacados son más.
+El calendario está dedicado a mi pareja, quien inspiró cada detalle del diseño y la historia.
 
 ## 📝 Descripción del Proyecto.
 
@@ -18,11 +16,9 @@ Este proyecto ofrece una experiencia inmersiva que mezcla:
 
 ## 📖 Historia
 
-La historia sigue a Ray , la protagonista. Una detective que recibe una misteriosa tarjeta antes de unas vacaciones aparentemente normales. Lo que comienza como un descanso invernal se convierte en un rompecabezas que debes resolver día a día en un pequeño chalet.
+El protagonista, Ray , es un detective que recibe una misteriosa tarjeta antes de lo que parecía un descanso invernal normal. Lo que comienza como unas vacaciones se convierte en un intrincado misterio. Atrapada en un chalet, Ray enfrentará desafíos diarios que le revelarán pistas sobre su situación.
 
-Cada dia es un reto para ella, y poco a poco descubre nuevas pistas, e incluso se acomoda un poco en ese espacio.
-
-Finalmente, antes de año nuevo descubre una misteriosa puerta, donde descubre quien esta detras de todo.
+El clímax llega al descubrir una puerta secreta y, con ella, quién está detrás de todo y por qué.
 
 ## 🚀 Características principales
 
@@ -104,6 +100,7 @@ El clásico Tres en Raya , adaptado como un enigma rápido para resolver.
 
 - **.NET MAUI**: Para la creación de la aplicación multiplataforma.
 - **C#**: Lenguaje principal de desarrollo.
+- **SQLite**: Base de datos ligera para almacenar el progreso y otros datos de la aplicación.
 - **XAML**: Para diseño de interfaz de usuario.
 - **Visual Studio**: IDE utilizado para el desarrollo.
 
@@ -117,7 +114,6 @@ Para ello hay dos opciones.
   git clone https://github.com/llavefija/NewAdventCalendar2024.git
   cd NewAdventCalendar2024
 ```
-
 
 **Compila e instala**: Selecciona Android y ejecuta.
 
@@ -147,6 +143,7 @@ Encuentra el APK comprimido en la carpeta `DownloadApk`. Descomprímelo y disfru
 
 ## 🗂 Estructura del proyecto.
 
+```plaintext
 
 📂 NewAdventCalendar2024
 
@@ -170,19 +167,18 @@ Encuentra el APK comprimido en la carpeta `DownloadApk`. Descomprímelo y disfru
 
 ├── 📄 App.xaml         # Configuración global de la aplicación.
 
-├── 📄 AppShell.xaml   
+├── 📄 AppShell.xaml    # Navegación global.
 
 ├── 📄 Constants.cs     # Constantes de la BD.
 
 ├── 📄 MauiProgram.cs   # Inicializacion del programa.
 
 └── 📄 README.md        # Documentación del proyecto.
+```
 
 ## 📌 Estado del Proyecto.
 
-Como es un proyecto personal se ha comentado un poco por encima algunos funcionamientos. Esta finalizado por las proximas fechas a Navidades de 2024.
-
-Al ser el primer proyecto en .NET MAUI se han cometido algunos errores en estetica, en funcionamiento y en el control de datos.
+El proyecto está finalizado , pero al ser mi primera experiencia con .NET MAUI , existen algunos detalles a pulir, especialmente en diseño y control de datos.
 
 ## ✨ Capturas de pantalla.
 
@@ -190,6 +186,21 @@ Al ser el primer proyecto en .NET MAUI se han cometido algunos errores en esteti
 
 ¡Próximamente!
 
+## 🙏 Créditos
+
+- **Iconos y gráficos**: Las imagenes e iconos estan elaboradas a mano con la tecnica de pixel art.  
+- **Fuentes**: Tipografía utilizada descargada de [DaFont](https://www.dafont.com/es/).
+
+## 📜 Licencia
+
+Este proyecto no tiene licencia ya que es un proyecto personal.
+
+## 🔮 Futuras Mejoras
+
+- Implementación de un sistema de pistas dinámicas para los capítulos más difíciles.  
+- Mejoras en la interfaz gráfica para dispositivos con pantallas más grandes.  
+- Traducción al inglés y otros idiomas.  
+- Nuevos minijuegos y capítulos adicionales.
 
 ## 🖊️ Autor.
 
