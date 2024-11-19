@@ -17,7 +17,7 @@
             <Label Text="ray: secretos de diciembre"
                HorizontalOptions="Center"
                VerticalOptions="Center"
-               FontSize="50"
+               FontSize="45"
                TextColor="Gold" 
                HorizontalTextAlignment="Center"
                FontFamily="HomeXmas"
