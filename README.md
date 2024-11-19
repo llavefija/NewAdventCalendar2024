@@ -141,8 +141,6 @@ Dento del proyecto hay una carpeta con el APK comprimido: *downloadApk*
 
 - Crea una nueva rama para tu característica o corrección.
 
-- git checkout -b nombre-de-tu-rama.
-
 - Realiza los cambios y haz un commit.
 
 - Envíe una solicitud de extracción.
